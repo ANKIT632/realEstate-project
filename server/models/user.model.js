@@ -1,7 +1,7 @@
 const {Schema,model}=require('mongoose');
 const {defaultUrls}=require('../asset/userprofile.asset.js');
 
-
+const bcrypt =require('bcryptjs');
 
 const userSchema=new Schema({
   username:{
@@ -33,8 +33,8 @@ const userSchema=new Schema({
   },
   role:{
     type:String,
-    default:'Buyer',
-    enum:[Admin,Buyer,Seller],
+    default:'General',
+    enum:['Admin','Buyer','Seller','General'],
   
   },
   address:{
@@ -47,14 +47,16 @@ const userSchema=new Schema({
     ,
     phone:{
         type:Number,
-        default:'xxx-xxx-xxxx'
+     
     }
 
 
-})
+},{timestamps:true,versionKey:false})
 
 
+// hash password before save
 userSchema.pre('save', async function(next) {
+
     // if modified password then hash it
     const salt=await bcrypt.genSalt(6);
     if (this.isModified('password')) {
