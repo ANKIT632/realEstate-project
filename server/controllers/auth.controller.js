@@ -26,23 +26,32 @@ exports.signIn = async (req, res) => {
 
     try {
 
-        const hashPassword = await user_model.findOne({ email }).select('password');
+        // get id and hashpassword
+        const user = await user_model.findOne({ email }).select('password _id username profile_url');
 
-        // compare password
-        if (bcrypt.compareSync(password, hashPassword.password)) {
+        // compare password with hashpassword
+        if (bcrypt.compareSync(password, user.password)) {
 
-            jwt.sign({ email }, secret_key, (err, token) => {
+            jwt.sign({ email ,_id:user._id}, secret_key, (err,token) => {
                 console.log('token :', token);
                 if (err) {
                     return res.status(500).send({ message: 'Error while generating token' });
                 }
+
                 return res.status(200).send({
                     message: 'Login successfull',
                     access_token: token,
+                    user: {
+                        _id: user._id,
+                        username: user.username,
+                        email,
+                        profile_url: user.profile_url
+                    }
                 });
-            })
 
+            }, { expiresIn: '5days' })
 
+         
 
         }
 

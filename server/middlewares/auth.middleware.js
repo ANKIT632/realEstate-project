@@ -1,5 +1,5 @@
 const user_model = require('../models/user.model.js');
-
+const {secret_key} =require('../configs/server.config.js');
 
 const emailRegex = /^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/;
 
@@ -53,6 +53,27 @@ const validateSignInData=async(req,res,next)=>{
 
   
   next();
+}
+
+const verifyToken=(req,res,next)=>{
+
+  // Get token with bearer from header.
+  const authHeader = req.headers.authorization;
+
+  
+  if (authHeader) {
+      const token = authHeader.split(' ')[1]; 
+      jwt.verify(token, secret_key, (err, user) => {
+          if (err) {
+              return res.status(403).send({ message: 'Token is not valid' });
+          }
+          req.user = user;
+          next();
+      });
+
+  } else {
+      res.status(403).send({ message: 'No token provided.' });
+  }
 }
 
 module.exports={
