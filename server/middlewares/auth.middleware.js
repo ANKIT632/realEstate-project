@@ -1,14 +1,17 @@
 const user_model = require('../models/user.model.js');
-const {secret_key} =require('../configs/server.config.js');
+const {secret_key} =require('../configs/auth.config.js');
+
+
+const jwt=require('jsonwebtoken');
 
 const emailRegex = /^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/;
 
 const validateSignUpData=async (req,res,next)=>{
- const {username,email,password}=req.body;
+ const {username,email,password,role}=req.body;
 
 
 
- if(!username || !email || !password){
+ if(!username || !email || !password|| !role){
      return res.status(400).send({message:'username,email and password are required'});
  }
 
@@ -59,23 +62,29 @@ const verifyToken=(req,res,next)=>{
 
   // Get token with bearer from header.
   const authHeader = req.headers.authorization;
+ 
 
   
-  if (authHeader) {
+  if(authHeader) {
       const token = authHeader.split(' ')[1]; 
+      console.log("add bY auth",secret_key);
       jwt.verify(token, secret_key, (err, user) => {
           if (err) {
               return res.status(403).send({ message: 'Token is not valid' });
           }
           req.user = user;
-          next();
+
+         
+        
       });
+      next();
 
   } else {
-      res.status(403).send({ message: 'No token provided.' });
+      res.status(403).send({ message: 'No token provided !!' });
   }
 }
 
 module.exports={
   validateSignUpData,
-validateSignInData};
+validateSignInData,
+verifyToken};

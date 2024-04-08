@@ -16,10 +16,7 @@ server.use(express.json());
 
 //routers
 require('./routes/auth.route.js')(server);
-
-
-
-
+require('./routes/property.route.js')(server);
 
 
 

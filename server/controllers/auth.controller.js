@@ -5,11 +5,11 @@ const { secret_key } = require('../configs/auth.config.js')
 
 exports.signUp = async (req, res) => {
     //get user 
-    const { username, email, password } = req.body;
+    const { username, email, password,role } = req.body;
 
     // create user
     try {
-        const user = await user_model.create({ username, email, password });
+        const user = await user_model.create({ username, email, password ,role});
         return res.status(200).send(user);
     }
     catch (err) {
@@ -27,12 +27,13 @@ exports.signIn = async (req, res) => {
     try {
 
         // get id and hashpassword
-        const user = await user_model.findOne({ email }).select('password _id username profile_url');
+        const user = await user_model.findOne({ email }).select('password _id username profile_url role');
 
+        console.log("user",user);
         // compare password with hashpassword
         if (bcrypt.compareSync(password, user.password)) {
 
-            jwt.sign({ email ,_id:user._id}, secret_key, (err,token) => {
+            jwt.sign({ email ,_id:user._id,role:user.role}, secret_key, (err,token) => {
                 console.log('token :', token);
                 if (err) {
                     return res.status(500).send({ message: 'Error while generating token' });
@@ -45,13 +46,12 @@ exports.signIn = async (req, res) => {
                         _id: user._id,
                         username: user.username,
                         email,
+                        role:user.role,
                         profile_url: user.profile_url
                     }
                 });
 
-            }, { expiresIn: '5days' })
-
-         
+            }, { expiresIn: '5days' });
 
         }
 
@@ -60,6 +60,7 @@ exports.signIn = async (req, res) => {
         }
     }
     catch (err) {
+        console.log('error while signing in',err);
         return res.status(500).send({ message: 'Error while signing in try again !' });
     }
 

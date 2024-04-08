@@ -33,8 +33,8 @@ const userSchema=new Schema({
   },
   role:{
     type:String,
-    default:'General',
-    enum:['Admin','Buyer','Seller','General'],
+    required:true,
+    enum:['Admin','Buyer','Seller'],
   
   },
   address:{
