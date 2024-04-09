@@ -11,8 +11,22 @@ const propertySchema = new Schema({
       required: true
     },
     location: {
-      type: String,
-      required: true
+      city: {
+        type: String,
+        // required: true
+      },
+      region: {
+        type: String,
+        // required: true
+      },
+      country: {
+        type: String,
+        // required: true
+      },
+      postalCode: {
+        type: String,
+        // required: true
+      },
     },
     price: {
       type: Number,
@@ -45,6 +59,10 @@ const propertySchema = new Schema({
     isSold: {
       type: Boolean,
       default: false
+    },
+    nagotiate:{
+      type:Boolean,
+      default:false
     }
 
 

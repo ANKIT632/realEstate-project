@@ -26,14 +26,15 @@ const validateSignUpData=async (req,res,next)=>{
   }
 
   try{
-    if( await user_model.findOne({email})){
+    if( await user_model.findOne({email}).select('email')){
       return res.status(400).send({message:'Email already exists ,please login'});
     }
+    next();
   }
   catch(err){
    return res.status(500).send({message:"server error"});
   }
-  next();
+
 
 }
 
@@ -48,12 +49,6 @@ const validateSignInData=async(req,res,next)=>{
 
     return res.status(400).send({ message: 'Invalid email address.' });
   }
-
-
-  if(! await user_model.find({email})){
-     return res.status(404).send({message:'Email does not exist,please sign up'});
-  }
-
   
   next();
 }
@@ -64,25 +59,33 @@ const verifyToken=(req,res,next)=>{
   const authHeader = req.headers.authorization;
  
 
-  
+  try{
   if(authHeader) {
       const token = authHeader.split(' ')[1]; 
       console.log("add bY auth",secret_key);
-      jwt.verify(token, secret_key, (err, user) => {
-          if (err) {
-              return res.status(403).send({ message: 'Token is not valid' });
-          }
-          req.user = user;
+    
 
-         
+      
+    const val=  jwt.verify(token, secret_key, (err, user) => {
+          if (err) {
+             return  res.status(403).send({ message: 'Token is not valid' });
+          }
+        
+          req.user = user;
+          next();
         
       });
-      next();
+   
 
   } else {
       res.status(403).send({ message: 'No token provided !!' });
+  }}
+  catch(err){
+  return res.send(500).send({message :"error during verify token,try again"})
   }
+ 
 }
+
 
 module.exports={
   validateSignUpData,

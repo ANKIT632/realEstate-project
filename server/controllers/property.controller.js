@@ -54,6 +54,7 @@ exports.updateProperty = async(req,res) => {
           return res.status(404).send({ message: 'Property not found' });
         }
         res.status(200).send(property);
+        
       } catch (err) {
         res.status(500).send({ message: 'Error occurred while updating property' });
       }

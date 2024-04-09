@@ -12,7 +12,13 @@ const userSchema=new Schema({
     email:{
         type:String,
         required:true,
-        unique:true
+        unique:true,
+        validate: {
+          validator: function(v) {
+            return /^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/.test(v);
+          },
+          message: props => `${props.value} is not a valid email!`
+        },
     },
     age:{
         type:Number,
@@ -22,6 +28,7 @@ const userSchema=new Schema({
   password:{
     type:String,
     required:true,
+    minlength:6
   },
   profile_url:{
     type :String,
@@ -46,6 +53,7 @@ const userSchema=new Schema({
     default:'-add gender-'}
     ,
     phone:{
+        
         type:Number,
      
     }
@@ -54,12 +62,16 @@ const userSchema=new Schema({
 },{timestamps:true,versionKey:false})
 
 
-// hash password before save
+// hash password before save ,note must user update by save
 userSchema.pre('save', async function(next) {
 
-    // if modified password then hash it
-    const salt=await bcrypt.genSalt(6);
+  // if modified password then hash it
+
+
+   
     if (this.isModified('password')) {
+      console.log('update password');
+      const salt=await bcrypt.genSalt(6);
       this.password = await bcrypt.hash(this.password, salt);
     }
     next();
