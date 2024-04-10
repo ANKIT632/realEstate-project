@@ -53,9 +53,8 @@ const userSchema=new Schema({
     default:'-add gender-'}
     ,
     phone:{
-        
         type:Number,
-     
+        
     }
 
 

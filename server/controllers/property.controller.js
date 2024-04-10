@@ -1,49 +1,55 @@
 const property_model = require('../models/property.model.js');
 
-exports.createProperty = async (req, res) => {
 
-    // get user
+
+// create property // register property
+exports.createProperty = async (req, res) => {
 
     const user = req.user._id;
     const { title, description, location, price} = req.body;
 
-    //create user
-
     try {
         const property = await property_model.create({ title, description, location, price, owner: user });
 
-        console.log(property);
-
-        return res.status(200).send({ message: 'Property added successfully for selling' })
+        return res.status(200).send({status: "ok", message: 'Property added successfully for selling' })
     }
 
     catch (err) {
-        return res.status(500).send({ message: "Error occur while add property" })
+        console.log('err', err);
+        return res.status(500).send({status: "failed", message: "Error occur while add property" })
     }
 }
 
+
+// get all property
 exports.getAllProperty = async (req, res) => {
+    const page = parseInt(req.query.page)||1;
+    const size = parseInt(req.query.size)||10;
+
 
     try {
-        const allProperty =await property_model.find().populate('owner','-password');
+        const allProperty =await property_model.find().skip((page-1)*size).populate('owner','-password' ).limit(size).select('-createdAt -updatedAt');
 
-        if (!allProperty) {
-            return res.status(404).send({ message: "No property found" })
+        if (!allProperty.length) {
+            return res.status(404).send({status: "failed", message: "No property found" })
         }
 
         else {
-            return res.status(200).send(allProperty)
+            return res.status(200).send({status: "ok",allProperty})
 
         }
     }
 
     catch (err) {
-        return res.status(500).send({ message: "Error occur while fetching property" })
+        console.log('err', err);
+        return res.status(500).send({status: "failed", message: "Error occur while fetching property" })
     }
 
 
 }
 
+
+// update property
 exports.updateProperty = async(req,res) => {
    
     try {
@@ -51,11 +57,11 @@ exports.updateProperty = async(req,res) => {
         const property = await property_model.findByIdAndUpdate(req.params.id, req.body, { new: true });
 
         if (!property) {
-          return res.status(404).send({ message: 'Property not found' });
+          return res.status(404).send({status: "failed", message: 'Property not found' });
         }
-        res.status(200).send(property);
+        res.status(200).send({status: "ok",property});
         
       } catch (err) {
-        res.status(500).send({ message: 'Error occurred while updating property' });
+        res.status(500).send({status: "failed", message: 'Error occurred while updating property' });
       }
 }
