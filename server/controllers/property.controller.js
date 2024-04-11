@@ -9,9 +9,9 @@ exports.createProperty = async (req, res) => {
     const { title, description, location, price} = req.body;
 
     try {
-        const property = await property_model.create({ title, description, location, price, owner: user });
+        await property_model.create({ title, description, location, price, owner: user });
 
-        return res.status(200).send({status: "ok", message: 'Property added successfully for selling' })
+        return res.status(200).send({ status: "success", message: 'Property added successfully for selling' })
     }
 
     catch (err) {
@@ -24,18 +24,18 @@ exports.createProperty = async (req, res) => {
 // get all property
 exports.getAllProperty = async (req, res) => {
     const page = parseInt(req.query.page)||1;
-    const size = parseInt(req.query.size)||10;
+    const size = parseInt(req.query.size)||20;
 
 
     try {
-        const allProperty =await property_model.find().skip((page-1)*size).populate('owner','-password' ).limit(size).select('-createdAt -updatedAt');
+        const allProperty =await property_model.find().skip((page-1)*size).populate('owner','-password -email -createdAt -updatedAt -gender -address' ).limit(size).select('-createdAt -updatedAt');
 
         if (!allProperty.length) {
-            return res.status(404).send({status: "failed", message: "No property found" })
+            return res.status(404).send({status: "failed", message: "No more property" })
         }
 
         else {
-            return res.status(200).send({status: "ok",allProperty})
+            return res.status(200).send({ status: "success",allProperty})
 
         }
     }
@@ -59,9 +59,28 @@ exports.updateProperty = async(req,res) => {
         if (!property) {
           return res.status(404).send({status: "failed", message: 'Property not found' });
         }
-        res.status(200).send({status: "ok",property});
+        res.status(200).send({ status:"success",property});
         
       } catch (err) {
         res.status(500).send({status: "failed", message: 'Error occurred while updating property' });
       }
+}
+
+// getSearch data
+
+exports.searchProperty = async (req, res) => {
+    const searchQuery = req.query.searchQuery;
+    const page=parseInt(req.query.page)||1;
+   const size=parseInt(req.query.size)||10;
+
+    try {
+        const searchProperty = await property_model.search(searchQuery,page,size);
+        if (!searchProperty.length) {
+            return res.status(404).send({ status: "failed", message: 'No property found' });
+        }
+        res.status(200).send({ status: "success", searchProperty });
+    } catch (err) {
+        console.log('err', err);
+        res.status(500).send({ status: "failed", message: 'Error occurred while searching property' });
+    }
 }

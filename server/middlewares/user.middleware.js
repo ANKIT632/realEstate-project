@@ -9,11 +9,11 @@ const validateUser=(req,res,next)=>{
 
 
     if(userId.length!==24 || !mongoose.Types.ObjectId.isValid(userId)){
-        return res.status(400).send({status:"false", message:"User id not valid"});
+        return res.status(400).send({status:"failed", message:"User id not valid"});
     }
 
     if (userId !== req.user._id.toString()) {
-    return res.status(403).send({status:"false", message:"Unauthorized access"});
+    return res.status(403).send({status:"failed", message:"Unauthorized access"});
   }
     
  next();

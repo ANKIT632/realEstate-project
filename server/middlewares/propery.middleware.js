@@ -4,8 +4,10 @@ const property_model = require('../models/property.model.js');
 const validateAddProperty = (req, res, next) => {
 
     const { title, description, location, price } = req.body;
+
+    console.log(req.user.role);
     if (req.user.role !== 'Seller') {
-        return res.status(403).send({ message: 'Only seller are valid for this request !!' });
+        return res.status(403).send({status: "failed", message: 'Only seller are valid for this request !!' });
     }
     if (!title || !description || !location || !price) {
         return res.status(400).send({ status: "failed", message: 'All required field are necessary !!' });
@@ -47,19 +49,22 @@ const validateUpdateProperty = async (req, res, next) => {
 }
 
 
-// validate Get all property
-const validateGetAllProperty = (req, res, next) => {
-    const page = parseInt(req.query.page);
-    const size = parseInt(req.query.size);
 
-    if (isNaN(page) || isNaN(size) || page < 1 || size < 1) {
-        return res.status(400).send({ status: "failed", message: 'Page or size are not valid !!' });
+
+
+const validateSearchProperty = (req, res, next) => {
+    const searchQuery = req.query.searchQuery;
+
+
+    if (!searchQuery) {
+        return res.status(400).send({ status: "failed", message: 'No search query provided' });
     }
+
     next();
 }
 
 module.exports = {
     validateAddProperty,
     validateUpdateProperty,
-    validateGetAllProperty
+    validateSearchProperty
 }

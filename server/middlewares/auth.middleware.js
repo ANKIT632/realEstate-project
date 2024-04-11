@@ -12,18 +12,18 @@ const validateSignUpData = async (req, res, next) => {
 
 
   if (!username || !email || !password || !role) {
-    return res.status(400).send({ message: 'username,email and password are required' });
+    return res.status(400).send({ status: "failed",message: 'username,email and password are required' });
   }
 
 
   try {
     if (await user_model.findOne({ email }).select('email')) {
-      return res.status(400).send({ message: 'Email already exists ,please login' });
+      return res.status(400).send({status: "failed", message: 'Email already exists ,please login' });
     }
     next();
   }
   catch (err) {
-    return res.status(500).send({ message: "server error" });
+    return res.status(500).send({status: "failed", message: "server error" });
   }
 
 
@@ -34,12 +34,12 @@ const validateSignInData = async (req, res, next) => {
   const { email, password } = req.body;
 
   if (!password || !email) {
-    return res.status(400).send({ message: 'please Enter your Email and password' });
+    return res.status(400).send({status: "failed", message: 'please Enter your Email and password' });
   }
 
   if (!emailRegex.test(email)) {
 
-    return res.status(400).send({ message: 'Invalid email address.' });
+    return res.status(400).send({status: "failed", message: 'Invalid email address.' });
   }
 
   next();
@@ -57,11 +57,11 @@ const verifyToken = (req, res, next) => {
   try {
     if (authHeader) {
       const token = authHeader.split(' ')[1];
-      console.log("add bY auth", secret_key);
+      console.log("verify token", secret_key);
 
       jwt.verify(token, secret_key, (err, user) => {
         if (err) {
-          return res.status(403).send({ message: 'Token is not valid' });
+          return res.status(403).send({status: "failed", message: 'Token is not valid' });
         }
 
         req.user = user;
@@ -71,11 +71,11 @@ const verifyToken = (req, res, next) => {
 
 
     } else {
-      res.status(403).send({ message: 'No token provided !!' });
+    return  res.status(403).send({status: "failed", message: 'No token provided !!' });
     }
   }
   catch (err) {
-    return res.send(500).send({ message: "error during verify token,try again" });
+    return res.send(500).send({status: "failed", message: "error during verify token,try again" });
   }
 
 }

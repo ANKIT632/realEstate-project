@@ -1,10 +1,11 @@
-const {signUp,signIn} = require('../controllers/auth.controller');
-const  {validateSignUpData,validateSignInData}=require('../middlewares/auth.middleware.js')
+const authController = require('../controllers/auth.controller');
+const  authMiddleware=require('../middlewares/auth.middleware.js')
 
 module.exports=(server)=>{
     
-    server.post('/api/v1/auth/signup',validateSignUpData,signUp);
-    server.post('/api/v1/auth/signIn',validateSignInData,signIn);
+    server.post('/api/v1/auth/signup',authMiddleware.validateSignUpData , authController.signUp);
+    
+    server.post('/api/v1/auth/signIn',authMiddleware.validateSignInData , authController.signIn);
     
    
 }

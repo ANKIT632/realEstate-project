@@ -12,10 +12,11 @@ exports.signUp = async (req, res) => {
     // create user
     try {
         const user = await user_model.create({ username, email, password ,role});
-        return res.status(200).send(user);
+        console.log("user",user);
+        return res.status(200).send({ status: "success"});
     }
     catch (err) {
-        res.status(500).send({ message: 'Error while creating user' });
+        res.status(500).send({status: "failed", message: 'Error while creating user' });
     }
 
 }
@@ -36,7 +37,7 @@ exports.signIn = async (req, res) => {
         console.log("user",user);
 
         if(!user){
-            return res.status(404).send({message:'User not found please signup'});
+            return res.status(404).send({status: "failed",message:'User not found please signup'});
         }
         // compare password with hashpassword
         if (bcrypt.compareSync(password, user.password)) {
@@ -44,10 +45,11 @@ exports.signIn = async (req, res) => {
             jwt.sign({ email ,_id:user._id,role:user.role}, secret_key, (err,token) => {
                 console.log('token :', token);
                 if (err) {
-                    return res.status(500).send({ message: 'Error while generating token' });
+                    return res.status(500).send({status: "failed", message: 'Error while generating token' });
                 }
 
                 return res.status(200).send({
+                    status: "success",
                     message: 'Login successfull',
                     access_token: token,
                     user: {
@@ -64,12 +66,12 @@ exports.signIn = async (req, res) => {
         }
 
         else {
-            return res.status(400).send({ message: 'Wrong Password!!' });
+            return res.status(400).send({status: "failed", message: 'Wrong Password!!' });
         }
     }
     catch (err) {
         console.log('error while signing in',err);
-        return res.status(500).send({ message: 'Error while signing in try again !' });
+        return res.status(500).send({ status: "failed",message: 'Error while signing in try again !' });
     }
 
 } 

@@ -34,10 +34,10 @@ exports.updateUser = async (req, res) => {
       }
 
       return res.status(200).send({
-        message: 'Update successfull',
+        status: "success",
         access_token: token,
         user: {
-          status: "ok",
+           status: "success",
           _id: updateUser._id,
           username: updateUser.username,
           email: updateUser.email,
@@ -50,7 +50,7 @@ exports.updateUser = async (req, res) => {
 
 
     return res.status(200).send({
-      status: "ok", message: 'User info updated successfully',
+       status: "success", message: 'User info updated successfully',
     });
 
   } catch (err) {
@@ -58,10 +58,10 @@ exports.updateUser = async (req, res) => {
     // error get from model validation
     console.log('error while updating user info', err);
     if (err.name === 'ValidationError') {
-      return res.status(400).send({ message: err.message });
+      return res.status(400).send({status: "failed", message: err.message });
     }
   }
-  return res.status(500).send({ message: 'Error while updating user info, check Id or try again' });
+  return res.status(500).send({status: "failed", message: 'Error while updating user info, check Id or try again' });
 }
 
 
@@ -80,11 +80,11 @@ exports.getAllUser = async (req, res) => {
    
 
     if (!allUser.length) {
-      return res.status(400).send({ status: "ok", message: "Data Not found" });
+      return res.status(404).send({  status: "success", message: "Data Not found" });
     }
 
     return res.status(200).send({
-      status: 'ok',
+       status: "success",
       users: allUser
     });
   }
@@ -107,7 +107,7 @@ exports.getSingleUser = async (req, res) => {
     }
     else {
       return res.status(200).send({
-        status: 'ok',
+         status: "success",
         user: user
       });
     }

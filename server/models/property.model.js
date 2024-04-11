@@ -63,9 +63,18 @@ const propertySchema = new Schema({
     nagotiate:{
       type:Boolean,
       default:false
-    }
+    },
+    tag:[String],
 
 
   },{timestamps:true,versionKey:false});
 
-module.exports=model('Property',propertySchema);
+  propertySchema.index({'title': 'text', 'description': 'text', 'location.city': 'text', 'location.region': 'text', 'location.country': 'text','tag': 'text'}); 
+
+  propertySchema.statics.search = function(query,page,size) {
+    return this.find({ $text: { $search: query } }).skip((page - 1) * size)
+    .limit(size).populate('owner','-password -email -createdAt -updatedAt -gender -address').select('-createdAt -updatedAt');
+
+  }
+
+module.exports=model('Property',propertySchema); 

@@ -1,12 +1,18 @@
-const {createProperty,updateProperty,getAllProperty} =require('../controllers/property.controller.js');
-const {validateAddProperty,validateUpdateProperty,validateGetAllProperty} =require('../middlewares/propery.middleware.js');
-const {verifyToken} =require('../middlewares/auth.middleware.js');
+const propertyController =require('../controllers/property.controller.js');
+const  propertyMiddleware =require('../middlewares/propery.middleware.js');
+const authMiddleware =require('../middlewares/auth.middleware.js');
 
 
 module.exports=(server)=>{
   
-    server.post('/api/v1/selling/property',verifyToken,validateAddProperty,createProperty);
-    server.get('/api/v1/selling/property',validateGetAllProperty,getAllProperty);
-    server.put('/api/v1/selling/property/:id',verifyToken,validateUpdateProperty,updateProperty);
+    
+    server.get('/api/v1/selling/property' , propertyController.getAllProperty);
+
+    server.get('/api/v1/selling/property/search', propertyMiddleware.validateSearchProperty , propertyController.searchProperty);
+
+    server.post('/api/v1/selling/property' , authMiddleware.verifyToken , propertyMiddleware.validateAddProperty ,propertyController.createProperty);
+
+    
+    server.put('/api/v1/selling/property/:id',authMiddleware.verifyToken , propertyMiddleware.validateUpdateProperty , propertyController.updateProperty);
 
 }
