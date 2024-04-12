@@ -13,18 +13,22 @@ const propertySchema = new Schema({
     location: {
       city: {
         type: String,
+        default:'none'
         // required: true
       },
       region: {
         type: String,
+        default:'none'
         // required: true
       },
       country: {
         type: String,
+        default:'none'
         // required: true
       },
       postalCode: {
         type: String,
+        default:'none'
         // required: true
       },
     },

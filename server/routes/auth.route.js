@@ -5,7 +5,7 @@ module.exports=(server)=>{
     
     server.post('/api/v1/auth/signup',authMiddleware.validateSignUpData , authController.signUp);
     
-    server.post('/api/v1/auth/signIn',authMiddleware.validateSignInData , authController.signIn);
+    server.post('/api/v1/auth/signin',authMiddleware.validateSignInData , authController.signIn);
     
    
 }

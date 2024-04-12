@@ -21,14 +21,13 @@ const userSchema = new Schema({
     },
   },
   age: {
-    type: Number,
-    min: 18,
-    max: 100
+    type: String,
+    default: "none"
   },
 
   gender: {
     type: String,
-    default: '-add gender-'
+    default: "none"
   },
 
   password: {
@@ -48,32 +47,39 @@ const userSchema = new Schema({
     type: String,
     required: true,
     enum: ['Admin', 'Buyer', 'Seller'],
-
   },
+  
   address: {
     type: String,
-    default: '--add address--'
+    default: "none"
   },
 
 
   phone: {
-    type: Number,
-
+    type: String,
+    default:"none"
+  
   },
-  socialMediaUrls: {
-    type: [
-        {
-            platform: {
-                type: String,
-                enum: ['Facebook', 'Twitter', 'Instagram', 'LinkedIn'],
-            },
-            url: {
-                type: String,
-            }
-        }
-    ],
-    default: []
-}
+  socialUrls: {
+    LinkedIn: {
+      type: String,
+      default: "none"
+    },
+    Facebook: {
+      type: String,
+      default: "none"
+    },
+    Twitter: {
+      type: String,
+      default: "none"
+    },
+    Instagram: {
+      type: String,
+      default: "none"
+    },
+
+    }
+  
 
 
 }, { timestamps: true, versionKey: false })

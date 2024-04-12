@@ -1,0 +1,5 @@
+// must be know.
+
+- here add hash password and add using 'pre' method in user model.
+- add search in property model.
+- send data according to page no and size using skip and limit

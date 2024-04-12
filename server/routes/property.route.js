@@ -8,6 +8,7 @@ module.exports=(server)=>{
     
     server.get('/api/v1/selling/property' , propertyController.getAllProperty);
 
+    
     server.get('/api/v1/selling/property/search', propertyMiddleware.validateSearchProperty , propertyController.searchProperty);
 
     server.post('/api/v1/selling/property' , authMiddleware.verifyToken , propertyMiddleware.validateAddProperty ,propertyController.createProperty);
