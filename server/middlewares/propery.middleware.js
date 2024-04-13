@@ -5,9 +5,8 @@ const validateAddProperty = (req, res, next) => {
 
     const { title, description, location, price } = req.body;
 
-    console.log(req.user.role);
     if (req.user.role !== 'Seller') {
-        return res.status(403).send({status: "failed", message: 'Only seller are valid for this request !!' });
+        return res.status(403).send({ status: "failed", message: 'Only seller are valid for this request !!' });
     }
     if (!title || !description || !location || !price) {
         return res.status(400).send({ status: "failed", message: 'All required field are necessary !!' });
@@ -20,7 +19,7 @@ const validateAddProperty = (req, res, next) => {
 const validateUpdateProperty = async (req, res, next) => {
 
     try {
-        if(req.body.owner || req.body.isSold || req.body._id){
+        if (req.body.owner || req.body.isSold || req.body._id) {
             return res.status(400).send({ status: "failed", message: 'owner isSold _id are not update here' });
         }
 
@@ -45,7 +44,7 @@ const validateUpdateProperty = async (req, res, next) => {
     }
 
     catch (err) {
-        return res.status(500).send({ status: "failed", message:err.message });
+        return res.status(500).send({ status: "failed", message: err.message });
     }
 
 

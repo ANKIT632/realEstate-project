@@ -44,7 +44,7 @@
 
         2)  [ User Sign In ]
 
-        Route: POST /api/v1/auth/signIn
+        Route: POST /api/v1/auth/signin
 
         Description: Allows users to sign in and access their account.
 
@@ -98,7 +98,7 @@
       Query Parameters:
       page (optional, integer): Page number for pagination (default: 1).
       size (optional, integer): Number of users per page (default: 10).
-      role (optional, string): Filter users by role (Buyer/Seller/Admin).
+      role (optional, string): Filter users by role (Buyer/Seller).
 
 
       Response Headers:
@@ -130,6 +130,8 @@
 
       Route: GET /api/v1/user/profile/:userId
 
+      eg : /api/v1/user/profile/88474fhhj4hj484gd
+
       Description: Retrieve details of a single user by their user ID.
 
       Request Headers:
@@ -158,7 +160,7 @@
 
    - { update multiple fields}. FOR USERNAME,AGE,GENDER,ADDRESS,PHONE,SOCIALURLS
 
-   NOTE : here update these field sigle as well combination according to requirement. 
+   NOTE : here also update one or more fields which is mentioned upper . 
 
       Route: PUT /api/v1/user/profile/update/:userId
 
@@ -171,15 +173,16 @@
       Path Parameters:
       userId (string): Unique ID of the user.
 
-      Request Body:
+      Request Body (all field string):
 
       {
       "username": "updated_username",
-      "age": "30",
-      "gender": "Male",
-      "address": "123 Updated Street",
+      "age": "30" ,
+      "gender": "Male" ,
+      "address": "123 Updated Street" ,
       "phone": "1234567890",
       "socialUrls": {
+      
         "LinkedIn": "https://linkedin.com/updated_profile",
         "Facebook": "https://facebook.com/updated_profile",
         "Twitter": "https://twitter.com/updated_profile",
@@ -262,5 +265,196 @@
       Replace <access_token> with the actual access token obtained from the authentication process.
       For the update profile endpoint, only the fields mentioned in the request body can be updated.
 
+---------------PROPERTY DOC----------------------
 
+
+      Sure, here's the API documentation for the endpoints described in your code:
+
+      1) GET All Properties: 
+
+      URL: /api/v1/selling/property/all
+
+      Description: Retrieves all available properties.
+
+      Request:
+      No request parameters required.
+      Response:
+      Status 200 OK
+
+      {
+        "status": "success",
+        "allProperty": [
+          {
+            "_id": "string",
+            "title": "string",
+            "description": "string",
+            "location": {
+              "city": "string",
+              "region": "string",
+              "country": "string",
+              "postalCode": "string"
+            },
+            "price": "number",
+            "imagesUrl": ["string"],
+            "propertyInfo": {
+              "bedrooms": "number",
+              "bathrooms": "number",
+              "squareFeet": "number"
+            },
+            "owner": {
+              "_id": "string",
+              "username": "string"
+            },
+            "soldBy": "string",
+            "isSold": "boolean",
+            "nagotiate": "boolean",
+            "tags": "string",
+            "createdAt": "string",
+            "updatedAt": "string"
+          }
+        ]
+      }
+
+      Status 500 Internal Server Error:
+
+      {
+        "status": "failed",
+        "message": "error message"
+      }
+
+
+      2) GET Search Properties :
+
+      URL: /api/v1/selling/property/search
+
+      Description: Search for properties based on a query string.
+
+      Request:
+        Query Parameters:
+  
+          page (optional, integer): Page number for pagination (default: 1).
+          size (optional, integer): Number of users per page (default: 10).
+
+          searchQuery: String (required) - The search query.
+
+      Response:
+      Same as the response for "GET All Properties".
+
+      3) GET All Properties By Owner :
+
+      URL: /api/v1/owner/selling/properties
+
+      Query Parameters:
+        page (optional, integer): Page number for pagination (default: 1).
+        size (optional, integer): Number of users per page (default: 10).
+
+
+      Description: Retrieves all properties owned by the authenticated user.
+
+      Request:
+        Headers:
+        Authorization: Bearer token
+
+      Response:
+      Same as the response for "GET All Properties".
+
+
+      4) POST Create Property :
+
+      URL: /api/v1/owner/selling/property
+
+      Description: Create a new property listing.
+
+      Request:
+        Headers:
+        Authorization: Bearer token
+
+      Body:
+
+        {
+          "title": "string"(required),
+          "description": "string"(required),
+          "location": {
+            "city": "string"(required),
+            "region": "string",
+            "country": "string"(required),
+            "postalCode": "string"
+          },
+          "price": "number"(required),
+          "propertyInfo": {
+            "bedrooms": "number",
+            "bathrooms": "number",
+            "squareFeet": "number"
+          },
+            tags: {
+          type: String,
+          default: 'none'
+        },
+
+        }
+
+      Response:
+
+      Status 200 OK:
+        {
+          "status": "success",
+          "message": "Property added successfully for selling"
+        }
+
+
+      if Error:
+
+      {
+        "status": "failed",
+        "message": "error message"
+      }
+
+
+      5) PUT Update Property :
+
+      URL: /api/v1/selling/property/update/:id
+
+      Description: Update an existing property listing.
+
+      Request:
+        Headers:
+        Authorization: Bearer token
+
+      Params:
+        id: String (required) - Property ID
+
+      Body:
+
+        {
+          "title": "string",
+          "description": "string",
+          "location": {
+            "city": "string",
+            "region": "string",
+            "country": "string",
+            "postalCode": "string"
+          },
+          "price": "number",
+          "propertyInfo": {
+            "bedrooms": "number",
+            "bathrooms": "number",
+            "squareFeet": "number"
+          }
+        }
+
+
+      Response:
+      Status 200 OK:
+
+        {
+          "status": "success"
+        }
+
+
+      if error :
+      Response:
+        {
+        "status": "failed",
+        "message": "error message"
+      }
 

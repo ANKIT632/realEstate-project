@@ -25,11 +25,10 @@ exports.updateUser = async (req, res) => {
 
 
     // generate token
-console.log(updateUser);
 
 if(req.body.role){
     jwt.sign({ email: updateUser.email, _id: req.params.userId, role: updateUser.role }, secret_key, (err, token) => {
-      console.log('token :', token);
+      
       if (err) {
 
         return res.status(500).send({ status: "failed", message: 'Error while generating token try again !!' });
@@ -51,7 +50,7 @@ else{
   } catch (err) {
 
     // error get from model validation
-    console.log('error while updating user info', err);
+
     if (err.name === 'ValidationError') {
       return res.status(400).send({ status: "failed", message: err.message });
     }
@@ -92,7 +91,6 @@ exports.getAllUser = async (req, res) => {
     });
   }
   catch (err) {
-    console.log("error during get all user", err);
     return res.status(500).send({ status: "failed", message: err.message })
   }
 

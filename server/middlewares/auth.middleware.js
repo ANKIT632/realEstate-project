@@ -4,8 +4,7 @@ const { secret_key } = require('../configs/auth.config.js');
 
 const jwt = require('jsonwebtoken');
 
-
-
+// sign up validation
 const validateSignUpData = async (req, res, next) => {
 
 
@@ -15,7 +14,7 @@ const validateSignUpData = async (req, res, next) => {
 
   const { username, email, password, role } = req.body;
 
-  console.log(role);
+
 
   if (role !== 'Seller' && role !== 'Buyer') {
     return res.status(400).send({ status: "failed", message: 'role must Seller or Buyer' });
@@ -67,7 +66,7 @@ const verifyToken = (req, res, next) => {
   try {
     if (authHeader) {
       const token = authHeader.split(' ')[1];
-      console.log("verify token", secret_key);
+    
 
       jwt.verify(token, secret_key, (err, user) => {
         if (err) {

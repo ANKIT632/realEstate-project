@@ -12,11 +12,11 @@ exports.signUp = async (req, res) => {
     // create user
     try {
         const user = await user_model.create({ username, email, password, role });
-        console.log("user", user);
+
         return res.status(200).send({ status: "success" });
     }
     catch (err) {
-        res.status(500).send({ status: "failed", message:err.message });
+        res.status(500).send({ status: "failed", message: err.message });
     }
 
 }
@@ -34,7 +34,7 @@ exports.signIn = async (req, res) => {
         // get id and hashpassword
         const user = await user_model.findOne({ email }).select('password _id username profile_url role');
 
-        console.log("user", user);
+
 
         if (!user) {
             return res.status(404).send({ status: "failed", message: 'User not found please signup' });
@@ -43,9 +43,9 @@ exports.signIn = async (req, res) => {
         if (bcrypt.compareSync(password, user.password)) {
 
             jwt.sign({ email, _id: user._id, role: user.role }, secret_key, (err, token) => {
-                console.log('token :', token);
+
                 if (err) {
-                    return res.status(500).send({ status: "failed", message: 'Error while generating token' });
+                    return res.status(500).send({ status: "failed", message: err.message });
                 }
 
                 return res.status(200).send({
@@ -69,7 +69,7 @@ exports.signIn = async (req, res) => {
         }
     }
     catch (err) {
-        console.log('error while signing in', err);
+
         return res.status(500).send({ status: "failed", message: err.message });
     }
 

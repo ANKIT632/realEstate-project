@@ -2,7 +2,7 @@ const property_model = require('../models/property.model.js');
 
 
 
-// create property // register property
+// create property  or register property
 exports.createProperty = async (req, res) => {
 
     const user = req.user._id;
@@ -17,7 +17,7 @@ exports.createProperty = async (req, res) => {
     }
 
     catch (err) {
-        console.log('err', err);
+      
         return res.status(500).send({ status: "failed", message: err.message })
     }
 }
@@ -39,7 +39,7 @@ exports.getAllProperty = async (req, res) => {
     }
 
     catch (err) {
-        console.log('err', err);
+
         return res.status(500).send({ status: "failed", message: err.message })
     }
 
@@ -59,7 +59,7 @@ exports.updateProperty = async (req, res) => {
         res.status(200).send({ status: "success" });
 
     } catch (err) {
-        console.log('err', err);
+   
         res.status(500).send({ status: "failed", message: err.message });
     }
 }
@@ -76,7 +76,7 @@ exports.searchProperty = async (req, res) => {
 
         res.status(200).send({ status: "success", searchProperty });
     } catch (err) {
-        console.log('err', err);
+      
         res.status(500).send({ status: "failed", message: err.message });
     }
 }

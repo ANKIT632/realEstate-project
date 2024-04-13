@@ -1,3 +1,4 @@
+require('dotenv').config();
 module.exports={
-    db_url:  'mongodb://localhost:27017/estate_db',
+    db_url:process.env.MONGO_URI,
 }
