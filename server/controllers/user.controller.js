@@ -86,10 +86,6 @@ exports.getAllUser = async (req, res) => {
     }
 
 
-    if (!allUser.length) {
-      return res.status(404).send({ status: "success", message: "Data Not found" });
-    }
-
     return res.status(200).send({
       status: "success",
       users: allUser

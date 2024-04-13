@@ -20,6 +20,9 @@ const validateAddProperty = (req, res, next) => {
 const validateUpdateProperty = async (req, res, next) => {
 
     try {
+        if(req.body.owner || req.body.isSold || req.body._id){
+            return res.status(400).send({ status: "failed", message: 'owner isSold _id are not update here' });
+        }
 
         if (req.body.length === 0) {
             {
@@ -29,7 +32,7 @@ const validateUpdateProperty = async (req, res, next) => {
 
         const ownerId = await property_model.findById(req.params.id).select('owner');
 
-        if (!ownerId || !mongoose.Types.ObjectId(req.params.id)) {
+        if (!ownerId || !mongoose.Types.ObjectId.isValid(req.params.id)) {
             return res.status(404).send({ status: "failed", message: 'Property not found check Id' });
         }
 
@@ -42,7 +45,7 @@ const validateUpdateProperty = async (req, res, next) => {
     }
 
     catch (err) {
-        return res.status(500).send({ status: "failed", message: "Error occur while validate update property check the Id !" });
+        return res.status(500).send({ status: "failed", message:err.message });
     }
 
 
@@ -63,8 +66,18 @@ const validateSearchProperty = (req, res, next) => {
     next();
 }
 
+const validateGetAllOwnerProperty = (req, res, next) => {
+
+    if (req.user.role === 'Buyer') {
+        return res.status(403).send({ status: "failed", message: 'Only seller are valid for this request !!' });
+    }
+
+    next();
+}
+
 module.exports = {
     validateAddProperty,
     validateUpdateProperty,
-    validateSearchProperty
+    validateSearchProperty,
+    validateGetAllOwnerProperty
 }
