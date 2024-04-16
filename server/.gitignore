@@ -2,4 +2,6 @@
 node_modules/
 *.log
 build/
+./note.txt
+/note.txt
 note.txt
