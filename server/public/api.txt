@@ -1,6 +1,161 @@
+ // dummy user
+
+*Note : store the token (jwt auth). 
+
+
+// seller : sell property ,update property,
+user1: 
+ "email":"mark@gmail.com",
+  "password":"123456"
+
+user2:
+   "email":"tony@gmail.com",
+   "password":"123456"
+
+user3:
+   "email":"marko@gmail.com",
+  "password":"123456"
+
+user4 :
+   "email":"mukesh@gmail.com",
+    "password":"123456"
+
+
+// buyer : only buy property
+
+user5:
+
+ "email":"steve@gmail.com",
+  "password":"123456"
+
+
+user6:
+  "email":"bill@gmail.com",
+  "password":"123456"
+
    
+
+  
+
+
+
+
+ < user 1> 
+
+   "email":"mark@gmail.com",
+    "password":"123456"
+
+"user": {
+        "_id": "661f9e2ab8688465d485675b",
+        "username": "mark",
+        "email": "mark@gmail.com",
+        "role": "Seller",
+        "profile_url": "https://img.icons8.com/?size=512&id=Hlit4zUKvNra&format=png"
+    }
+
+// token valid upto 5 day : 22/4/24
+
+access_token : eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im1hcmtAZ21haWwuY29tIiwiX2lkIjoiNjYxZjllMmFiODY4ODQ2NWQ0ODU2NzViIiwicm9sZSI6IlNlbGxlciIsImlhdCI6MTcxMzM0ODI0NX0.jPEAW7-8f6PYBnG6wszWk5Im9ZqCdUApYD2E19o4NUM
  
- 
+
+
+<user 2>
+
+   "email":"tony@gmail.com",
+   "password":"123456"
+
+     "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRvbnlAZ21haWwuY29tIiwiX2lkIjoiNjYxZmEyMzliODY4ODQ2NWQ0ODU2NzY3Iiwicm9sZSI6IlNlbGxlciIsImlhdCI6MTcxMzM0OTE5M30.VBc45zAFheDtQb8U8yqBvCSznL3EdFLVOyLH4QTDf-Y",
+
+    "user": {
+        "_id": "661fa239b8688465d4856767",
+        "username": "tony robbins",
+        "email": "tony@gmail.com",
+        "role": "Seller",
+        "profile_url": "https://img.icons8.com/?size=160&id=97613&format=png"
+    } 
+
+
+
+<user 3>
+
+ "email":"marko@gmail.com",
+  "password":"123456"
+
+
+ "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im1hcmtvQGdtYWlsLmNvbSIsIl9pZCI6IjY2MWZhM2RhYjg2ODg0NjVkNDg1Njc3MyIsInJvbGUiOiJTZWxsZXIiLCJpYXQiOjE3MTMzNDk2NjB9.OquFq6d1T05DCUMw4c91Hk1mTEfZC_VLaRK8qp5MoZI",
+
+
+    "user": {
+        "_id": "661fa3dab8688465d4856773",
+        "username": "marko topo",
+        "email": "marko@gmail.com",
+        "role": "Seller",
+        "profile_url": "https://img.icons8.com/?size=512&id=97613&format=png"
+    }
+
+
+  <user 4>
+
+   "email":"mukesh@gmail.com",
+    "password":"123456"
+
+
+
+   "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im11a2VzaEBnbWFpbC5jb20iLCJfaWQiOiI2NjFmYTU4OWI4Njg4NDY1ZDQ4NTY3NzciLCJyb2xlIjoiU2VsbGVyIiwiaWF0IjoxNzEzMzUwMDQxfQ.3o3B3qKOcbJCUskfL1inK3wRJAU3xrO43IyvzZBoXeg",
+
+    "user": {
+        "_id": "661fa589b8688465d4856777",
+        "username": "mukesh ambani",
+        "email": "mukesh@gmail.com",
+        "role": "Seller",
+        "profile_url": "https://img.icons8.com/?size=512&id=Hlit4zUKvNra&format=png"
+    }
+
+
+   // buyer
+
+ <user5>  
+
+   {
+     "email":"bill@gmail.com",
+    "password":"123456"
+}
+
+{
+    "status": "success",
+
+    "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImJpbGxAZ21haWwuY29tIiwiX2lkIjoiNjYxZmE2ZDdiODY4ODQ2NWQ0ODU2NzgzIiwicm9sZSI6IkJ1eWVyIiwiaWF0IjoxNzEzMzUwMzgyfQ.biBS6hzv9Wx6u1CWLIiv7AQd2sT5-sLTPHw1p96_AXk",
+
+    "user": {
+        "_id": "661fa6d7b8688465d4856783",
+        "username": "bill gates",
+        "email": "bill@gmail.com",
+        "role": "Buyer",
+        "profile_url": "https://img.icons8.com/?size=512&id=9bEZ4mjOGldh&format=png"
+    }
+}
+
+
+<user 6>
+
+ "email":"steve@gmail.com",
+    "password":"123456"
+
+
+{
+    "status": "success",
+    "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InN0ZXZlQGdtYWlsLmNvbSIsIl9pZCI6IjY2MWZhNzcyYjg2ODg0NjVkNDg1Njc4NyIsInJvbGUiOiJCdXllciIsImlhdCI6MTcxMzM1MDUzMn0.A-ulF7J-yetvSaglxmpS_4IqjCSpb-ApRzIrpaWP49g",
+    "user": {
+        "_id": "661fa772b8688465d4856787",
+        "username": "steve jobs",
+        "email": "steve@gmail.com",
+        "role": "Buyer",
+        "profile_url": "https://img.icons8.com/?size=512&id=97613&format=png"
+    }
+}
+  
+
+
  ----------Auth------------    
 
         1) [ User Sign Up ]

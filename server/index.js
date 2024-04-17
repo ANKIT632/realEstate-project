@@ -24,6 +24,11 @@ require('./routes/auth.route.js')(server);
 require('./routes/user.route.js')(server);
 require('./routes/property.route.js')(server);
 
+// Handle 404
+server.use(function(req, res, next) {
+    res.status(404).json({status:false, message: 'Not Found Url path' });
+  });
+  
 
 
 
