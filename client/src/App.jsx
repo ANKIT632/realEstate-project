@@ -1,8 +1,18 @@
+import {  Route,Routes } from 'react-router-dom';
+import Home from './pages/home.page';
+import  TopNavBar from './components/topNavBar.component';
+import BottomNavBar from './components/bottomNavBar.component';
+
 export default function App() {
   return (
-    <h1 className="text-3xl font-bold underline">
+    <>
 
-    The real estate word
-     </h1>
+  <TopNavBar/>
+  <Routes>
+    <Route path="/" element={<Home/>} />
+  </Routes>
+
+  <BottomNavBar/>
+  </>
   )
 }
