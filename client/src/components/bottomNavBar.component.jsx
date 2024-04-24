@@ -1,7 +1,7 @@
 
 function bottomNavBar() {
   return (
-    <div className="sticky bottom-0">bottomNavBar</div>
+    <div className="absolute bottom-0">botomNavBar</div>
   )
 }
 
