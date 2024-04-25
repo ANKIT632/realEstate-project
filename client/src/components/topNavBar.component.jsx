@@ -4,10 +4,10 @@ import {commonStyle} from '../style'
 
 function TopNavBar() {
 
-  const [isKey, setIsKey] = useState(false);
+  const [isKey, setIsKey] = useState(true);
   const [isDark, setDark] = useState(true);
 
-  const [showUserMenue, setShowUserMenue] = useState(false);
+  const [showUserMenue, setShowUserMenue] = useState(true);
 
   const navigate=useNavigate();
 
@@ -18,13 +18,25 @@ function TopNavBar() {
   }
 
 
+// handle add user property
+
+  const handleAddProperty=()=>{
+     navigate('');
+  }
+
+
   return (
 
     <div className="w-full sticky h-10 bg-sky-900 ">
       <h1 className="text-white p-[3px] font-serif font-extrabold text-[22px] ml-2">Estate-Ease</h1>
 
 
-      <input type="text" placeholder="find here" className=" h-7 pl-3 rounded-lg ml-2.5 mt-[2px] bg-sky-50 border border-gray-500  md:absolute top-1 md:right-20 md:w-[25%] xs:w-[85%] xs:right-0 outline-none" />
+      <input type="text" placeholder="find here" className=" h-7 pl-3 rounded-lg ml-2.5 mt-[2px] bg-sky-50 border border-gray-500  md:absolute top-1 md:right-[100px] md:w-[25%] xs:w-[85%] xs:right-0 outline-none"/>
+
+      
+    { isKey &&<button className="text-red-500 fixed top-[-15px] font-bold  sm:right-12  text-[40px]" onClick={handleAddProperty}>+</button>
+
+}
 
       <span className="absolute top-[6px]">
         {
@@ -45,6 +57,7 @@ function TopNavBar() {
           </div>
         )
       }
+
     </div>
 
   )

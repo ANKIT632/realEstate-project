@@ -1,7 +1,8 @@
 
 function SellProperty() {
   return (
-    <div>sellProperty</div>
+    <div>
+    </div>
   )
 }
 
