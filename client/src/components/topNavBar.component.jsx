@@ -1,15 +1,17 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import {commonStyle} from '../style'
+import { commonStyle } from '../style'
+import searchIcon from '../assets/searchIcon.png'
 
 function TopNavBar() {
 
   const [isKey, setIsKey] = useState(true);
   const [isDark, setDark] = useState(true);
+  const [isSearch, setIsSearch] = useState(false);
 
-  const [showUserMenue, setShowUserMenue] = useState(true);
+  const [showUserMenue, setShowUserMenue] = useState(false);
 
-  const navigate=useNavigate();
+  const navigate = useNavigate();
 
   // handle 
 
@@ -18,32 +20,37 @@ function TopNavBar() {
   }
 
 
-// handle add user property
+  // handle add user property
 
-  const handleAddProperty=()=>{
-     navigate('');
+  const handleAddProperty = () => {
+    navigate('/sellProperty');
   }
+
+  // searchHandller 
+
+  const handllerSearch
 
 
   return (
 
     <div className="w-full sticky h-10 bg-sky-900 ">
-      <h1 className="text-white p-[3px] font-serif font-extrabold text-[22px] ml-2">Estate-Ease</h1>
+      <h1 className="text-white p-[3px] font-serif font-extrabold text-[22px] ml-2 cursor-pointer" onClick={() => navigate('./')}>Estate-Ease</h1>
 
+      <img src={searchIcon} className="w-6 fixed top-[7px] right-24" alt="icon" />
 
-      <input type="text" placeholder="find here" className=" h-7 pl-3 rounded-lg ml-2.5 mt-[2px] bg-sky-50 border border-gray-500  md:absolute top-1 md:right-[100px] md:w-[25%] xs:w-[85%] xs:right-0 outline-none"/>
+      {isSearch && <input type="text" placeholder="find here" className=" h-7 pl-3 rounded-lg ml-2.5 mt-[2px] bg-sky-50 border border-gray-500  md:absolute top-1 md:right-[100px] md:w-[25%] xs:w-[85%] xs:right-0 outline-none" />
+      }
 
-      
-    { isKey &&<button className="text-red-500 fixed top-[-15px] font-bold  sm:right-12  text-[40px]" onClick={handleAddProperty}>+</button>
+      {isKey && <button className="text-red-500 fixed top-[-15px] font-bold  sm:right-12  text-[40px]" onClick={handleAddProperty}>+</button>
 
-}
+      }
 
       <span className="absolute top-[6px]">
         {
           isKey ?
             <img alt="img" className="h-7 w-7 bg-gray-400 rounded-[50%] cursor-pointer fixed right-3" onClick={handleSetUserMenue} />
 
-         : <button className={commonStyle.btn}>Sign In</button>}
+            : <button className={commonStyle.btn}>Sign In</button>}
       </span>
 
       {

@@ -1,8 +1,9 @@
 
 function SellProperty() {
   return (
-    <div>
-    </div>
+   <form>
+    
+   </form>
   )
 }
 
