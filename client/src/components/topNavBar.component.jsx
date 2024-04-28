@@ -5,7 +5,7 @@ import searchIcon from '../assets/searchIcon.png'
 
 function TopNavBar() {
 
-  const [isKey, setIsKey] = useState(true);
+  const [isKey, setIsKey] = useState(false);
   const [isDark, setDark] = useState(true);
   const [isSearch, setIsSearch] = useState(false);
 
@@ -28,9 +28,12 @@ function TopNavBar() {
 
   // searchHandller 
 
-  const handllerSearch
 
-
+  // auth Handller
+   const authHandller = () => {
+    navigate('/auth');
+   }
+ 
   return (
 
     <div className="w-full sticky h-10 bg-sky-900 ">
@@ -50,7 +53,7 @@ function TopNavBar() {
           isKey ?
             <img alt="img" className="h-7 w-7 bg-gray-400 rounded-[50%] cursor-pointer fixed right-3" onClick={handleSetUserMenue} />
 
-            : <button className={commonStyle.btn}>Sign In</button>}
+            : <button className={commonStyle.btn} onClick={authHandller}>Sign In</button>}
       </span>
 
       {
@@ -59,7 +62,7 @@ function TopNavBar() {
             <div className="py-1" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
               <Link to="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Your Profile</Link>
               <Link to="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Settings</Link>
-              <Link to="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Sign out</Link>
+              <Link to="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem" >Sign out</Link>
             </div>
           </div>
         )
