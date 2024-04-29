@@ -7,26 +7,24 @@ function TopNavBar() {
 
   const [isKey, setIsKey] = useState(false);
   const [isDark, setDark] = useState(true);
-  const [isSearch, setIsSearch] = useState(false);
+  const [searchBoxVisibility, setSearchBoxVisibility] = useState(false);
 
   const [showUserMenue, setShowUserMenue] = useState(false);
 
   const navigate = useNavigate();
 
-  // handle 
-
+  // handller menue
   const handleSetUserMenue = () => {
     setShowUserMenue(!showUserMenue);
   }
 
-
+console.log(searchBoxVisibility);
   // handle add user property
 
   const handleAddProperty = () => {
     navigate('/sellProperty');
   }
-
-  // searchHandller 
+  
 
 
   // auth Handller
@@ -39,12 +37,12 @@ function TopNavBar() {
     <div className="w-full sticky h-10 bg-sky-900 ">
       <h1 className="text-white p-[3px] font-serif font-extrabold text-[22px] ml-2 cursor-pointer" onClick={() => navigate('./')}>Estate-Ease</h1>
 
-      <img src={searchIcon} className="w-6 fixed top-[7px] right-24" alt="icon" />
+      <img src={searchIcon} className="w-6 fixed top-[7px] right-24 md:hidden cursor-pointer" alt="icon"  onClick={()=>setSearchBoxVisibility((pre)=>!pre)}/>
 
-      {isSearch && <input type="text" placeholder="find here" className=" h-7 pl-3 rounded-lg ml-2.5 mt-[2px] bg-sky-50 border border-gray-500  md:absolute top-1 md:right-[100px] md:w-[25%] xs:w-[85%] xs:right-0 outline-none" />
-      }
+      <input type="text" placeholder="find here" className={`h-7 pl-3 rounded-lg ml-2.5 mt-[2px] bg-sky-50 border border-gray-500 md:absolute top-1 md:right-[100px] md:w-[25%] xs:w-[90%] xs:right-0 outline-none md:block ${searchBoxVisibility ? '' : 'hidden'}`} />
+      
 
-      {isKey && <button className="text-red-500 fixed top-[-15px] font-bold  sm:right-12  text-[40px]" onClick={handleAddProperty}>+</button>
+      {isKey && <button className="text-white fixed top-[-15px] font-bold  sm:right-14  text-[40px] " onClick={handleAddProperty}>+</button>
 
       }
 
