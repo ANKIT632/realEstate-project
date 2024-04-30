@@ -18,29 +18,29 @@ function TopNavBar() {
     setShowUserMenue(!showUserMenue);
   }
 
-console.log(searchBoxVisibility);
+  console.log(searchBoxVisibility);
   // handle add user property
 
   const handleAddProperty = () => {
     navigate('/sellProperty');
   }
-  
+
 
 
   // auth Handller
-   const authHandller = () => {
+  const authHandller = () => {
     navigate('/auth');
-   }
- 
+  }
+
   return (
 
-    <div className="w-full sticky h-10 bg-sky-900 ">
+    <nav className="w-full sticky top-0 h-10 bg-sky-900 z-50">
       <h1 className="text-white p-[3px] font-serif font-extrabold text-[22px] ml-2 cursor-pointer" onClick={() => navigate('./')}>Estate-Ease</h1>
 
-      <img src={searchIcon} className="w-6 fixed top-[7px] right-24 md:hidden cursor-pointer" alt="icon"  onClick={()=>setSearchBoxVisibility((pre)=>!pre)}/>
+      <img src={searchIcon} className="w-6 fixed top-[7px] right-24 md:hidden cursor-pointer" alt="icon" onClick={() => setSearchBoxVisibility((pre) => !pre)} />
 
       <input type="text" placeholder="find here" className={`h-7 pl-3 rounded-lg ml-2.5 mt-[2px] bg-sky-50 border border-gray-500 md:absolute top-1 md:right-[100px] md:w-[25%] xs:w-[90%] xs:right-0 outline-none md:block ${searchBoxVisibility ? '' : 'hidden'}`} />
-      
+
 
       {isKey && <button className="text-white fixed top-[-15px] font-bold  sm:right-14  text-[40px] " onClick={handleAddProperty}>+</button>
 
@@ -66,7 +66,7 @@ console.log(searchBoxVisibility);
         )
       }
 
-    </div>
+    </nav>
 
   )
 }

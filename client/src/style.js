@@ -1,5 +1,20 @@
 export const commonStyle={
     btn:"font-medium text-[14px] text-white bg-blue-400 px-1 rounded-sm py-0.5 shadow-lg cursor-pointer fixed right-2 hover:bg-blue-500 active:bg-blue-600",
 
-    authBtn:"px-2 py-1 rounded-[5px] bg-blue-400 text-white font-bold shadow-lg hover:bg-blue-500 active:bg-blue-600 cursor-pointer xs:w-[40%] md:w-[20%]",
+    authBtn:"px-2 py-1 rounded-[5px] bg-blue-400 text-white font-bold shadow-lg hover:bg-blue-500 active:bg-blue-600 cursor-pointer w-[40%] md:w-[20%]",
+}
+
+export const authStyle={
+
+    authBtn:"px-2 py-1 rounded-[5px] bg-blue-400 text-white font-bold shadow-lg hover:bg-blue-500 active:bg-blue-600 cursor-pointer w-[60%] md:w-[25%]",
+
+    lable:"block  tracking-wide text-gray-700 text-xs font-bold mb-2",
+
+    input:"appearance-none block w-full bg-gray-200 text-gray-700 border rounded py-1.5 px-4 mb-3 leading-tight focus:outline-none focus:bg-white",
+
+    select:"block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-2 px-4 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+  ,
+
+  divStyle:"w-[80%]",
+    
 }
