@@ -1,7 +1,12 @@
+import HeroSection from "../components/heroSection.component";
 
 function Home() {
   return (
-    <div>Home</div>
+    <div>
+    
+    <HeroSection/>
+    
+    </div>
   );
 }
 
