@@ -34,8 +34,8 @@ function TopNavBar() {
 
   return (
 
-    <nav className="w-full sticky top-0 h-12 bg-sky-900 z-50">
-      <h1 className="text-white p-[3px] pt-2 font-serif font-extrabold text-[22px] ml-2 cursor-pointer" onClick={() => navigate('./')}>Estate-Ease</h1>
+    <nav className="w-full sticky top-0 h-14 bg-white z-50  border-b border-blue-500">
+      <h1 className="text-blue-600 p-[3px] pt-2 font-poppins font-extrabold text-[22px] ml-2 cursor-pointer" onClick={() => navigate('./')}>EcoEstate</h1>
 
       <img src={searchIcon} className="w-6 fixed top-[11px] right-24 md:hidden cursor-pointer" alt="icon" onClick={() => setSearchBoxVisibility((pre) => !pre)} />
 
