@@ -34,24 +34,24 @@ function TopNavBar() {
 
   return (
 
-    <nav className="w-full sticky top-0 h-14 bg-white z-50  border-b border-blue-500">
-      <h1 className="text-blue-600 p-[3px] pt-2 font-poppins font-extrabold text-[22px] ml-2 cursor-pointer" onClick={() => navigate('./')}>EcoEstate</h1>
+    <nav className="w-full sticky top-0 h-14 bg-white z-50  border-b border-blue-500 overflow-hidden">
+      <h1 className="text-blue-600  relative top-2.5 left-2 font-poppins font-extrabold text-[22px]  cursor-pointer active:text-blue-800" onClick={() => navigate('./')}>EcoEstate</h1>
 
-      <img src={searchIcon} className="w-6 fixed top-[11px] right-24 md:hidden cursor-pointer" alt="icon" onClick={() => setSearchBoxVisibility((pre) => !pre)} />
+      <img src={searchIcon} className="w-6 fixed top-[16px] right-24 md:hidden cursor-pointer" alt="icon" onClick={() => setSearchBoxVisibility((pre) => !pre)} />
 
-      <input type="text" placeholder="find here" className={`h-8 pl-3 rounded-lg ml-2.5 mt-[4px] bg-sky-50 border border-gray-500 md:absolute top-1 md:right-[100px] md:w-[30%] xs:w-[90%] xs:right-0 outline-none md:block ${searchBoxVisibility ? '' : 'hidden'}`} />
+      <input type="text" placeholder="find here" className={`overflow:hidden h-8 pl-7 rounded-lg  md:mt-[8px] bg-sky-50 border border-gray-500 md:absolute top-1 md:right-[100px] md:w-[30%] max-md:w-[98%] max-md:relative max-md:left-[0.6%] outline-none md:block ${searchBoxVisibility ? '' : 'hidden'} max-md:top-6 focus:border-blue-500`} />
 
 
-      {isKey && <button className="text-white fixed top-[0] -my-3 font-bold  sm:right-14  text-[40px] " onClick={handleAddProperty}>+</button>
+      {isKey && <button className="text-white fixed top-2 -my-3 font-bold  sm:right-14  text-[40px] " onClick={handleAddProperty}>+</button>
 
       }
 
       <span className="absolute top-[6px]">
         {
           isKey ?
-            <img alt="img" className="h-7 w-7 bg-gray-400 rounded-[50%] cursor-pointer fixed right-3 my-1" onClick={handleSetUserMenue} />
+            <img alt="img" className="h-7 w-7 bg-gray-400 rounded-[50%] cursor-pointer fixed right-3 top-2" onClick={handleSetUserMenue} />
 
-            : <button className={commonStyle.btn+" my-1"} onClick={authHandller}>Sign In</button>}
+            : <button className={commonStyle.btn + "fixed top-4  px-2"} onClick={authHandller}>Sign In</button>}
       </span>
 
       {

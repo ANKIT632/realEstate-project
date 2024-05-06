@@ -2,11 +2,11 @@ import { formStyle, commonStyle } from '../style';
 
 function SellProperty() {
   return (
-    <form className="w-full flex justify-center pt-4 bg-slate-200 ">
+    <form className="w-full flex flex-col justify-center items-center pt-4 bg-slate-200">
       <div className={formStyle.mainFormDiv}>
 
         <div className='border-gray-900 bg-white pt-2 px-2 rounded-lg '>
-          <h5 className={commonStyle.title +"shadow-lg bg-gray-50 ring-2 ring-black ring-opacity-5 rounded-lg p-1 "}>Sell property</h5>
+          <h5 className={commonStyle.title + "shadow-lg bg-gray-50 ring-2 ring-black ring-opacity-5 rounded-lg p-1 "}>Sell property</h5>
         </div>
 
         <div className={formStyle.divStyle}>
@@ -66,7 +66,12 @@ function SellProperty() {
           <label htmlFor="tags" className={formStyle.lable}>Tags</label>
           <input type="text" name="tags" id="tags" placeholder="Tags" className={formStyle.input} defaultValue="none" />
         </div>
+
+
       </div>
+
+      <button type="submit" className={formStyle.authBtn + " mb-9"}>Submit</button>
+
     </form>
   )
 }

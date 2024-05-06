@@ -5,14 +5,14 @@ import FeatureSection from "../components/featureSection.component";
 function Home() {
   return (
     <div>
-    <HeroSection/>
+      <HeroSection />
 
-    <div>
-     <FeatureSection/>
-    </div>
+      <div>
+        <FeatureSection />
+      </div>
     </div>
 
-  
+
   );
 }
 

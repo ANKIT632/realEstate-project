@@ -1,8 +1,10 @@
 // import { Carousel } from 'react-responsive-carousel';
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 function HeroSection() {
 
+  const navigate = useNavigate();
   const images = [
     'https://images.unsplash.com/photo-1566908829550-e6551b00979b?q=80&w=2069&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
     'https://plus.unsplash.com/premium_photo-1689609950112-d66095626efb?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
@@ -12,7 +14,7 @@ function HeroSection() {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
   console.log(currentImageIndex);
-  
+
   useEffect(() => {
     // Preload images
     images.forEach((image) => {
@@ -27,6 +29,11 @@ function HeroSection() {
     return () => clearInterval(timer); // Clean up on component unmount
   }, [currentImageIndex]);
 
+  // sell handller
+  const handleSellProperty = () => {
+    navigate('/sellProperty');
+  }
+
   return (
     <section className="w-full min-h-[23rem] bg-slate-200 flex flex-wrap justify-center items-center">
       <div className="w-[38%] max-sm:w-[96%] p-2 " >
@@ -37,7 +44,7 @@ function HeroSection() {
         <div className="space-y-2 md:flex-col space-x-2 max-sm:space-x-2 max-sm:text-[10px]">
 
           <button className="px-2 py-1 text-white ring-red bg-black rounded-lg  active:bg-gray-700  font-serif">Buy property</button>
-          <button className="px-2 py-1 ring-1 ring-blue-400 rounded-lg active:bg-blue-100 font-serif text-blue-500">Sell property</button>
+          <button className="px-2 py-1 ring-1 ring-blue-400 rounded-lg active:bg-blue-100 font-serif text-blue-500" onClick={handleSellProperty}>Sell property</button>
         </div>
       </div>
 
