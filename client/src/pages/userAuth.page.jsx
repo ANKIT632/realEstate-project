@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { formStyle,commonStyle } from '../style';
+import { formStyle, commonStyle } from '../style';
 
 function Auth() {
 
@@ -15,24 +15,24 @@ function Auth() {
 
 
   return (
-    <form className=" w-full mt-3 overflow-hidden ">
+    <form className=" w-full min-h-[95vh] mt-3 overflow-hidden ">
 
 
-      <h5 className={commonStyle.title }>{authType ? "SignUp" : "Login"}</h5>
+      <h5 className={commonStyle.title}>{authType ? "SignUp" : "Login"}</h5>
 
       <div className="flex w-full justify-center">
         <hr className="border-t-2 border-black-700 w-[95%] sm:w-[65%] md:w-[45%] pb-1" />
       </div>
 
       <div className="w-full flex justify-center mt-1 ">
-        <div className={formStyle.mainFormDiv+" shadow-lg ring-2 ring-black ring-opacity-5 rounded-lg"}>
+        <div className={formStyle.mainFormDiv + " shadow-lg ring-2 ring-black ring-opacity-5 rounded-lg"}>
 
 
           {authType && <div className={formStyle.divStyle}>
             <label className={formStyle.lable} htmlFor="username">
               Full Name
             </label>
-            <input className={formStyle.input} id="username" type="text" placeholder="Full Name" name="username" />
+            <input className={formStyle.input} id="username" type="text" placeholder="Full Name" name="username" autoComplete="on" required />
           </div>}
 
 
@@ -41,7 +41,7 @@ function Auth() {
             <label className={formStyle.lable} htmlFor="username">
               Email
             </label>
-            <input className={formStyle.input} id="username" type="text" placeholder="Enter Email" name="username" />
+            <input className={formStyle.input} id="username" type="email" placeholder="Enter Email" name="username" autoComplete="on" required />
           </div>
 
 
@@ -49,7 +49,7 @@ function Auth() {
             <label className={formStyle.lable} htmlFor="password">
               Enter Password
             </label>
-            <input className={formStyle.input + ' pr-7 '} id="password" type={passwordVisibility ? "text" : "password"} placeholder="Enter Password" name="password" />
+            <input className={formStyle.input + ' pr-7 '} id="password" type={passwordVisibility ? "text" : "password"} placeholder="Enter Password" name="password" autoComplete="on" required />
             {passwordVisibility ? <i className="fi fi-ss-eye absolute top-8 right-2 cursor-pointer" onClick={handlePasswordVisibility}></i> : <i className="fi fi-ss-eye-crossed  cursor-pointer absolute top-8 right-2" onClick={handlePasswordVisibility}></i>}
           </div>
 

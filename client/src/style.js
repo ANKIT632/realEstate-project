@@ -3,7 +3,9 @@ export const commonStyle={
 
     authBtn:"px-2 py-1 rounded-[5px] bg-blue-400 text-white font-bold shadow-lg hover:bg-blue-500 active:bg-blue-600 cursor-pointer w-[40%] md:w-[20%]",
 
-    title:"text-center font-mono font-bold text-[20px]  mb-2 text-blue-500 max-xs:text-[15px]"
+    title:"text-center font-mono font-bold text-[20px]  mb-2 text-blue-500 max-xs:text-[15px]",
+
+    heading:'text-3xl font-bold max-sm:text-lg text-center mb-4',
 }
 
 export const formStyle={
@@ -12,9 +14,9 @@ export const formStyle={
 
     lable:"block tracking-wide text-gray-700 text-xs font-bold mb-2",
 
-    input:"appearance-none block w-full bg-gray-200 text-gray-700 border rounded py-1.5 px-4 mb-3 leading-tight focus:outline-none focus:bg-white",
+    input:"appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-400 rounded py-1.5 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-blue-500",
 
-    select:"block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-2 px-4 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+    select:"block appearance-none w-full bg-gray-200 border border-gray-400 text-gray-700 py-2 px-4 rounded leading-tight focus:outline-none focus:bg-white focus:border-blue-500"
   ,
    
   divStyle:"w-[80%]",

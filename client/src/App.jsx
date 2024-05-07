@@ -3,12 +3,14 @@ import Home from './pages/home.page';
 import TopNavBar from './components/topNavBar.component';
 
 import SellPropertyForm from './pages/sellPropertyForm.page';
-import Auth from './pages/userAuth.page'
+import Auth from './pages/userAuth.page';
+
+import Foter from './components/foter.component'
 
 
 export default function App() {
   return (
-    <>
+    <div className='bg-gray-100'>
       <TopNavBar />
       <Routes>
         <Route path="/" element={<Home />} />
@@ -18,7 +20,7 @@ export default function App() {
         <Route path="/auth" element={<Auth />} />
       </Routes>
 
-  
-    </>
+    <Foter/>
+    </div>
   )
 }

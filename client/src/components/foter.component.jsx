@@ -1,7 +1,7 @@
 
 function Foter() {
   return (
-    <div>Foter</div>
+    <section className="reltaive bottom-0">Foter</section>
   )
 }
 
