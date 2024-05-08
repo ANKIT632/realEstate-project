@@ -5,7 +5,7 @@ export const commonStyle={
 
     title:"text-center font-mono font-bold text-[20px]  mb-2 text-blue-500 max-xs:text-[15px]",
 
-    heading:'text-3xl font-bold max-sm:text-lg text-center mb-4',
+    heading:'text-2xl font-bold max-sm:text-lg  mb-4 pl-2',
 }
 
 export const formStyle={
