@@ -4,8 +4,9 @@ import TopNavBar from './components/topNavBar.component';
 
 import SellPropertyForm from './pages/sellPropertyForm.page';
 import Auth from './pages/userAuth.page';
-
 import Foter from './components/foter.component'
+
+import BottomNavbar from './components/bottomNavbar.component'
 
 
 export default function App() {
@@ -21,6 +22,7 @@ export default function App() {
       </Routes>
 
     <Foter/>
+    <BottomNavbar/>
     </div>
   )
 }
