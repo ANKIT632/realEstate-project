@@ -9,7 +9,7 @@ function BottomNavbar() {
     }
 
   return (
-    <div className="sticky bottom-0 w-full h-10 bg-white border-t-2 border-x-1 border-black md:hidden">
+    <div className="sticky bottom-0 w-full h-10 bg-white border-t-2 border-x-1 border-black md:hidden z-50">
       <div className="w-full h-full flex justify-around items-center ">
       <i className="fi fi-br-home text-xl cursor-pointer" onClick={handleNavigate}></i>
       <i className="fi fi-br-search text-xl cursor-pointer"></i>
