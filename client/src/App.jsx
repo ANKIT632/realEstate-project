@@ -21,8 +21,8 @@ export default function App() {
         <Route path="/auth" element={<Auth />} />
       </Routes>
 
-    <Foter/>
-    <BottomNavbar/>
+      <Foter />
+      <BottomNavbar />
     </div>
   )
 }

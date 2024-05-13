@@ -15,7 +15,7 @@ function Home() {
       <FeatureSection />
       <HomeCategory />
       <NewDeals />
-      <Testimoials/>
+      <Testimoials />
     </div>
 
 

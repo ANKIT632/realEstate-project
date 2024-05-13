@@ -38,7 +38,7 @@ function TopNavBar() {
       <h1 className="text-blue-600  relative top-2.5 left-2 font-poppins font-extrabold text-[22px]  cursor-pointer active:text-blue-800" onClick={() => navigate('./')}>EcoEstate</h1>
 
       <img src={searchIcon} className="w-6 fixed top-[16px] right-24 md:hidden cursor-pointer" alt="icon" onClick={() => setSearchBoxVisibility((pre) => !pre)} />
-       
+
       <input type="text" placeholder="find here" className={`fixed h-8 w-[98%] top-[60px] pl-7 rounded-lg bg-sky-50 border border-gray-500   md:right-[100px] md:w-[30%]  max-md:left-[0.6%] outline-none md:block md:top-3 ${searchBoxVisibility ? '' : 'hidden'} focus:border-blue-500`} />
 
 
@@ -49,10 +49,10 @@ function TopNavBar() {
       <span className="absolute top-[6px]">
         {
           isKey ?
-          <div>
-            <img alt="img" className="h-7 w-7 bg-gray-400 rounded-[50%] cursor-pointer fixed right-3 top-3" onClick={handleSetUserMenue} />
+            <div>
+              <img alt="img" className="h-7 w-7 bg-gray-400 rounded-[50%] cursor-pointer fixed right-3 top-3" onClick={handleSetUserMenue} />
 
-            <i className="fi fi-bs-menu"></i>
+              <i className="fi fi-bs-menu"></i>
             </div>
 
             : <button className={commonStyle.btn + "fixed top-4  px-2"} onClick={authHandller}>Sign In</button>}
