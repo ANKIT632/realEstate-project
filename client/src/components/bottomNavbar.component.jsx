@@ -23,7 +23,7 @@ function BottomNavbar() {
         <i className="fi fi-br-search text-md cursor-pointer active:border-t active:border-gray-500 " />
 
 
-        <div className="h-10 w-10 rounded-full bg-blue-500 flex  justify-center items-center border-t-4 relative bottom-1.5 border-black active:border-t active:border-gray-500" onClick={handleAddPropertyNavigate}>
+        <div className="h-10 w-10 rounded-full bg-blue-600 flex  justify-center items-center border-t-4 relative bottom-1.5 border-black active:border-t active:border-gray-500 hover:bg-blue-500" onClick={handleAddPropertyNavigate}>
           <i className="fi fi-bs-plus text-white text-2xl cursor-pointer " />
 
         </div>

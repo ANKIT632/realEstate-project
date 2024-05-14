@@ -5,7 +5,7 @@ import searchIcon from '../assets/searchIcon.png'
 
 function TopNavBar() {
 
-  const [isKey, setIsKey] = useState(true);
+  const [isKey, setIsKey] = useState(false);
   const [isDark, setDark] = useState(true);
   const [searchBoxVisibility, setSearchBoxVisibility] = useState(false);
 

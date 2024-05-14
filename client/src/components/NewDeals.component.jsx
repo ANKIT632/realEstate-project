@@ -7,7 +7,7 @@ function NewDeals() {
 
 
   useEffect(() => {
-    fetch('https://realestate-project-6mri.onrender.com/api/v1/selling/property/all')
+    fetch('https://realestate-project-6mri.onrender.com/api/v1/selling/property/all?page=1&size=4')
       .then(response => response.json())
       .then(data => setDeals(data));
   }, [])
@@ -22,12 +22,12 @@ function NewDeals() {
         {
 
 
-          deals.allProperty?.length && deals?.allProperty.slice(0, 4).map((data, idx) => {
+          deals.allProperty?.length && deals?.allProperty.map((data, idx) => {
             console.log(data);
             return (<div key={idx} className='bg-white mb-3 py-3 w-[95%] px-2 rounded-xl  shadow-md hover:shadow-lg '>
               <div className='flex'>
                 <div>
-                  <img src={data?.imagesUrl[0]} alt='img' className='w-[230px] h-32 rounded-2xl max-sm:h-28 max-sm:w-[180px] max-xs:h-20  max-xs:w-[120px]' />
+                  <img src={data?.imagesUrl[0]} alt='img' className='w-[230px] h-32 rounded-2xl max-sm:h-28 max-sm:w-[180px] max-xs:h-20  max-xs:w-[120px] bg-gray-400' />
 
                   <div className='flex items-center mt-2 ml-1'>
 

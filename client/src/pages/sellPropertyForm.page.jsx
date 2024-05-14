@@ -63,6 +63,10 @@ function SellProperty() {
           </div>
         </div>
         <div className={formStyle.divStyle}>
+          <label htmlFor="category" className={formStyle.lable}>Category</label>
+          <input type="text" name="category" id="category" placeholder="category" className={formStyle.input} defaultValue="none" />
+        </div>
+        <div className={formStyle.divStyle}>
           <label htmlFor="tags" className={formStyle.lable}>Tags</label>
           <input type="text" name="tags" id="tags" placeholder="Tags" className={formStyle.input} defaultValue="none" />
         </div>
