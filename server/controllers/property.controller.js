@@ -17,7 +17,7 @@ exports.createProperty = async (req, res) => {
     }
 
     catch (err) {
-      
+
         return res.status(500).send({ status: "failed", message: err.message })
     }
 }
@@ -30,7 +30,7 @@ exports.getAllProperty = async (req, res) => {
 
 
     try {
-        const allProperty = await property_model.find().skip((page - 1) * size).populate('owner', '-password -email -createdAt -updatedAt -gender -address -age -role -phone').limit(size).select('-createdAt -updatedAt');
+        const allProperty = await property_model.find().skip((page - 1) * size).populate('owner', 'username profile_url socialUrls').limit(size);
 
 
         return res.status(200).send({ status: "success", allProperty })
@@ -59,7 +59,7 @@ exports.updateProperty = async (req, res) => {
         res.status(200).send({ status: "success" });
 
     } catch (err) {
-   
+
         res.status(500).send({ status: "failed", message: err.message });
     }
 }
@@ -76,7 +76,7 @@ exports.searchProperty = async (req, res) => {
 
         res.status(200).send({ status: "success", searchProperty });
     } catch (err) {
-      
+
         res.status(500).send({ status: "failed", message: err.message });
     }
 }
@@ -84,14 +84,14 @@ exports.searchProperty = async (req, res) => {
 
 // get All property by owner
 exports.getAllPropertyByOwner = async (req, res) => {
-    
+
     const page = parseInt(req.query.page) || 1;
     const size = parseInt(req.query.size) || 20;
 
     try {
         const allProperty = await property_model.find({ owner: req.user._id }).skip((page - 1) * size);
 
-        return res.status(200).send({ status: "success", allProperty })
+        return res.status(200).send({ status: "success", allProperty });
     }
 
     catch (err) {

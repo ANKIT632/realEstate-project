@@ -12,8 +12,8 @@ module.exports = (server) => {
 
     server.put('/api/v1/user/profile/update/:userId', authMiddleware.verifyToken, userMiddleware.validateUserUpdate, userController.updateUser);
 
-
-    //    server.delte('/api/v1/user/:userId',verifyToken,validateUser,deleteUser);
+    // delete account
+    server.delete('/api/v1/user/delete/:userId', userController.deleteUser);
 
 
 }

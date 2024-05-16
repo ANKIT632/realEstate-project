@@ -1,3 +1,6 @@
+// common url - https://realestate-project-6mri.onrender.com/api/v1/...add path name according the requirement.
+
+
  // dummy user
 
 *Note : store the token (jwt auth). 
@@ -430,7 +433,7 @@ access_token : eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im1hcmtAZ21haWwu
 
       1) GET All Properties: 
 
-      URL: /api/v1/selling/property/all
+      URL:https://realestate-project-6mri.onrender.com/api/v1/selling/property/all?page=1&size=4
 
       Description: Retrieves all available properties.
 
@@ -616,3 +619,20 @@ access_token : eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im1hcmtAZ21haWwu
         "message": "error message"
       }
 
+
+
+---------------review------------------
+// get all review :
+https://realestate-project-6mri.onrender.com/api/v1/property/review/all
+
+
+// post review 
+
+field (json data for post request ): 
+Note all fields are required
+
+property : here property id,
+rating : (number),
+about :(string)
+
+https://realestate-project-6mri.onrender.com/api/v1/property/review/create

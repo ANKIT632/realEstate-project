@@ -3,7 +3,7 @@ const { db_connection } = require('./dbConnect.js');
 const cors = require('cors');
 const server_config = require('./configs/server.config.js')
 const path = require('path');
-const bodyParser = require('body-parser');
+
 
 // initialize server
 const server = express();
@@ -13,7 +13,7 @@ require('dotenv').config();
 //middleware
 server.use(cors({ credentials: true, origin: true }));
 server.use(express.json());
-app.use(express.urlencoded({ extended: true })); 
+server.use(express.urlencoded({ extended: true })); 
 
 // Serve static files from the "public" directory
 server.get('/api/v1/doc', (req, res) => {
@@ -25,6 +25,8 @@ server.get('/api/v1/doc', (req, res) => {
 require('./routes/auth.route.js')(server);
 require('./routes/user.route.js')(server);
 require('./routes/property.route.js')(server);
+require('./routes/review.route.js')(server);
+require('./routes/visitor.route.js')(server);
 
 // Handle 404
 server.use(function(req, res, next) {

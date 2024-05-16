@@ -80,7 +80,11 @@ const propertySchema = new Schema({
     type: Boolean,
     default: false
   },
-
+  category:{
+  type:String,
+  required:true,
+  }
+,
   tags: {
     type: String,
     default: 'none'

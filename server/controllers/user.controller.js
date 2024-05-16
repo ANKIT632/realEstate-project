@@ -26,26 +26,26 @@ exports.updateUser = async (req, res) => {
 
     // generate token
 
-if(req.body.role){
-    jwt.sign({ email: updateUser.email, _id: req.params.userId, role: updateUser.role }, secret_key, (err, token) => {
-      
-      if (err) {
+    if (req.body.role) {
+      jwt.sign({ email: updateUser.email, _id: req.params.userId, role: updateUser.role }, secret_key, (err, token) => {
 
-        return res.status(500).send({ status: "failed", message: 'Error while generating token try again !!' });
-      }
+        if (err) {
 
+          return res.status(500).send({ status: "failed", message: 'Error while generating token try again !!' });
+        }
+
+        return res.status(200).send({
+          status: "success",
+          access_token: token,
+        });
+
+      }, { expiresIn: '5days' });
+    }
+    else {
       return res.status(200).send({
         status: "success",
-        access_token: token,
       });
-
-    }, { expiresIn: '5days' });
-}
-else{
-  return res.status(200).send({
-    status: "success",
-  });
-}
+    }
 
   } catch (err) {
 
@@ -124,3 +124,28 @@ exports.getSingleUser = async (req, res) => {
   }
 
 }
+
+// delete user
+exports.deleteUser = async (req, res) => {
+
+  try {
+    const userId = req.params.userId;
+    const user = await user_model.findByIdAndDelete(userId);
+
+    if (!user) {
+      return res.status(400).send({ status: "failed", message: "User Not found" });
+    }
+    else {
+      return res.status(200).send({
+        status: "success",
+        message: "User deleted successfully"
+      });
+    }
+  }
+  catch (err) {
+    return res.status(500).send({ status: "failed", message: err.message })
+  }
+
+}
+
+
