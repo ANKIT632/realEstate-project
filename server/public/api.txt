@@ -636,3 +636,18 @@ rating : (number),
 about :(string)
 
 https://realestate-project-6mri.onrender.com/api/v1/property/review/create
+
+
+--------------------visitor scheduled-------------------
+
+note : pass the the property id in properyId params.
+
+1)scheduled visit date date (post request) 
+- pass user token
+
+url - https://realestate-project-6mri.onrender.com/api/v1/property/visitor/:propertyId
+
+
+2)  get all visitor of particular properties
+   - get request
+url - https://realestate-project-6mri.onrender.com/api/v1/property/visitors/:propertyId
