@@ -14,11 +14,11 @@ function BottomNavbar() {
   }
 
   return (
-    <div className="sticky bottom-0 w-full h-8 bg-white border-t-2 border-x-1 border-black md:hidden z-50 rounded-t-lg">
+    <div className="sticky bottom-0 w-full h-8 bg-white border-t-2 border-x-1 border-gray-100 md:hidden z-50 ">
       <div className="w-full h-full flex justify-around items-center ">
 
-
-        <i className=" fi fi-br-home text-md cursor-pointer   active:border-t active:border-gray-500 " onClick={handleHomeNavigate}> </i>
+        
+        <i className=" fi fi-br-home text-md cursor-pointer   active:border-t active:border-gray-500 " onClick={handleHomeNavigate}/> 
 
         <i className="fi fi-br-search text-md cursor-pointer active:border-t active:border-gray-500 " />
 

@@ -14,8 +14,8 @@ function Home() {
       <HeroSection />
       <FeatureSection />
       <HomeCategory />
-      <NewDeals />
-      <Testimoials />
+      {/* <NewDeals /> */}
+      {/* <Testimoials /> */}
     </div>
 
 

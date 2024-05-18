@@ -1,6 +1,8 @@
-// import { Carousel } from 'react-responsive-carousel';
+/* eslint-disable react-hooks/exhaustive-deps */
+
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import {getSession} from '../localSession/authSession'
 
 function HeroSection() {
 
@@ -12,8 +14,7 @@ function HeroSection() {
   ];
 
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
-
-  console.log(currentImageIndex);
+  const [user,setUser]=useState("");
 
   useEffect(() => {
     // Preload images
@@ -24,10 +25,20 @@ function HeroSection() {
 
     const timer = setInterval(() => {
       setCurrentImageIndex((currentImageIndex + 1) % images.length);
-    }, 3000); // Change image every 3 seconds
+    }, 3000); 
 
-    return () => clearInterval(timer); // Clean up on component unmount
+    return () => clearInterval(timer); 
   }, [currentImageIndex]);
+
+
+  useEffect(()=>{
+    const user=getSession('user_data');
+
+    setUser(user.role);
+
+  },[])
+
+
 
   // sell handller
   const handleSellProperty = () => {
@@ -43,8 +54,10 @@ function HeroSection() {
 
         <div className="space-y-2 md:flex-col space-x-2 max-sm:space-x-2 max-sm:text-[10px]">
 
-          <button className="px-2 py-1 text-white ring-red bg-black rounded-lg  active:bg-gray-700  font-serif">Buy property</button>
-          <button className="px-2 py-1 ring-1 ring-blue-400 rounded-lg active:bg-blue-100 font-serif text-blue-500" onClick={handleSellProperty}>Sell property</button>
+         <button className="px-2 py-1 text-white ring-red bg-black rounded-lg  active:bg-gray-700  font-serif">Show property</button>
+       
+       {
+          (user==='Seller')&&<button className="px-2 py-1 ring-1 ring-blue-400 rounded-lg active:bg-blue-100 font-serif text-blue-500" onClick={handleSellProperty}>Sell property</button>}
         </div>
       </div>
 

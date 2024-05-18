@@ -1,12 +1,13 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { commonStyle } from '../style'
 import searchIcon from '../assets/searchIcon.png'
+import { BiAlignRight } from "react-icons/bi";
+import { getSession } from '../localSession/authSession'
 
 function TopNavBar() {
 
-  const [isKey, setIsKey] = useState(false);
-  const [isDark, setDark] = useState(true);
+  const [user, setUser] = useState([])
   const [searchBoxVisibility, setSearchBoxVisibility] = useState(false);
 
   const [showUserMenue, setShowUserMenue] = useState(false);
@@ -18,7 +19,7 @@ function TopNavBar() {
     setShowUserMenue(!showUserMenue);
   }
 
-  console.log(searchBoxVisibility);
+
   // handle add user property
 
   const handleAddProperty = () => {
@@ -32,6 +33,15 @@ function TopNavBar() {
     navigate('/auth');
   }
 
+  useEffect(() => {
+    let userData = getSession('user_data');
+
+    setUser(userData);
+
+    console.log(userData);
+
+  }, [])
+
   return (
 
     <nav className="w-full  sticky top-0 h-14 bg-white z-50  border-b  overflow-hidden ">
@@ -39,20 +49,20 @@ function TopNavBar() {
 
       <img src={searchIcon} className="w-6 fixed top-[16px] right-24 md:hidden cursor-pointer" alt="icon" onClick={() => setSearchBoxVisibility((pre) => !pre)} />
 
-      <input type="text" placeholder="find here" className={`fixed h-8 w-[98%] top-[60px] pl-7 rounded-lg bg-sky-50 border border-gray-500   md:right-[100px] md:w-[30%]  max-md:left-[0.6%] outline-none md:block md:top-3 ${searchBoxVisibility ? '' : 'hidden'} focus:border-blue-500`} />
+      <input type="text" placeholder="Find by name,location,city" className={`text-xs  fixed h-8 w-[98%] top-[60px] pl-7 rounded-lg bg-sky-50 border border-gray-500   md:right-[120px] md:w-[30%]  max-md:left-[0.6%] outline-none md:block  md:top-3 ${searchBoxVisibility ? '' : 'hidden'} focus:border-blue-500`} />
 
 
-      {isKey && <button className=" absolute top-1 -my-3 font-bold  right-14  text-[40px] max-md:hidden" onClick={handleAddProperty}>+</button>
+      {user && <button className=" absolute top-1 -my-3 font-bold  right-20  text-[40px] max-md:hidden " onClick={handleAddProperty}>+</button>
 
       }
 
-      <span className="absolute top-[6px]">
+      <span className="absolute top-[6px] ">
         {
-          isKey ?
-            <div>
-              <img alt="img" className="h-7 w-7 bg-gray-400 rounded-[50%] cursor-pointer fixed right-3 top-3" onClick={handleSetUserMenue} />
+          user ?
+            <div className="h-8   fixed right-3 top-3 flex space-x-0.5 items-center bg-gray-300 p-1 rounded-2xl shadow-sm cursor-pointer " onClick={handleSetUserMenue}>
+              <img src={user.profile_url} alt="img" className={`h-6 w-6  rounded-[50%]  ${showUserMenue ? " bg-blue-500" : "bg-white"}`} />
 
-              <i className="fi fi-bs-menu"></i>
+              <BiAlignRight className={`h-5 w-5 ${showUserMenue ? " text-blue-500" : "text-white"}`} />
             </div>
 
             : <button className={commonStyle.btn + "fixed top-4  px-2"} onClick={authHandller}>Sign In</button>}
@@ -64,6 +74,9 @@ function TopNavBar() {
             <div className="py-1" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
               <Link to="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Your Profile</Link>
               <Link to="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Settings</Link>
+              <Link to="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem" >sell track</Link>
+              <Link to="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem" >visit schedule</Link>
+              <Link to="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem" >favourite</Link>
               <Link to="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem" >Sign out</Link>
             </div>
           </div>
