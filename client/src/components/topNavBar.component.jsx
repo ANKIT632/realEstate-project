@@ -1,14 +1,18 @@
-import { useEffect, useState } from "react";
+import {  useState,useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { commonStyle } from '../style'
 import searchIcon from '../assets/searchIcon.png'
 import { BiAlignRight } from "react-icons/bi";
-import { getSession } from '../localSession/authSession'
+import { deleteSession } from '../localSession/authSession'
+import UserDataContext from '../context/userContext'
 
 function TopNavBar() {
+ 
+  const {userData} = useContext(UserDataContext);
 
-  const [user, setUser] = useState([])
+console.log('u', Object.keys(userData));
   const [searchBoxVisibility, setSearchBoxVisibility] = useState(false);
+ 
 
   const [showUserMenue, setShowUserMenue] = useState(false);
 
@@ -33,14 +37,13 @@ function TopNavBar() {
     navigate('/auth');
   }
 
-  useEffect(() => {
-    let userData = getSession('user_data');
+  // logout handller
+ const logoutHandler=()=>{
+  deleteSession('user_data');
+  deleteSession('access_token');
+  userData(null);
+ }
 
-    setUser(userData);
-
-    console.log(userData);
-
-  }, [])
 
   return (
 
@@ -52,15 +55,15 @@ function TopNavBar() {
       <input type="text" placeholder="Find by name,location,city" className={`text-xs  fixed h-8 w-[98%] top-[60px] pl-7 rounded-lg bg-sky-50 border border-gray-500   md:right-[120px] md:w-[30%]  max-md:left-[0.6%] outline-none md:block  md:top-3 ${searchBoxVisibility ? '' : 'hidden'} focus:border-blue-500`} />
 
 
-      {user && <button className=" absolute top-1 -my-3 font-bold  right-20  text-[40px] max-md:hidden " onClick={handleAddProperty}>+</button>
+      {userData.role==='Seller' && <button className=" absolute top-1 -my-3 font-bold  right-20  text-[40px] max-md:hidden " onClick={handleAddProperty}>+</button>
 
       }
 
       <span className="absolute top-[6px] ">
         {
-          user ?
+          (userData?.username)?
             <div className="h-8   fixed right-3 top-3 flex space-x-0.5 items-center bg-gray-300 p-1 rounded-2xl shadow-sm cursor-pointer " onClick={handleSetUserMenue}>
-              <img src={user.profile_url} alt="img" className={`h-6 w-6  rounded-[50%]  ${showUserMenue ? " bg-blue-500" : "bg-white"}`} />
+              <img src={userData.profile_url} alt="img" className={`h-6 w-6  rounded-[50%]  ${showUserMenue ? " bg-blue-500" : "bg-white"}`} />
 
               <BiAlignRight className={`h-5 w-5 ${showUserMenue ? " text-blue-500" : "text-white"}`} />
             </div>
@@ -71,13 +74,20 @@ function TopNavBar() {
       {
         showUserMenue && (
           <div className="fixed right-1 mt-6 w-48 rounded-md shadow-lg bg-gray-50 ring-2 ring-black ring-opacity-5 z-20 ">
+
             <div className="py-1" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
+
               <Link to="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Your Profile</Link>
+
               <Link to="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Settings</Link>
-              <Link to="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem" >sell track</Link>
-              <Link to="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem" >visit schedule</Link>
-              <Link to="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem" >favourite</Link>
-              <Link to="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem" >Sign out</Link>
+
+             {userData?.role==='Seller'&&<Link to="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem" >sell track</Link>}
+
+              { userData?.role==='Buyer'&&<Link to="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem" >visit schedule</Link>}
+
+              <Link to="/favourite" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem"  onClick={()=>setShowUserMenue((pre)=>!pre)}>favourite</Link>
+
+              <Link to="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem" onClick={logoutHandler}>Logout</Link>
             </div>
           </div>
         )

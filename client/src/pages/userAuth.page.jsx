@@ -1,7 +1,10 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { formStyle, commonStyle } from '../style';
 import { useNavigate } from 'react-router-dom';
 import { setSession, getSession } from '../localSession/authSession'
+import UserDataContext from "../context/userContext";
+
+
 
 function Auth() {
 
@@ -9,15 +12,19 @@ function Auth() {
   const navigate = useNavigate();
 
   const [passwordVisibility, setPasswordVisibility] = useState(false);
-
+  const { setUserData, setAccessToken} = useContext(UserDataContext);
   // login or sign up
   const [authType, setAuthType] = useState('login');
 
+
+  console.log(setUserData);
   // handler for password visibility
   const handlePasswordVisibility = () => {
     setPasswordVisibility(!passwordVisibility);
 
   }
+
+ 
   // auth handdler
   const authTypeHandller = () => {
     if (authType === 'login')
@@ -47,19 +54,23 @@ function Auth() {
           else {
             setSession('user_data', data.user);
             setSession('access_token', data.access_token);
+
+            const userData =getSession('user_data');
+            console.log(userData);
+            const accessToken =getSession('access_token');
+          
+            setUserData(userData);
+            setAccessToken(accessToken);
             navigate('/');
           }
 
 
         }
-        console.log(data);
+        console.log(data?.message);
       })
       .catch(error => console.error('Error:', error));
   };
 
-
-
-  // form submit handler
 
   const formSubmitHandler = (e) => {
     e.preventDefault();
@@ -79,9 +90,7 @@ function Auth() {
       formData.role = userType;
     }
 
-
     userAuthWithServer(formData);
-
 
   }
 
@@ -148,7 +157,7 @@ function Auth() {
 
             </div>
 
-            <p className="text-center mt-3">{authType ? "Already have an account ? " : "Don't have an account ? "} <strong className="text-red-400 cursor-pointer top active:text-red-500" onClick={authTypeHandller}>{authType ? "Sign In" : 'Sign Up'}</strong></p>
+            <p className="text-center mt-3">{authType === 'signup' ? "Already have an account ? " : "Don't have an account ? "} <strong className="text-red-400 cursor-pointer top active:text-red-500" onClick={authTypeHandller}>{authType === 'login' ? "Sign Up" : 'Sign In'}</strong></p>
           </div>
         </div>
       </form>

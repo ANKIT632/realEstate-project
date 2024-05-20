@@ -1,33 +1,34 @@
-import React, { useEffect, useState } from 'react';
+import  React,{ useEffect, useState } from 'react';
 import { Route, Routes } from 'react-router-dom';
-
+import UserDataContext from './context/userContext';
 import Home from './pages/home.page';
 import TopNavBar from './components/topNavBar.component';
 
 import SellPropertyForm from './pages/sellPropertyForm.page';
 import Auth from './pages/userAuth.page';
-import Foter from './components/foter.component'
+
 
 import BottomNavbar from './components/bottomNavbar.component'
 import AllDeals from './pages/allDeals.page';
+import {getSession} from './localSession/authSession'
+import Favourite from './pages/favourite.page';
 
-const LocalDataContext = React.createContext({});
 
 export default function App() {
 
-  const [userData, setUserData] = useState(null);
-  const [accessToken, setAccessToken] = useState(null);
+  const [userData, setUserData] = useState({});
+  const [accessToken, setAccessToken] = useState({});
+ 
+useEffect(()=>{
+ 
+  setUserData(getSession('user_data'));
+  setAccessToken(getSession('access_token'));
 
-  useEffect(()=>{
-    let data = JSON.parse(localStorage.getItem('user_data'));
-    let token = JSON.parse(localStorage.getItem('access_token'));
-    setAccessToken(token);
-    setUserData(data);
-  },[])
+},[]);
 
   return (
     <div className='bg-gray-100'>
-    <LocalDataContext.Provider value={{userData,accessToken}}>
+    <UserDataContext.Provider value={{ userData, setUserData, accessToken, setAccessToken }}>
       <TopNavBar />
       
       <Routes>
@@ -37,11 +38,12 @@ export default function App() {
         <Route path="*" element={<h1>404 Not Found</h1>} />
         <Route path="/auth" element={<Auth />} />
         <Route path='/allDeals' element={<AllDeals/>}/>
+        <Route path='/favourite' element={<Favourite/>}/>
       </Routes>
 
-      <Foter />
+    
       <BottomNavbar />
-      </LocalDataContext.Provider>
+      </UserDataContext.Provider>
     </div>
   )
 }
