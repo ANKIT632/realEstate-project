@@ -10,7 +10,7 @@ function TopNavBar() {
  
   const {userData} = useContext(UserDataContext);
 
-console.log('u', Object.keys(userData));
+console.log('topNavBar');
   const [searchBoxVisibility, setSearchBoxVisibility] = useState(false);
  
 
@@ -20,6 +20,7 @@ console.log('u', Object.keys(userData));
 
   // handller menue
   const handleSetUserMenue = () => {
+   
     setShowUserMenue(!showUserMenue);
   }
 
@@ -27,6 +28,7 @@ console.log('u', Object.keys(userData));
   // handle add user property
 
   const handleAddProperty = () => {
+   
     navigate('/sellProperty');
   }
 
@@ -34,14 +36,16 @@ console.log('u', Object.keys(userData));
 
   // auth Handller
   const authHandller = () => {
+ 
     navigate('/auth');
   }
 
   // logout handller
  const logoutHandler=()=>{
+
   deleteSession('user_data');
   deleteSession('access_token');
-  userData(null);
+  userData({});
  }
 
 
@@ -73,7 +77,7 @@ console.log('u', Object.keys(userData));
 
       {
         showUserMenue && (
-          <div className="fixed right-1 mt-6 w-48 rounded-md shadow-lg bg-gray-50 ring-2 ring-black ring-opacity-5 z-20 ">
+          <div className="fixed right-1 mt-6 w-48 rounded-md shadow-lg bg-gray-50 ring-2 ring-black ring-opacity-5  ">
 
             <div className="py-1" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
 

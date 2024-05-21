@@ -1,8 +1,58 @@
 import { formStyle, commonStyle } from '../style';
+import {getSession} from '../localSession/authSession'
 
 function SellProperty() {
+
+
+  const propertyAddInServer = (formData) => {
+    const token =getSession('access_token');
+    fetch(`http://localhost:8080/api/v1/owner/selling/property`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      },
+      body: JSON.stringify(formData),
+      
+    })
+      .then(response => response.json())
+      .then(data => {
+       
+        console.log(data.message);
+      }).catch(err=>{
+        console.log(err.message);
+      });
+    }
+
+
+  // form submit handler
+  const formSubmitHandler = (e) => {
+    e.preventDefault();
+    const formElement = document.getElementById('formElement');
+
+
+    let form = new FormData(formElement);
+    let formData = {};
+    formData.propertyInfo={};
+    formData.location={};
+    for (let [key, value] of form.entries()) {
+      if(key==='bedrooms' || key==='bathrooms' ||key==='squareFeet'){
+        formData.propertyInfo[key]=value;
+      }
+      else if(key=='city' || key=='region' || key=='country' ||key=='postalCode' ){
+        formData.location[key]=value;
+      }
+      else
+      formData[key] = value;
+     
+    }
+     propertyAddInServer(formData);
+  }
+ 
+
   return (
-    <form className="w-full flex flex-col justify-center items-center pt-4 bg-slate-200">
+
+    <form id='formElement' className="w-full flex flex-col justify-center items-center pt-4 bg-slate-200">
       <div className={formStyle.mainFormDiv}>
 
         <div className='border-gray-900 bg-white pt-2 px-2 rounded-lg '>
@@ -74,9 +124,10 @@ function SellProperty() {
 
       </div>
 
-      <button type="submit" className={formStyle.authBtn + " mb-9"}>Submit</button>
+      <button type="submit" className={formStyle.authBtn + " mb-9"} onClick={formSubmitHandler}>Submit</button>
 
     </form>
+
   )
 }
 

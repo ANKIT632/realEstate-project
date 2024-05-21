@@ -12,6 +12,7 @@ import BottomNavbar from './components/bottomNavbar.component'
 import AllDeals from './pages/allDeals.page';
 import {getSession} from './localSession/authSession'
 import Favourite from './pages/favourite.page';
+import Setting from './pages/setting.page';
 
 
 export default function App() {
@@ -39,6 +40,7 @@ useEffect(()=>{
         <Route path="/auth" element={<Auth />} />
         <Route path='/allDeals' element={<AllDeals/>}/>
         <Route path='/favourite' element={<Favourite/>}/>
+        <Route path='/setting' element={<Setting/>}/>
       </Routes>
 
     
