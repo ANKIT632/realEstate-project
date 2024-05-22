@@ -319,20 +319,20 @@ access_token : eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im1hcmtAZ21haWwu
 
       3) UPDATE USER PROFILE :
 
-   - { update multiple fields}. FOR USERNAME,AGE,GENDER,ADDRESS,PHONE,SOCIALURLS
+   - { update multiple fields}. FOR USERNAME,AGE,GENDER,ADDRESS,PHONE,SOCIALURLS,PASSWORD,ROLE
 
    NOTE : here also update one or more fields which is mentioned upper . 
 
-      Route: PUT /api/v1/user/profile/update/:userId
+      Route: PUT /api/v1/user/profile/update
 
       Description: Update user profile information.
 
       Request Headers:
+      body:{..update data}
       Content-Type: application/json
       Authorization: Bearer <access_token>
 
-      Path Parameters:
-      userId (string): Unique ID of the user.
+     
 
       Request Body (all field string):
 
@@ -342,6 +342,8 @@ access_token : eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im1hcmtAZ21haWwu
       "gender": "Male" ,
       "address": "123 Updated Street" ,
       "phone": "1234567890",
+      "role":"seller",
+    
       "socialUrls": {
       
         "LinkedIn": "https://linkedin.com/updated_profile",
@@ -361,14 +363,14 @@ access_token : eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im1hcmtAZ21haWwu
         "status": "success",
         }
 
-     Note : email,password,role are not update in multiple update   
+     Note : email are not update;
       
 
 
   - {Single field Update 1. } :FOR PASSWORD
  
 
-       Route: PUT /api/v1/user/profile/update/:userId
+       Route: PUT /api/v1/user/profile/update/
 
       Description: Update user profile information.
 
@@ -376,12 +378,13 @@ access_token : eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im1hcmtAZ21haWwu
       Content-Type: application/json
       Authorization: Bearer <access_token>
 
-      Path Parameters:
-      userId (string): Unique ID of the user.
+
 
      Request Body:
 
-     {"password":"newPassword"}
+     {"password":"prevPassword",
+       "newPassword:"NewPassword"
+     }
 
 
        Response Headers:
@@ -397,16 +400,11 @@ access_token : eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im1hcmtAZ21haWwu
 
        - {Single Update 2. } FOR ROLE
 
-       Route: PUT /api/v1/user/profile/update/:userId
-
-      Description: Update user profile information.
+       Route: (PUT req)  /api/v1/user/profile/update/:userId
 
       Request Headers:
       Content-Type: application/json
       Authorization: Bearer <access_token>
-
-      Path Parameters:
-      userId (string): Unique ID of the user.
 
      Request Body:
 
@@ -422,9 +420,21 @@ access_token : eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im1hcmtAZ21haWwu
          "access_token": <token>
         }
       
-      Note:
-      Replace <access_token> with the actual access token obtained from the authentication process.
-      For the update profile endpoint, only the fields mentioned in the request body can be updated.
+     Note : after role(here change account type),password update required to login.
+
+
+
+     4) delete Account :
+     url : https://realestate-project-6mri.onrender.com/api/v1/user/delete
+     
+     pass from client :
+  
+    
+       body: {"password":"eg.123456"} 
+      Content-Type: application/json
+      Authorization: Bearer <access_token>
+
+
 
 ---------------PROPERTY DOC----------------------
 

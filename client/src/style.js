@@ -24,3 +24,10 @@ export const formStyle={
   mainFormDiv:" bg-blue-50 w-[95%] max-xs:w-[100%] max-xs:rounded-sm sm:w-[70%] md:w-[45%] flex flex-col  mb-6  items-center pt-4 pb-3 rounded-lg ",
     
 }
+
+
+export const settingStyle={
+  updateCompMainDiv:'grid w-full grid-cols-1 sm:grid-cols-2 gap-2 justify-items-center md:w-[80%]  mt-4',
+
+  btn:"px-2 py-1 rounded-[5px] bg-green-400 text-center text-white font-bold shadow-lg hover:bg-green-500 active:bg-green-600 cursor-pointer w-[70%] md:w-[50%] h-fit",
+}

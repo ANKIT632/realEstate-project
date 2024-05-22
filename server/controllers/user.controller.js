@@ -3,6 +3,7 @@ const user_model = require('../models/user.model.js');
 const jwt = require('jsonwebtoken');
 const { secret_key } = require('../configs/auth.config.js');
 const mongoose = require('mongoose');
+const bcrypt = require('bcryptjs')
 
 // update user data
 
@@ -11,41 +12,31 @@ exports.updateUser = async (req, res) => {
   try {
 
     // Find the user
-    const user = await user_model.findById(req.params.userId);
-
-    if (!user) {
-      return res.status(404).send({ status: "failed", message: 'User not found' });
+    const user = await user_model.findById(req.user._id);
+    const password=req.body.password;
+    const new_password=req.body.newPassword;
+    
+  if (!user) {
+    return res.status(404).send({ status: "failed", message: 'User not found' });
+  }
+       
+    if ( !bcrypt.compareSync(password, user.password)) {
+      return res.status(401).send({ status: "failed", message: "Wrong password !!" });
     }
+
+    req.body.password=new_password;
 
     // Update the user's info
     user.set(req.body);
 
     // Save the user
-    const updateUser = await user.save();
+   await user.save();
 
-
-    // generate token
-
-    if (req.body.role) {
-      jwt.sign({ email: updateUser.email, _id: req.params.userId, role: updateUser.role }, secret_key, (err, token) => {
-
-        if (err) {
-
-          return res.status(500).send({ status: "failed", message: 'Error while generating token try again !!' });
-        }
-
-        return res.status(200).send({
-          status: "success",
-          access_token: token,
-        });
-
-      }, { expiresIn: '5days' });
-    }
-    else {
       return res.status(200).send({
         status: "success",
+        message:'update successful'
       });
-    }
+    
 
   } catch (err) {
 
@@ -107,7 +98,7 @@ exports.getSingleUser = async (req, res) => {
       return res.status(400).send({ status: "failed", message: "User id not valid" });
     }
 
-    const user = await user_model.findById(userId).select("-password -updatedAt -createdAt -phone");
+    const user = await user_model.findById(userId).select("-password -updatedAt -createdAt");
 
     if (!user) {
       return res.status(400).send({ status: "failed", message: "User Not found" });
@@ -129,17 +120,27 @@ exports.getSingleUser = async (req, res) => {
 exports.deleteUser = async (req, res) => {
 
   try {
-    const userId = req.params.userId;
-    const user = await user_model.findByIdAndDelete(userId);
+    const userId = req.user._id;
+    const user = await user_model.findById(userId);
+    const passwordByUser = req.body.password;
 
     if (!user) {
       return res.status(400).send({ status: "failed", message: "User Not found" });
     }
-    else {
+
+
+    if (bcrypt.compareSync(passwordByUser, user.password)) {
+      await user_model.findByIdAndDelete(userId);
       return res.status(200).send({
         status: "success",
         message: "User deleted successfully"
       });
+    }
+    else {
+      return res.status(401).send({
+        status: "failed",
+        message: "Wrong password !!"
+      })
     }
   }
   catch (err) {

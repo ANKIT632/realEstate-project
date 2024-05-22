@@ -4,11 +4,7 @@ const mongoose = require('mongoose');
 
 const validateUserUpdate = (req, res, next) => {
 
-  const userId = req.params.userId;
   const role = req.body.role;
-
-
-
 
   if (role !== undefined) {
     if (role !== 'buyer' && role !== 'seller') {
@@ -18,13 +14,6 @@ const validateUserUpdate = (req, res, next) => {
       req.body.role = req.body.role === 'buyer' ? 'Buyer' : 'Seller';
     }
 
-  }
-  if (userId.length !== 24 || !mongoose.Types.ObjectId.isValid(userId)) {
-    return res.status(400).send({ status: "failed", message: "User id not valid" });
-  }
-
-  if (userId !== req.user._id.toString()) {
-    return res.status(403).send({ status: "failed", message: "Unauthorized access" });
   }
 
   if (Object.keys(req.body).length === 0) {
@@ -36,9 +25,6 @@ const validateUserUpdate = (req, res, next) => {
   }
 
 
-  if (req.body.password && Object.keys(req.body).length > 1) {
-    return res.status(400).send({ status: "failed", message: 'only password single field update' });
-  }
 
   next();
 

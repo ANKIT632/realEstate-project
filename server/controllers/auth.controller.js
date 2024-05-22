@@ -39,7 +39,7 @@ exports.signIn = async (req, res) => {
         if (!user) {
             return res.status(404).send({ status: "failed", message: 'User not found please signup' });
         }
-        // compare password with hashpassword
+        // compare password with hashpassword 
         if (bcrypt.compareSync(password, user.password)) {
 
             jwt.sign({ email, _id: user._id, role: user.role }, secret_key, (err, token) => {

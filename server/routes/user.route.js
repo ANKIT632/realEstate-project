@@ -10,10 +10,10 @@ module.exports = (server) => {
 
     server.get('/api/v1/user/profile/:userId', userController.getSingleUser);
 
-    server.put('/api/v1/user/profile/update/:userId', authMiddleware.verifyToken, userMiddleware.validateUserUpdate, userController.updateUser);
+    server.put('/api/v1/user/profile/update', authMiddleware.verifyToken, userMiddleware.validateUserUpdate, userController.updateUser);
 
     // delete account
-    server.delete('/api/v1/user/delete/:userId', userController.deleteUser);
+    server.delete('/api/v1/user/delete',authMiddleware.verifyToken, userController.deleteUser);
 
 
 }

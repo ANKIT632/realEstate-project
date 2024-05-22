@@ -7,35 +7,53 @@ import { FcDeleteDatabase } from "react-icons/fc";
 import { IoIosLogOut } from "react-icons/io";
 import { FaUserGear } from "react-icons/fa6";
 import { FiChevronLeft } from "react-icons/fi";
+import UpdateProfileComp from "../components/updateProfile.component";
+import UpdatePasswordComp from "../components/updatePassword.component";
+import DeleteAccountComp from "../components/deleteAccount.component";
 
 function Setting() {
 
     const [settingMenue, setSettingMenue] = useState(false);
-    const [updateMenuType, setUpdateMenuType] = useState('profile');
+    const [updateMenuType, setUpdateMenuType] = useState('Update Profile');
 
 
     // handller update menu
 
     const updateMenueContentHandler = (type) => {
         setUpdateMenuType(type);
+        setSettingMenue((pre)=>!pre);
     }
 
     console.log('settingpage');
     return (
-        <section className="min-h-[100%] relative">
+        <section className="relative  ">
 
-            <div className="flex items-center fixed top-14 z-20 bg-gray-200 w-full md:w-[80%] ">
+            <div className="flex items-center sticky top-14 z-20 bg-gray-200 w-full md:w-[80%] ">
                 <FaUserGear className="mx-2" />
-                <h4 className=" font-mono font-bold">Setting</h4>
+                <h4 className=" font-mono font-bold">{updateMenuType}</h4>
                 {!settingMenue && <FiChevronLeft className="text-black text-2xl  fixed right-0 cursor-pointer  hover:text-blue-500 md:hidden" onClick={() => setSettingMenue((pre) => !pre)} />
                 }
             </div>
 
             {/* left update div page */}
-            <div className={`bg-gray-400 min-h-[100vh] w-full ${settingMenue ? 'max-md:filter max-md:blur-lg max-md:pointer-events-none' : ''}  md:w-[80%]`}>
+            <div className={`bg-gray-100 text-black   ${settingMenue ? 'max-md:filter max-md:blur-sm max-md:pointer-events-none' : ''}  md:w-[80%] min-h-[88vh] `}>
            
            {
-       
+                updateMenuType === 'Update Profile' && <div className=" w-full max-md:mb-14">
+                    <UpdateProfileComp/>
+                </div>
+            }
+
+            {
+                updateMenuType === 'Update Password' && <div className=" w-full h-full absolute">
+                <UpdatePasswordComp/>
+                </div>
+            }
+
+            {
+                updateMenuType === 'Delete Account' && <div className=" w-full h-full absolute">
+                 <DeleteAccountComp/>
+                </div>
            }
 
             </div>
@@ -49,22 +67,22 @@ function Setting() {
 
 
                 <div className=" text-white pt-2">
-                    <div className={`flex items-center pl-1 hover:bg-gray-600 h-8 border-b border-white ${updateMenuType === 'profile' ? ' text-blue-500' : " "}`}
-                        onClick={() => updateMenueContentHandler('profile')}
+                    <div className={`flex items-center pl-1 hover:bg-gray-600 h-8 border-b border-white ${updateMenuType === 'Update Profile' ? ' text-blue-500' : " "}`}
+                        onClick={() => updateMenueContentHandler('Update Profile')}
                     >
                         <AiOutlineIdcard />
                         <Link className="pl-1 font-mono text-sm">Profile Update</Link>
                     </div>
 
-                    <div className={`flex items-center pl-1 hover:bg-gray-600 h-8 border-b border-white ${updateMenuType === 'password' ? ' text-blue-500' : " "}`}
-                        onClick={() => updateMenueContentHandler('password')}>
+                    <div className={`flex items-center pl-1 hover:bg-gray-600 h-8 border-b border-white ${updateMenuType === 'Update Password' ? ' text-blue-500' : " "}`}
+                        onClick={() => updateMenueContentHandler('Update Password')}>
                         <RiLockPasswordFill />
                         <Link className="pl-1 font-mono text-sm">Password Update</Link>
                     </div>
 
 
-                    <div className={`flex items-center pl-1 hover:bg-gray-600 h-8 border-b border-white  ${updateMenuType === 'deleteAccount' ? ' text-blue-500' : " "}`}
-                        onClick={() => updateMenueContentHandler('deleteAccount')}>
+                    <div className={`flex items-center pl-1 hover:bg-gray-600 h-8 border-b border-white  ${updateMenuType === 'Delete Account' ? ' text-blue-500' : " "}`}
+                        onClick={() => updateMenueContentHandler('Delete Account')}>
                         <FcDeleteDatabase />
                         <Link className="pl-1 font-mono text-sm">Delete Account</Link>
                     </div>

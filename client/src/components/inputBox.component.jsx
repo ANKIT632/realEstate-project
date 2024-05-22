@@ -1,10 +1,14 @@
 /* eslint-disable react/prop-types */
+import {formStyle} from '../style'
 
-export default function InputBox({label,type,value}) {
+export default function InputBox({label,type,placeholder}) {
   return (
-    <div>
-        <label className="block text-sm font-medium text-gray-700" htmlFor={label}>{label}</label>
-        <input type={type} value={value}/>
+    
+    <div className='w-[80%]'>
+        <label className={formStyle.lable} htmlFor={label}>{label}</label>
+        <input type={type} placeholder={placeholder} required autoComplete="true" className={formStyle.input}/>
+      
     </div>
+
   )
 }
