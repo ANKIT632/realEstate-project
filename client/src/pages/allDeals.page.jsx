@@ -1,9 +1,11 @@
-import React, { useEffect } from 'react'
+import React, { useEffect,useContext } from 'react'
 import SingleCard from '../components/singleCard.component';
-import { commonStyle } from '../style'
 import { FcNext, FcPrevious } from "react-icons/fc";
+import UserDataContext from '../context/userContext';
 
 function AllDeals() {
+
+  const { searchQuery} = useContext(UserDataContext); 
   const [pageNo, setPageNo] = React.useState(1);
   const [dealsData, setDealsData] = React.useState([]);
   const [isLoading, setIsLoading] = React.useState(true);
@@ -13,10 +15,20 @@ function AllDeals() {
   const fetchData = async () => {
     try {
       setIsLoading(true);
-      const response = await fetch(`https://realestate-project-6mri.onrender.com/api/v1/selling/property/all?page=${pageNo}&size=10`);
+      let response ={};
+      if(searchQuery.trim()!==''){
+    
+      
+       response = await fetch(`https://realestate-project-6mri.onrender.com/api/v1/selling/property/search?searchQuery=${searchQuery}&page=${pageNo}&size=10`);
+        
+       console.log("q");
+      }
+      else{
+        response = await fetch(`https://realestate-project-6mri.onrender.com/api/v1/selling/property/all?page=${pageNo}&size=10`);
+      }
       const data = await response.json();
-
-
+     
+  console.log(data);
       setDealsData(data);
       setIsLoading(false);
 

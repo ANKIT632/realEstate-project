@@ -10,7 +10,7 @@ function Review() {
 
   }, []);
 
-  console.log("er", review);
+  console.log('review');
   return (
     <div className="mb-2 ">
       <h3 className={commonStyle.heading+" text-center mt-6"}>Testimoials</h3>

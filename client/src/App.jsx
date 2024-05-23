@@ -1,4 +1,4 @@
-import  React,{ useEffect, useState } from 'react';
+import  { useContext, useEffect, useState } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import UserDataContext from './context/userContext';
 import Home from './pages/home.page';
@@ -19,6 +19,9 @@ export default function App() {
 
   const [userData, setUserData] = useState({});
   const [accessToken, setAccessToken] = useState({});
+  const [searchQuery,setSearchQuery]=useState('');
+
+  const contextSearchQuery=useContext('contextSearchQuery');
  
 useEffect(()=>{
  
@@ -27,9 +30,10 @@ useEffect(()=>{
 
 },[]);
 
+
   return (
     <div className='bg-gray-100'>
-    <UserDataContext.Provider value={{ userData, setUserData, accessToken, setAccessToken }}>
+    <UserDataContext.Provider value={{ userData, setUserData, accessToken, setAccessToken,searchQuery,setSearchQuery }}>
       <TopNavBar />
       
       <Routes>

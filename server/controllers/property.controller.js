@@ -30,11 +30,10 @@ exports.getAllProperty = async (req, res) => {
 
 
     try {
+        const totalProperty = await property_model.countDocuments();
         const allProperty = await property_model.find().skip((page - 1) * size).populate('owner', 'username profile_url socialUrls').limit(size);
 
-
-        return res.status(200).send({ status: "success", allProperty })
-
+        return res.status(200).send({ status: "success",totalProperty, allProperty })
 
     }
 
@@ -72,9 +71,10 @@ exports.searchProperty = async (req, res) => {
     const size = parseInt(req.query.size) || 10;
 
     try {
-        const searchProperty = await property_model.search(searchQuery, page, size);
+        const totalProperty = await property_model.countDocuments();
+        const allProperty = await property_model.search(searchQuery, page, size);
 
-        res.status(200).send({ status: "success", searchProperty });
+        res.status(200).send({ status: "success", totalProperty,allProperty });
     } catch (err) {
 
         res.status(500).send({ status: "failed", message: err.message });
@@ -89,9 +89,10 @@ exports.getAllPropertyByOwner = async (req, res) => {
     const size = parseInt(req.query.size) || 20;
 
     try {
+        const totalOwner = await property_model.countDocuments();
         const allProperty = await property_model.find({ owner: req.user._id }).skip((page - 1) * size);
 
-        return res.status(200).send({ status: "success", allProperty });
+        return res.status(200).send({ status: "success",totalOwner, allProperty });
     }
 
     catch (err) {

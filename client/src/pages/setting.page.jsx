@@ -28,10 +28,10 @@ function Setting() {
     return (
         <section className="relative  ">
 
-            <div className="flex items-center sticky top-14 z-20 bg-gray-200 w-full md:w-[80%] ">
+            <div className="flex items-center  z-20 bg-gray-200 w-full md:w-[80%] sticky top-14">
                 <FaUserGear className="mx-2" />
                 <h4 className=" font-mono font-bold">{updateMenuType}</h4>
-                {!settingMenue && <FiChevronLeft className="text-black text-2xl  fixed right-0 cursor-pointer  hover:text-blue-500 md:hidden" onClick={() => setSettingMenue((pre) => !pre)} />
+                {!settingMenue && <FiChevronLeft className="text-black text-2xl  absolute right-0 cursor-pointer  hover:text-blue-500 md:hidden" onClick={() => setSettingMenue((pre) => !pre)} />
                 }
             </div>
 
