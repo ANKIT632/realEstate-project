@@ -14,6 +14,11 @@ export default {
         'md': '768px',
         'lg': '1024px',
       },
+      animation: {
+        rotate: 'rotate 4s linear infinite',
+      }
+    ,
+      
     },
   },
   plugins: [],

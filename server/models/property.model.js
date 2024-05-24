@@ -97,7 +97,7 @@ propertySchema.index({ 'title': 'text', 'description': 'text', 'location.city': 
 
 propertySchema.statics.search = function (query, page, size) {
   return this.find({ $text: { $search: query } }).skip((page - 1) * size)
-    .limit(size).populate('owner', '-password -email -createdAt -updatedAt -gender -address -phone -role -age -socialUrls').select('-createdAt -updatedAt');
+    .limit(size).populate('owner', '-password -email -createdAt -updatedAt -gender -address -phone -role -age -socialUrls').select('-updatedAt');
 
 }
 

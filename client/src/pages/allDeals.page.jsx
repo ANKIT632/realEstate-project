@@ -2,14 +2,15 @@ import React, { useEffect,useContext } from 'react'
 import SingleCard from '../components/singleCard.component';
 import { FcNext, FcPrevious } from "react-icons/fc";
 import UserDataContext from '../context/userContext';
+import { IoMdRefreshCircle } from "react-icons/io";
 
 function AllDeals() {
 
-  const { searchQuery} = useContext(UserDataContext); 
+  const { searchQuery,setSearchQuery} = useContext(UserDataContext); 
   const [pageNo, setPageNo] = React.useState(1);
   const [dealsData, setDealsData] = React.useState([]);
   const [isLoading, setIsLoading] = React.useState(true);
-
+  const [totalPage, setTotalPage] = React.useState(1);
 
   // fetch data
   const fetchData = async () => {
@@ -28,11 +29,11 @@ function AllDeals() {
       }
       const data = await response.json();
      
-  console.log(data);
+  console.log("data",data);
       setDealsData(data);
       setIsLoading(false);
-
-
+   
+    
 
     } catch (error) {
       console.error('Error:', error);
@@ -41,7 +42,7 @@ function AllDeals() {
 
   // next page 
   const nextPageHanddler = () => {
-
+    if(pageNo<totalPage)
     setPageNo(pageNo + 1);
   };
 
@@ -53,15 +54,34 @@ function AllDeals() {
     }
   };
 
+  const handleRefresh=(e)=>{
+    e.preventDefault();
+  setSearchQuery("");
+  setPageNo(1);
+  setTotalPage(Math.ceil(dealsData.totalProperty/10.0));
+  }
+
 
   useEffect(() => {
     fetchData();
-  }, [pageNo]);
+    setPageNo(1);
+  }, []);
+
+
+  useEffect(() => {
+    setTotalPage(Math.ceil(dealsData.totalProperty/10.0));
+    fetchData();
+  }, [pageNo,searchQuery]);
+
 
 
   return (
     <div className=' w-full overflow-hidden min-h-[90vh]'>
-      {(!isLoading) ? <><h2 className="">New Deals</h2>
+    <div className='w-full flex mb-2 mt-1 bg-gray-300 items-center  '>
+    <h2 className="  text-md font-mono font-bold pl-2">Daily New Deals</h2>
+    <IoMdRefreshCircle className='text-lg cursor-pointer ml-2 transform hover:rotate-180' onClick={handleRefresh}/>
+    </div>
+      {(!isLoading) ? <>
 
         <div className='grid grid-cols-2 gap-2   max-md:grid-cols-1 justify-items-center '>
           {
@@ -75,7 +95,7 @@ function AllDeals() {
           <div className='p-x-0.5 bg-gray-200 hover:bg-gray-300 rounded-sm shadow border border-gray-300 md:p-1'> <FcPrevious className='cursor-pointer text-[25px]' onClick={prePageHandler} />
           </div>
           <div className='p-x-0.5 bg-gray-200 hover:bg-gray-300 rounded-sm shadow border border-gray-300 md:p-1'>
-            <FcNext className='cursor-pointer text-[25px]' onClick={nextPageHanddler} />
+            <FcNext className={`cursor-pointer text-[25px]  ${(pageNo>totalPage)? ' hidden ':''}`} onClick={nextPageHanddler} />
           </div>
         </div>
       </> 

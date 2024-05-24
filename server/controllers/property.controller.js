@@ -31,7 +31,7 @@ exports.getAllProperty = async (req, res) => {
 
     try {
         const totalProperty = await property_model.countDocuments();
-        const allProperty = await property_model.find().skip((page - 1) * size).populate('owner', 'username profile_url socialUrls').limit(size);
+        const allProperty = await property_model.find().sort({createdAt: -1}).skip((page - 1) * size).populate('owner', 'username  email profile_url socialUrls').limit(size);
 
         return res.status(200).send({ status: "success",totalProperty, allProperty })
 
@@ -55,7 +55,7 @@ exports.updateProperty = async (req, res) => {
         if (!property) {
             return res.status(404).send({ status: "failed", message: 'Property not found' });
         }
-        res.status(200).send({ status: "success" });
+        res.status(200).send({ status: "success" ,message: 'Property updated successfully' });
 
     } catch (err) {
 
@@ -71,8 +71,8 @@ exports.searchProperty = async (req, res) => {
     const size = parseInt(req.query.size) || 10;
 
     try {
-        const totalProperty = await property_model.countDocuments();
-        const allProperty = await property_model.search(searchQuery, page, size);
+        const totalProperty = await property_model.countDocuments({ $text: { $search: searchQuery } })
+        const allProperty = await property_model.search(searchQuery, page, size).sort({createdAt: -1});
 
         res.status(200).send({ status: "success", totalProperty,allProperty });
     } catch (err) {
@@ -89,10 +89,10 @@ exports.getAllPropertyByOwner = async (req, res) => {
     const size = parseInt(req.query.size) || 20;
 
     try {
-        const totalOwner = await property_model.countDocuments();
-        const allProperty = await property_model.find({ owner: req.user._id }).skip((page - 1) * size);
+        const totalProperty = await property_model.countDocuments({ owner: req.user._id });
+        const allProperty = await property_model.find({ owner: req.user._id }).sort({createdAt: -1}).skip((page - 1) * size);
 
-        return res.status(200).send({ status: "success",totalOwner, allProperty });
+        return res.status(200).send({ status: "success",totalProperty, allProperty });
     }
 
     catch (err) {

@@ -128,7 +128,7 @@ const searchHandler=(e)=>{
         }
 
       </nav>
-      <input type="text" placeholder="Find by name,location,city" className={`text-xs   h-8 w-full  pl-7  bg-sky-50 border border-gray-500   md:right-[120px] md:w-[30%] rounded-md  outline-none md:block   ${searchBoxVisibility ? '' : ' hidden '} focus:border-blue-500 md:absolute md:top-3 ` } value={localSearch} onChange={searchChangeHandler} onKeyDownCapture={searchHandler}/>
+      <input type="text" placeholder="Find by name,location,city" className={`text-xs   h-8 w-full  pl-7  bg-sky-50 border border-gray-500   md:right-[120px] md:w-[30%] md:rounded-md  outline-none md:block   ${searchBoxVisibility ? '' : ' hidden '} focus:border-blue-500 md:absolute md:top-3 ` } value={localSearch} onChange={searchChangeHandler} onKeyDownCapture={searchHandler}/>
     </div>
   )
 }

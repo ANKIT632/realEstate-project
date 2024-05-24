@@ -17,7 +17,7 @@ const createReview=async (req,res)=>{
 const getAllReview=async(req,res)=>{
     try{
         const totalReview = await reviewModel.countDocuments();
-    const allReview= await reviewModel.find().populate('user','username profile_url socialUrls createdAt');
+    const allReview= await reviewModel.find().sort({createdAt:-1}).populate('user','username profile_url socialUrls email createdAt');
     
     res.status(200).send({status:"success",totalReview,data:allReview});
     }

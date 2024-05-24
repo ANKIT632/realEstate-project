@@ -21,8 +21,6 @@ export default function App() {
   const [accessToken, setAccessToken] = useState({});
   const [searchQuery,setSearchQuery]=useState('');
 
-  const contextSearchQuery=useContext('contextSearchQuery');
- 
 useEffect(()=>{
  
   setUserData(getSession('user_data'));

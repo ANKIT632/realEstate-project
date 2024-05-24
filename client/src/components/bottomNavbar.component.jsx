@@ -11,7 +11,7 @@ function BottomNavbar() {
 
 
   return (
-    <div className="fixed bottom-0 w-full h-8 bg-white border-t-2 border-x-1 border-gray-100 md:hidden z-50 ">
+    <div className="sticky bottom-0 w-full h-8 bg-white border-t-2 border-x-1 border-gray-100 md:hidden z-50 ">
       <div className="w-full h-full flex justify-around items-center ">
 
         

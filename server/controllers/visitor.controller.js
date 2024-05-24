@@ -55,8 +55,8 @@ exports.createVisitor = async (req, res) => {
 exports.getVisitors = async (req, res) => {
     const  propertyId  = req.params.propertyId;
        
-    try {    const totalVisitors = await visitorModel.countDocuments();
-        let visitors = await visitorModel.findOne( {propertyId:propertyId} ).populate('visitors.visitorDetails','fullName email  phone profile_url');
+    try {    const totalVisitors = await visitorModel.countDocuments({propertyId:propertyId});
+        let visitors = await visitorModel.findOne( {propertyId:propertyId} ).sort({createdAt:-1}).populate('visitors.visitorDetails','fullName email  phone profile_url');
 
 
         res.status(200).send({ status: "success", totalVisitors,visitors });

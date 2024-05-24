@@ -67,7 +67,7 @@ exports.getAllUser = async (req, res) => {
     let allUser = [];
 
     if (userType) {
-      allUser = await user_model.find({ role: userType }).skip((page - 1) * size)
+      allUser = await user_model.find({ role: userType }).sort({createdAt: -1}).skip((page - 1) * size)
         .limit(size).select("username profile_url email role");
     }
     else {
