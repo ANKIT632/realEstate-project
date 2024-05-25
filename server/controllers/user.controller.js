@@ -11,6 +11,7 @@ exports.updateUser = async (req, res) => {
 
   try {
 
+
     // Find the user
     const user = await user_model.findById(req.user._id);
     const password=req.body.password;
@@ -20,10 +21,11 @@ exports.updateUser = async (req, res) => {
     return res.status(404).send({ status: "failed", message: 'User not found' });
   }
        
-    if ( !bcrypt.compareSync(password, user.password)) {
+    if (new_password!==undefined && !bcrypt.compareSync(password, user.password)) {
       return res.status(401).send({ status: "failed", message: "Wrong password !!" });
     }
-
+   
+    if(new_password!==undefined)
     req.body.password=new_password;
 
     // Update the user's info

@@ -13,6 +13,7 @@ function Auth() {
 
   const [passwordVisibility, setPasswordVisibility] = useState(false);
   const { setUserData, setAccessToken} = useContext(UserDataContext);
+
   // login or sign up
   const [authType, setAuthType] = useState('login');
 
@@ -54,9 +55,10 @@ function Auth() {
           else {
             setSession('user_data', data.user);
             setSession('access_token', data.access_token);
+            setSession("userId",data.user._id);
 
             const userData =getSession('user_data');
-            console.log(userData);
+         
             const accessToken =getSession('access_token');
           
             setUserData(userData);

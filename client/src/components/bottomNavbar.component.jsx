@@ -1,11 +1,22 @@
-import { useNavigate } from 'react-router-dom'
-import gear from '../assets/gear.png'
+import { useNavigate} from 'react-router-dom'
+import gear from '../assets/gear.png';
+
+import { useContext } from 'react';
+import UserDataContext from '../context/userContext';
 
 function BottomNavbar() {
 
+ const {userId,userData}=useContext(UserDataContext);
+   
+ console.log("id",userId);
   const navigate = useNavigate();
 
   const handleNavigate = (path) => {
+    if(path==='/setting')
+    {
+      path=`/setting/${userId}`
+    }
+
     navigate(path);
   }
 

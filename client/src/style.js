@@ -14,7 +14,7 @@ export const formStyle={
 
     lable:"block tracking-wide text-gray-700 text-xs font-bold mb-2",
 
-    input:"appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-400 rounded py-1.5 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-blue-500",
+    input:"appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-400 rounded py-1.5 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-blue-500 focus:text-blue-700",
 
     select:"block appearance-none w-full bg-gray-200 border border-gray-400 text-gray-700 py-2 px-4 rounded leading-tight focus:outline-none focus:bg-white focus:border-blue-500"
   ,
