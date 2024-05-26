@@ -10,19 +10,37 @@ import { FiChevronLeft } from "react-icons/fi";
 import UpdateProfileComp from "../components/updateProfile.component";
 import UpdatePasswordComp from "../components/updatePassword.component";
 import DeleteAccountComp from "../components/deleteAccount.component";
+import UpdateRole from "../components/updateRole.component";
+import { FaClipboardUser } from "react-icons/fa6";
+import  {logoutUser}  from "../utils/auth";
+import { useContext } from "react";
+import UserDataContext from "../context/userContext";
+
 
 function Setting() {
 
     const [settingMenue, setSettingMenue] = useState(false);
     const [updateMenuType, setUpdateMenuType] = useState('Update Profile');
 
+    
+    const {setUserData,setUserId} = useContext(UserDataContext);
 
     // handller update menu
 
     const updateMenueContentHandler = (type) => {
         setUpdateMenuType(type);
-        setSettingMenue((pre)=>!pre);
+        setSettingMenue((pre) => !pre);
     }
+
+   // handler Logout
+   
+   const logoutHanddler=(e)=>{
+    e.preventDefault();
+    logoutUser();
+    setUserData({});
+    setUserId('');
+    setSettingMenue(false);
+   }
 
     console.log('settingpage');
     return (
@@ -37,24 +55,30 @@ function Setting() {
 
             {/* left update div page */}
             <div className={`bg-gray-100 text-black   ${settingMenue ? 'max-md:filter max-md:blur-sm max-md:pointer-events-none' : ''}  md:w-[80%] min-h-[88vh] `}>
-           
-           {
-                updateMenuType === 'Update Profile' && <div className=" w-full max-md:mb-14">
-                    <UpdateProfileComp/>
-                </div>
-            }
 
-            {
-                updateMenuType === 'Update Password' && <div className=" w-full h-full absolute">
-                <UpdatePasswordComp/>
-                </div>
-            }
+                {
+                    updateMenuType === 'Update Profile' && <div className=" w-full max-md:mb-14">
+                        <UpdateProfileComp />
+                    </div>
+                }
 
-            {
-                updateMenuType === 'Delete Account' && <div className=" w-full h-full absolute">
-                 <DeleteAccountComp/>
-                </div>
-           }
+                {
+                    updateMenuType === 'Update Password' && <div className=" w-full h-full absolute">
+                        <UpdatePasswordComp />
+                    </div>
+                }
+
+                {
+                    updateMenuType === 'Delete Account' && <div className=" w-full h-full absolute">
+                        <DeleteAccountComp />
+                    </div>
+                }
+
+                {
+                    updateMenuType === 'Update Role' && <div className=" w-full h-full absolute">
+                        <UpdateRole/>
+                    </div>
+                }
 
             </div>
 
@@ -87,9 +111,15 @@ function Setting() {
                         <Link className="pl-1 font-mono text-sm">Delete Account</Link>
                     </div>
 
+                    <div className={`flex items-center pl-1 hover:bg-gray-600 h-8 border-b border-white  ${updateMenuType === 'Update Role' ? ' text-blue-500' : " "}`}
+                        onClick={() => updateMenueContentHandler('Update Role')}>
+                        <FaClipboardUser />
+                        <Link className="pl-1 font-mono text-sm">Update Role</Link>
+                    </div>
+
                     <div className={`flex items-center pl-1 hover:bg-gray-600 h-8 border-b border-white`}>
                         <IoIosLogOut />
-                        <Link className="pl-1 font-mono text-sm hover:text-blue-500">Logout</Link>
+                        <Link to='/' className="pl-1 font-mono text-sm hover:text-blue-500" onClick={logoutHanddler}>Logout</Link>
                     </div>
 
                 </div>

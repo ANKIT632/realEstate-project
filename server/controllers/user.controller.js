@@ -20,12 +20,14 @@ exports.updateUser = async (req, res) => {
   if (!user) {
     return res.status(404).send({ status: "failed", message: 'User not found' });
   }
+  
        
-    if (new_password!==undefined && !bcrypt.compareSync(password, user.password)) {
+    if (new_password!==undefined && password!==undefined && !bcrypt.compareSync(password, user.password)) {
       return res.status(401).send({ status: "failed", message: "Wrong password !!" });
     }
+    
    
-    if(new_password!==undefined)
+    if( password!==undefined && new_password!==undefined)
     req.body.password=new_password;
 
     // Update the user's info

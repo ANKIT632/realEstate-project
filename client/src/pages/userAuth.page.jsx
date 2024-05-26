@@ -65,10 +65,10 @@ function Auth() {
             setAccessToken(accessToken);
             navigate('/');
           }
-
+       console.log(data);
 
         }
-        console.log(data?.message);
+        else   console.log(data);
       })
       .catch(error => console.error('Error:', error));
   };

@@ -17,3 +17,7 @@ export const getLocalStorage = (key) => {
     
         return item;
 }
+
+export const removeLocalStorage = (key) => {
+     localStorage.removeItem(key);
+}

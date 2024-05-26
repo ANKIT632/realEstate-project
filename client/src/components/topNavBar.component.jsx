@@ -1,12 +1,14 @@
 import { useState, useContext,useEffect} from "react";
-import { Link, useNavigate,useLocation } from "react-router-dom";
+import { Link, useNavigate,useLocation, useParams } from "react-router-dom";
 import { commonStyle } from '../style';
 import searchIcon from '../assets/searchIcon.png';
 import { BiAlignRight } from "react-icons/bi";
 import { deleteSession } from '../localSession/authSession';
+import { removeLocalStorage } from '../localSession/userLocaldata';
 import UserDataContext from '../context/userContext';
-
-
+import { FaArrowLeft } from "react-icons/fa";
+import { TbHomeSearch } from "react-icons/tb";
+import { IoSearchCircleSharp } from "react-icons/io5";
 
 
 function TopNavBar() {
@@ -17,10 +19,9 @@ function TopNavBar() {
 
 
   
-  const { userData,setUserData,setSearchQuery} = useContext(UserDataContext);
+  const { userData,setUserData,setSearchQuery,searchBoxVisibility, setSearchBoxVisibility} = useContext(UserDataContext);
   
   const [localSearch,setLocalSearch]=useState('');
-  const [searchBoxVisibility, setSearchBoxVisibility] = useState(false);
   const [showUserMenue, setShowUserMenue] = useState(false);
 
   console.log('topNavBar');
@@ -48,14 +49,15 @@ function TopNavBar() {
     deleteSession('user_data');
     deleteSession('access_token');
     setUserData({});
+    deleteSession('userId');
+    removeLocalStorage('user_Profile_data');
+    setShowUserMenue(false);
+    navigate('/');
   }
 
 // search handler
 const searchChangeHandler = (e) => {
-  console.log(e.key,e.target.value);
-
     setLocalSearch(e.target.value);
-  
 }
 
 const searchHandler=(e)=>{
@@ -70,10 +72,19 @@ const searchHandler=(e)=>{
   }
 }
 
+const handlerIconSearchQuery=()=>{
+  setSearchQuery(localSearch);
+}
+
+
+
+useEffect(()=>{
+
+},[])
    
 
   useEffect(() => {
-    if (location.pathname === '/setting') {
+    if (location.pathname === `/setting/${userData._id}`) {
       setSearchBoxVisibility(false);
     } 
   }, [location.pathname]);
@@ -83,10 +94,6 @@ const searchHandler=(e)=>{
     <div className="w-full sticky top-0 z-50">
       <nav className={`w-full   h-14 bg-white   border-b  overflow-hidden ${searchBoxVisibility ? 'max-md:hidden ' : ''}}`}>
         <h1 className="text-blue-600  relative top-2.5 left-2 font-poppins font-extrabold text-[22px]  cursor-pointer active:text-blue-800" onClick={() => navigate('./')}>EcoEstate</h1>
-
-        <img src={searchIcon} className={`w-6 fixed top-[16px] right-24 md:hidden cursor-pointer ${location.pathname==='/setting' ?' hidden ' : ' '}`} alt="icon" onClick={() => setSearchBoxVisibility((pre) => !pre)} />
-
-
 
 
         {userData?.role === 'Seller' && <button className=" absolute top-1 -my-3 font-bold  right-20  text-[40px] max-md:hidden " onClick={handleAddProperty}>+</button>
@@ -102,7 +109,7 @@ const searchHandler=(e)=>{
                 <BiAlignRight className={`h-5 w-5 ${showUserMenue ? " text-blue-500" : "text-white"}`} />
               </div>
 
-              : <button className={commonStyle.btn + "fixed top-4  px-2"} onClick={authHandller}>Sign In</button>}
+              : <button className={commonStyle.btn + "fixed top-4 px-2"} onClick={authHandller}>Sign In</button>}
         </span>
 
         {
@@ -128,7 +135,14 @@ const searchHandler=(e)=>{
         }
 
       </nav>
-      <input type="text" placeholder="Find by name,location,city" className={`text-xs   h-8 w-full  pl-7  bg-sky-50 border border-gray-500   md:right-[120px] md:w-[30%] md:rounded-md  outline-none md:block   ${searchBoxVisibility ? '' : ' hidden '} focus:border-blue-500 md:absolute md:top-3 ` } value={localSearch} onChange={searchChangeHandler} onKeyDownCapture={searchHandler}/>
+      
+<div className={`max-md:flex max-md:items-center max-md:bg-gray-200  max-md:shadow-sm max-md:h-10 ${searchBoxVisibility ? '' : 'max-md:hidden '}`}>
+     <FaArrowLeft className="md:hidden w-[6%] active:text-blue-500 cursor-pointer" onClick={() => setSearchBoxVisibility((pre) => !pre)}/>
+
+      <input type="text" placeholder="Find by name,location,city" className={`text-xs   h-8 max-md:w-[94%]  pl-4  bg-sky-50 border border-gray-500   md:right-[120px] md:w-[340px] max-md:rounded-2xl rounded-lg  outline-none md:block    focus:border-blue-500 md:absolute md:top-3 pr-8` } value={localSearch} onChange={searchChangeHandler} onKeyDownCapture={searchHandler}/>
+
+   <IoSearchCircleSharp className="text-3xl  w-[6%] active:text-blue-500 max-md:fixed  max-md:right-0  md:absolute md:top-3 md:right-[8%] cursor-pointer" onClick={handlerIconSearchQuery} />
+      </div>
     </div>
   )
 }

@@ -1,12 +1,11 @@
 import { useNavigate} from 'react-router-dom'
-import gear from '../assets/gear.png';
-
+import { FaUserGear } from "react-icons/fa6";
 import { useContext } from 'react';
 import UserDataContext from '../context/userContext';
 
 function BottomNavbar() {
 
- const {userId,userData}=useContext(UserDataContext);
+ const {userId,userData,searchBoxVisibility, setSearchBoxVisibility}=useContext(UserDataContext);
    
  console.log("id",userId);
   const navigate = useNavigate();
@@ -28,7 +27,7 @@ function BottomNavbar() {
         
         <i className=" fi fi-br-home text-md cursor-pointer   active:border-t active:border-gray-500 " onClick={()=>handleNavigate('/')}/> 
 
-        <i className="fi fi-br-search text-md cursor-pointer active:border-t active:border-gray-500 " />
+        <i className="fi fi-br-search text-md cursor-pointer active:border-t active:border-gray-500 "  onClick={() => setSearchBoxVisibility((pre) => !pre)} />
 
 
         <div className="h-10 w-10 rounded-full bg-blue-600 flex  justify-center items-center border-t-4 relative bottom-1.5 border-black active:border-t active:border-gray-500 hover:bg-blue-500" onClick={()=>handleNavigate('/sellProperty')}>
@@ -40,9 +39,9 @@ function BottomNavbar() {
         <i className="fi fi-bs-heart text-md cursor-pointer active:border-t active:border-gray-500 " />
 
 
-        <div className='h-6 active:border-t active:border-gray-500 items-center flex justify-center'>
-          <img src={gear} alt="Gear icon" className="h-4 w-4 cursor-pointer  "  onClick={()=>handleNavigate('/setting')}/>
-        </div>
+        <FaUserGear className="fi fi-bs-heart text-md cursor-pointer active:border-t active:border-gray-500 "  onClick={()=>handleNavigate('/setting')} />
+      
+     
       </div>
     </div>
   )

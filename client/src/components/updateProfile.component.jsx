@@ -1,7 +1,7 @@
 import InputBox from "./inputBox.component";
 import { settingStyle, formStyle } from '../style'
 import { useEffect, useState, useContext } from "react";
-import { getLocalStorage, setLocalStorage } from "../localSession/userLocaldata";
+import { getLocalStorage, setLocalStorage,removeLocalStorage } from "../localSession/userLocaldata";
 import { useParams } from "react-router-dom";
 import UserDataContext from "../context/userContext";
 
@@ -18,7 +18,7 @@ function UpdateProfile() {
 
   // handler post update profile
   const handlerupdateUserProfile = (formData) => {
-    console.log("form", formData);
+    
     fetch('http://localhost:8080/api/v1/user/profile/update', {
       method: 'PUT',
       headers: {
@@ -28,8 +28,16 @@ function UpdateProfile() {
       body: JSON.stringify(formData)
 
     }).then(response => response.json())
-      .then(data => console.log(data))
-      .catch(error => console.error('Error:', error));
+      .then(data =>{ 
+        if(data.status === 'success'){
+          removeLocalStorage('user_Profile_data');
+          alert('Profile updated successfully');
+        }
+        else{
+          alert(data.message);
+         }
+        
+      }).catch(error => console.error('Error:', error));
 
   }
 
@@ -56,9 +64,7 @@ function UpdateProfile() {
 
     if (!userProfileData._id) {
       fetch('http://localhost:8080/api/v1/user/profile/' + userId).then(res => res.json()).then(data => {
-
         if (data.status === 'success') {
-
           setUserData(data.user);
           setLocalStorage('user_Profile_data', data.user);
         }
@@ -85,7 +91,6 @@ function UpdateProfile() {
       <div className='w-[80%]' >
         <label className={formStyle.lable} htmlFor='gender'>Gender</label>
         <select defaultValue={userData.gender} name="gender" id="gender" className={formStyle.input}>
-          <option value="none">none</option>
           <option value="male">male</option>
           <option value="female">female</option>
         </select>
@@ -95,7 +100,7 @@ function UpdateProfile() {
 
       <InputBox label={'Phone No'} placeholder={'Enter mobile no'} id={'phone'} value={userData.phone} />
 
-      <InputBox label={' Full Adress'} placeholder={'Enter mobile no'} id={'adress'} value={userData.address} />
+      <InputBox label={' Full Address'} placeholder={'Enter mobile no'} id={'address'} value={userData.address} />
 
       <InputBox label={'LinkedIn'} placeholder={'Enter LinkedIn profile'} id={'LinkedIn'} value={userData.socialUrls?.LinkedIn} />
 

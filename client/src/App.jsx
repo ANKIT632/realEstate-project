@@ -18,7 +18,7 @@ export default function App() {
   const [accessToken, setAccessToken] = useState({});
   const [searchQuery, setSearchQuery] = useState('');
   const [userId, setUserId] = useState('');
-  
+  const [searchBoxVisibility, setSearchBoxVisibility] = useState(false);
 
   useEffect(() => {
 
@@ -31,7 +31,7 @@ export default function App() {
 
   return (
     <div className='bg-gray-100'>
-      <UserDataContext.Provider value={{ userData, setUserData, accessToken, setAccessToken, searchQuery, setSearchQuery,userId }}>
+      <UserDataContext.Provider value={{ userData, setUserData, accessToken, setAccessToken, searchQuery, setSearchQuery,userId, setUserId ,searchBoxVisibility,setSearchBoxVisibility}}>
         <TopNavBar />
 
         <Routes>
