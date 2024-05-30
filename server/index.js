@@ -12,8 +12,9 @@ require('dotenv').config();
 
 //middleware
 server.use(cors({ credentials: true, origin: true }));
-server.use(express.json());
+server.use(express.json({limit: '2mb'}));
 server.use(express.urlencoded({ extended: true })); 
+
 
 // Serve static files from the "public" directory
 server.get('/api/v1/doc', (req, res) => {

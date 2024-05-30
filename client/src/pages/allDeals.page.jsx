@@ -20,12 +20,12 @@ function AllDeals() {
       if(searchQuery.trim()!==''){
     
       
-       response = await fetch(`https://realestate-project-6mri.onrender.com/api/v1/selling/property/search?searchQuery=${searchQuery}&page=${pageNo}&size=10`);
+       response = await fetch(`http://localhost:8080/api/v1/selling/property/search?searchQuery=${searchQuery}&page=${pageNo}&size=10`);
         
        console.log("q");
       }
       else{
-        response = await fetch(`https://realestate-project-6mri.onrender.com/api/v1/selling/property/all?page=${pageNo}&size=10`);
+        response = await fetch(`http://localhost:8080/api/v1/selling/property/all?page=${pageNo}&size=10`);
       }
       const data = await response.json();
      

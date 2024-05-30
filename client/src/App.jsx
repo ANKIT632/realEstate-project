@@ -10,7 +10,7 @@ import AllDeals from './pages/allDeals.page';
 import { getSession } from './localSession/authSession'
 import Favourite from './pages/favourite.page';
 import Setting from './pages/setting.page';
- 
+import SellTrack from './pages/sellTrack'; 
 
 export default function App() {
 
@@ -28,7 +28,6 @@ export default function App() {
 
   }, []);
 
-
   return (
     <div className='bg-gray-100'>
       <UserDataContext.Provider value={{ userData, setUserData, accessToken, setAccessToken, searchQuery, setSearchQuery,userId, setUserId ,searchBoxVisibility,setSearchBoxVisibility}}>
@@ -43,6 +42,8 @@ export default function App() {
           <Route path='/allDeals' element={<AllDeals />} />
           <Route path='/favourite' element={<Favourite />} />
           <Route path='/setting/:userId' element={<Setting />} />
+
+          <Route path='/sellTrack' element={<SellTrack />} />
         </Routes>
 
 

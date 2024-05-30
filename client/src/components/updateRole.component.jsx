@@ -37,7 +37,7 @@ function UpdateRole() {
            
          }
          catch(err){
-            alert(err.message);
+            alert(err);
          }
     }
 
@@ -47,25 +47,26 @@ function UpdateRole() {
 
         let formData = {};
 
-        if(userData.role!==e.target.role.value){
+        const currentRole=userData.role==='Seller'?'seller':'buyer'
+        if(currentRole!==e.target.role.value){
 
         formData.role = e.target.role.value;
         handlerupdateUserRole(formData);
-        console.log(formData);
+       
         
         } 
 
     }
 
 
-
+    console.log(userData);
     return (
         <form className={settingStyle.updateCompMainDiv} onSubmit={handlerSubmitForm}>
 
             <div className='w-[80%]' >
 
                 <label className={formStyle.lable} htmlFor='role'>Role</label>
-                <select defaultValue={userData.role} name="role" id="role" className={formStyle.input}>
+                <select defaultValue={userData.role==='Seller'?'seller':'buyer'} name="role" id="role" className={formStyle.input}>
 
                     <option value="buyer">Buyer</option>
                     <option value="seller">Seller</option>

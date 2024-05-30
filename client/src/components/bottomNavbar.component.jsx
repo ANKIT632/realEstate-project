@@ -15,7 +15,7 @@ function BottomNavbar() {
     {
       path=`/setting/${userId}`
     }
-
+   
     navigate(path);
   }
 
@@ -30,10 +30,10 @@ function BottomNavbar() {
         <i className="fi fi-br-search text-md cursor-pointer active:border-t active:border-gray-500 "  onClick={() => setSearchBoxVisibility((pre) => !pre)} />
 
 
-        <div className="h-10 w-10 rounded-full bg-blue-600 flex  justify-center items-center border-t-4 relative bottom-1.5 border-black active:border-t active:border-gray-500 hover:bg-blue-500" onClick={()=>handleNavigate('/sellProperty')}>
+       {userData.role==='Seller'&&<div className="h-10 w-10 rounded-full bg-blue-600 flex  justify-center items-center border-t-4 relative bottom-1.5 border-black active:border-t active:border-gray-500 hover:bg-blue-500" onClick={()=>handleNavigate('/sellProperty')}>
           <i className="fi fi-bs-plus text-white text-2xl cursor-pointer " />
 
-        </div>
+        </div>}
 
 
         <i className="fi fi-bs-heart text-md cursor-pointer active:border-t active:border-gray-500 " />
@@ -47,4 +47,4 @@ function BottomNavbar() {
   )
 }
 
-export default BottomNavbar
+export default BottomNavbar;

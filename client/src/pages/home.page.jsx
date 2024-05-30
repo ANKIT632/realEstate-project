@@ -14,9 +14,9 @@ function Home() {
     <div >
       <HeroSection />
       <FeatureSection />
-      {/* <HomeCategory /> */}
-      {/* <NewDeals /> */}
-      {/* <Testimoials /> */}
+      <HomeCategory /> 
+      <NewDeals />
+       <Testimoials />
       <Foter/>
     </div>
 

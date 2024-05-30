@@ -4,7 +4,7 @@ import { commonStyle } from '../style'
 function Review() {
   const [review, setReview] = useState([]);
   useEffect(() => {
-    fetch('https://realestate-project-6mri.onrender.com/api/v1/property/review/all')
+    fetch('http://localhost:8080/api/v1/property/review/all')
       .then(response => response.json())
       .then(data => setReview(data));
 

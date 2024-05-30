@@ -1,9 +1,16 @@
 // Update use info
 const user_model = require('../models/user.model.js');
-const jwt = require('jsonwebtoken');
-const { secret_key } = require('../configs/auth.config.js');
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs')
+require('../configs/cloud.config');
+const cloudinary = require('cloudinary').v2;
+
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_NAME,
+  api_key: process.env.CLOUDINARY_KEY,
+  api_secret: process.env.CLOUDINARY_SECRET
+});
+
 
 // update user data
 
@@ -14,33 +21,51 @@ exports.updateUser = async (req, res) => {
 
     // Find the user
     const user = await user_model.findById(req.user._id);
-    const password=req.body.password;
-    const new_password=req.body.newPassword;
-    
-  if (!user) {
-    return res.status(404).send({ status: "failed", message: 'User not found' });
-  }
-  
-       
-    if (new_password!==undefined && password!==undefined && !bcrypt.compareSync(password, user.password)) {
+    const password = req.body.password;
+    const new_password = req.body.newPassword;
+
+    if (!user) {
+      return res.status(404).send({ status: "failed", message: 'User not found' });
+    }
+
+    if (req.file && user) {
+
+      // Convert the file data to a base64 string
+      const base64Image = req.file.buffer.toString('base64');
+
+      // Upload the image to Cloudinary
+      const photo = await cloudinary.uploader.upload("data:image/jpeg;base64," + base64Image, { resource_type: "image" });
+
+      // The URL of the uploaded image is in result.url
+
+
+      req.body.profile_url = photo.url;
+    }
+
+
+
+
+    if (new_password !== undefined && password !== undefined && !bcrypt.compareSync(password, user.password)) {
       return res.status(401).send({ status: "failed", message: "Wrong password !!" });
     }
-    
-   
-    if( password!==undefined && new_password!==undefined)
-    req.body.password=new_password;
+
+
+    if (password !== undefined && new_password !== undefined)
+      req.body.password = new_password;
+
+
 
     // Update the user's info
     user.set(req.body);
 
     // Save the user
-   await user.save();
+    await user.save();
 
-      return res.status(200).send({
-        status: "success",
-        message:'update successful'
-      });
-    
+    return res.status(200).send({
+      status: "success",
+      message: 'update successful'
+    });
+
 
   } catch (err) {
 
@@ -50,7 +75,7 @@ exports.updateUser = async (req, res) => {
       return res.status(400).send({ status: "failed", message: err.message });
     }
     else {
-      return res.status(500).send({ status: "failed", message: err.message });
+      return res.status(500).send({ status: "failed", message: err });
     }
   }
 
@@ -71,7 +96,7 @@ exports.getAllUser = async (req, res) => {
     let allUser = [];
 
     if (userType) {
-      allUser = await user_model.find({ role: userType }).sort({createdAt: -1}).skip((page - 1) * size)
+      allUser = await user_model.find({ role: userType }).sort({ createdAt: -1 }).skip((page - 1) * size)
         .limit(size).select("username profile_url email role");
     }
     else {

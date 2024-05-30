@@ -2,7 +2,7 @@ const { model, Schema } = require('mongoose');
 
 const visitorSchema = new Schema({
 
-    propertyId: {
+    propertyDetails: {
         type: Schema.Types.ObjectId,
         ref: 'Property',
     },

@@ -43,7 +43,7 @@ const validateSignInData = async (req, res, next) => {
   const { email, password } = req.body;
 
   const regex = /^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/;
-  if(!regex.test(email)){
+  if (!regex.test(email)) {
     return res.status(400).send({ status: "failed", message: 'Email is not valid' });
   }
 
@@ -66,7 +66,7 @@ const verifyToken = (req, res, next) => {
   try {
     if (authHeader) {
       const token = authHeader.split(' ')[1];
-    
+
 
       jwt.verify(token, secret_key, (err, user) => {
         if (err) {

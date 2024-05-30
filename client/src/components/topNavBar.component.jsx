@@ -1,13 +1,12 @@
-import { useState, useContext,useEffect} from "react";
-import { Link, useNavigate,useLocation, useParams } from "react-router-dom";
+import { useState, useContext, useEffect } from "react";
+import { Link, useNavigate, useLocation, useParams } from "react-router-dom";
 import { commonStyle } from '../style';
-import searchIcon from '../assets/searchIcon.png';
+
 import { BiAlignRight } from "react-icons/bi";
 import { deleteSession } from '../localSession/authSession';
 import { removeLocalStorage } from '../localSession/userLocaldata';
 import UserDataContext from '../context/userContext';
 import { FaArrowLeft } from "react-icons/fa";
-import { TbHomeSearch } from "react-icons/tb";
 import { IoSearchCircleSharp } from "react-icons/io5";
 
 
@@ -18,10 +17,10 @@ function TopNavBar() {
   const navigate = useNavigate();
 
 
-  
-  const { userData,setUserData,setSearchQuery,searchBoxVisibility, setSearchBoxVisibility} = useContext(UserDataContext);
-  
-  const [localSearch,setLocalSearch]=useState('');
+
+  const { userData, setUserData, setSearchQuery, searchBoxVisibility, setSearchBoxVisibility } = useContext(UserDataContext);
+
+  const [localSearch, setLocalSearch] = useState('');
   const [showUserMenue, setShowUserMenue] = useState(false);
 
   console.log('topNavBar');
@@ -55,38 +54,41 @@ function TopNavBar() {
     navigate('/');
   }
 
-// search handler
-const searchChangeHandler = (e) => {
+  // search handler
+  const searchChangeHandler = (e) => {
     setLocalSearch(e.target.value);
-}
-
-const searchHandler=(e)=>{
-
-  if(e.key==='Enter' && location.pathname!=='/allDeals'){
-    
-  navigate('/allDeals');
   }
 
-  if (e.key === 'Enter') {
+  const searchHandler = (e) => {
+
+    if (e.key === 'Enter' && location.pathname !== '/allDeals') {
+
+      navigate('/allDeals');
+    }
+
+    if (e.key === 'Enter') {
+      setSearchQuery(localSearch);
+    }
+  }
+
+  const handlerIconSearchQuery = () => {
     setSearchQuery(localSearch);
   }
-}
 
-const handlerIconSearchQuery=()=>{
-  setSearchQuery(localSearch);
-}
-
+  const HandleToggleMenueOnLink = () => {
+    setShowUserMenue((pre) => !pre);
+  }
 
 
-useEffect(()=>{
+  useEffect(() => {
 
-},[])
-   
+  }, [])
+
 
   useEffect(() => {
     if (location.pathname === `/setting/${userData._id}`) {
       setSearchBoxVisibility(false);
-    } 
+    }
   }, [location.pathname]);
 
 
@@ -118,30 +120,32 @@ useEffect(()=>{
 
               <div className="py-1" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
 
-                <Link to="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Your Profile</Link>
+                <Link to="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem" onClick={HandleToggleMenueOnLink}>Your Profile</Link>
 
-                <Link to="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Settings</Link>
+                <Link to={`/setting/${userData._id}`} className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem" onClick={HandleToggleMenueOnLink}>Settings</Link>
 
-                {userData?.role === 'Seller' && <Link to="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem" >sell track</Link>}
+                {userData?.role === 'Seller' && <Link to="/sellTrack" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem" onClick={HandleToggleMenueOnLink} >sell track</Link>}
 
-                {userData?.role === 'Buyer' && <Link to="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem" >visit schedule</Link>}
+                {userData?.role === 'Buyer' && <Link to="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem" onClick={HandleToggleMenueOnLink}>visit schedule</Link>}
 
-                <Link to="/favourite" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem" onClick={() => setShowUserMenue((pre) => !pre)}>favourite</Link>
+                <Link to="/favourite" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem" onClick={HandleToggleMenueOnLink} >favourite</Link>
 
-                <Link to="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem" onClick={logoutHandler}>Logout</Link>
+                <Link to="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem" onClick={logoutHandler} >Logout</Link>
               </div>
             </div>
           )
         }
 
       </nav>
-      
-<div className={`max-md:flex max-md:items-center max-md:bg-gray-200  max-md:shadow-sm max-md:h-10 ${searchBoxVisibility ? '' : 'max-md:hidden '}`}>
-     <FaArrowLeft className="md:hidden w-[6%] active:text-blue-500 cursor-pointer" onClick={() => setSearchBoxVisibility((pre) => !pre)}/>
 
-      <input type="text" placeholder="Find by name,location,city" className={`text-xs   h-8 max-md:w-[94%]  pl-4  bg-sky-50 border border-gray-500   md:right-[120px] md:w-[340px] max-md:rounded-2xl rounded-lg  outline-none md:block    focus:border-blue-500 md:absolute md:top-3 pr-8` } value={localSearch} onChange={searchChangeHandler} onKeyDownCapture={searchHandler}/>
+{/* search div */}
 
-   <IoSearchCircleSharp className="text-3xl  w-[6%] active:text-blue-500 max-md:fixed  max-md:right-0  md:absolute md:top-3 md:right-[8%] cursor-pointer" onClick={handlerIconSearchQuery} />
+      <div className={`flex items-center max-md:bg-gray-200  max-md:shadow-sm max-md:h-10 ${searchBoxVisibility ? '' : 'max-md:hidden '} md:right-[120px]  md:top-3 md:absolute  `}>
+        <FaArrowLeft className="md:hidden w-[6%] active:text-blue-500 cursor-pointer" onClick={() => setSearchBoxVisibility((pre) => !pre)} />
+
+        <input type="text" placeholder="Find by name,location,city" className={`text-xs   h-8 max-md:w-[94%]  pl-4  bg-sky-50 border border-gray-500    rounded-lg  outline-none    focus:border-blue-500  pr-8 md:w-[340px]  max-md:rounded-2xl`} value={localSearch} onChange={searchChangeHandler} onKeyDownCapture={searchHandler} />
+
+        <IoSearchCircleSharp className="text-3xl active:text-blue-500 max-md:fixed  max-md:right-0  md:absolute  md:right-0  cursor-pointer" onClick={handlerIconSearchQuery} />
       </div>
     </div>
   )
