@@ -5,12 +5,12 @@ exports.createVisitor = async (req, res) => {
     const visitorId = req.user._id;
 
     try {
-        let visit_property = await visitorModel.findOne({ propertyId: propertyId });
+        let visit_property = await visitorModel.findOne({ propertyDetails: propertyId });
 
 
         if (!visit_property) {
 
-            visit_property = new visitorModel({ propertyId: propertyId, visitors: [] });
+            visit_property = new visitorModel({ propertyDetails: propertyId, visitors: [] });
         }
 
         let now = new Date();
@@ -54,14 +54,16 @@ exports.createVisitor = async (req, res) => {
 
 exports.getVisitors = async (req, res) => {
     const propertyId = req.params.propertyId;
-    console.log(propertyId);
 
     try {
 
-        let visitors = await visitorModel.findOne({ propertyDetails: propertyId }).sort({ createdAt: -1 }).populate('visitors.visitorDetails', 'fullName email  phone profile_url').populate('propertyDetails', ' title price location  isSold soldBy createdAt ');
+        let visitors = await visitorModel.findOne({ propertyDetails: propertyId }).sort({ createdAt: -1 }).populate('visitors.visitorDetails', 'username fullName email  phone profile_url').populate('propertyDetails', ' title price location  isSold soldBy createdAt ');
+
+        if(visitors===null){
+            return res.status(200).send({ status: "success", message: "Not any visitors !!" });
+        }
 
         const totalVisitors = visitors.visitors.length;
-
         res.status(200).send({ status: "success", totalVisitors, visitors });
     } catch (err) {
         res.status(500).send({ status: "failed", message: err.message });

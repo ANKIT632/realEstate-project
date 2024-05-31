@@ -10,7 +10,7 @@ function NewDeals() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch('https://realestate-project-6mri.onrender.com/api/v1/selling/property/all?page=1&size=6')
+    fetch('http://localhost:8080/api/v1/selling/property/all?page=1&size=6')
       .then(response => response.json())
       .then(data => setDeals(data));
   }, [])

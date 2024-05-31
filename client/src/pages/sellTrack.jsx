@@ -5,9 +5,13 @@ import SellTrackComponent from '../components/sellTrackComponent';
 
 function SellTrack() {
 
-  const [isSellData, setIsSellData] = useState({});
+  const [sellData, setSellData] = useState({});
 
 
+  
+
+
+   // get all seller property
   const getOwnSellData = async () => {
     try {
       const token= await getSession('access_token');
@@ -21,8 +25,8 @@ function SellTrack() {
       });
 
       const data = await response.json();
-      setIsSellData(data);
-      console.log(data);
+      setSellData(data);
+
     }
 
     catch (err) {
@@ -38,8 +42,12 @@ function SellTrack() {
   }, [])
 
   return (
-    <div className="w-full min-h-[94vh]">
-      <SellTrack/>
+    <div className="w-full min-h-[94vh] flex flex-col max-md:items-center mt-3 md:grid md:grid-cols-2 ">
+    {
+        sellData.totalProperty && sellData.allProperty?.map((data, idx) => 
+      <SellTrackComponent data={data} key={idx}/>
+         )
+    }
     </div>
   )
 }
