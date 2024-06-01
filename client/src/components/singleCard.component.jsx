@@ -62,7 +62,7 @@ catch(err){
 
                     <button className={commonStyle.btn + " relative text-xs left-0 mt-1 "}>Known more</button>
 
-                   { userData==='Buyer' && !data?.isSold &&<button className={commonStyle.btn + " relative text-xs left-0 mt-1 ml-1 " +"bg-green-400"} onClick={HandlerGetSchedule}>Get Schedule</button>
+                   { userData.role==='Buyer' && !data?.isSold &&<button className={commonStyle.btn + " relative text-xs left-0 mt-1 ml-1 " +"bg-green-400"} onClick={HandlerGetSchedule}>Get Schedule</button>
 
                    }
                 </div>

@@ -5,12 +5,13 @@ import Home from './pages/home.page';
 import TopNavBar from './components/topNavBar.component';
 import SellPropertyForm from './pages/sellPropertyForm.page';
 import Auth from './pages/userAuth.page';
-import BottomNavbar from './components/bottomNavbar.component'
+import BottomNavbar from './components/bottomNavbar.component';
 import AllDeals from './pages/allDeals.page';
-import { getSession } from './localSession/authSession'
+import { getSession } from './localSession/authSession';
 import Favourite from './pages/favourite.page';
 import Setting from './pages/setting.page';
-import SellTrack from './pages/sellTrack'; 
+import SellTrack from './pages/sellTrack';
+import BuyTrack from './pages/buyTrack.page';
 
 export default function App() {
 
@@ -30,7 +31,7 @@ export default function App() {
 
   return (
     <div className='bg-gray-100'>
-      <UserDataContext.Provider value={{ userData, setUserData, accessToken, setAccessToken, searchQuery, setSearchQuery,userId, setUserId ,searchBoxVisibility,setSearchBoxVisibility}}>
+      <UserDataContext.Provider value={{ userData, setUserData, accessToken, setAccessToken, searchQuery, setSearchQuery, userId, setUserId, searchBoxVisibility, setSearchBoxVisibility }}>
         <TopNavBar />
 
         <Routes>
@@ -44,6 +45,7 @@ export default function App() {
           <Route path='/setting/:userId' element={<Setting />} />
 
           <Route path='/sellTrack' element={<SellTrack />} />
+          <Route path='/buyTrack' element={<BuyTrack />} />
         </Routes>
 
 

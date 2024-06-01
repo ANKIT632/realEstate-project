@@ -69,3 +69,20 @@ exports.getVisitors = async (req, res) => {
         res.status(500).send({ status: "failed", message: err.message });
     }
 } 
+
+
+exports.getVisitorSchedule= async(req,res)=>{
+         
+    const userId=req.user._id;
+    try{
+     const schedule =await visitorModel.find({'visitors.visitorDetails':userId}).sort({ createdAt: -1 }).populate('propertyDetails', ' title price  description imagesUrl location  isSold soldBy  nagotiate createdAt ');
+
+
+     return res.status(200).send({ status: "success", schedule });
+    }
+
+    catch(err){
+        res.status(500).send({ status: "failed", message: "Try again !!" });
+    }
+
+}

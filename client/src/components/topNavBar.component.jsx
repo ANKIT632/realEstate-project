@@ -1,5 +1,5 @@
 import { useState, useContext, useEffect } from "react";
-import { Link, useNavigate, useLocation, useParams } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import { commonStyle } from '../style';
 
 import { BiAlignRight } from "react-icons/bi";
@@ -126,11 +126,11 @@ function TopNavBar() {
 
                 {userData?.role === 'Seller' && <Link to="/sellTrack" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem" onClick={HandleToggleMenueOnLink} >sell track</Link>}
 
-                {userData?.role === 'Buyer' && <Link to="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem" onClick={HandleToggleMenueOnLink}>visit schedule</Link>}
+                {userData?.role === 'Buyer' && <Link to="/buyTrack" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem" onClick={HandleToggleMenueOnLink}>visit schedule</Link>}
 
                 <Link to="/favourite" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem" onClick={HandleToggleMenueOnLink} >favourite</Link>
 
-                <Link to="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem" onClick={logoutHandler} >Logout</Link>
+                <Link to="/" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem" onClick={logoutHandler} >Logout</Link>
               </div>
             </div>
           )
@@ -138,9 +138,9 @@ function TopNavBar() {
 
       </nav>
 
-{/* search div */}
+      {/* search div */}
 
-      <div className={`flex items-center max-md:bg-gray-200  max-md:shadow-sm max-md:h-10 ${searchBoxVisibility ? '' : 'max-md:hidden '} md:right-[120px]  md:top-3 md:absolute  `}>
+      <div className={`flex items-center max-md:bg-white  max-md:shadow-sm max-md:h-10 ${searchBoxVisibility ? '' : 'max-md:hidden '} md:right-[120px]  md:top-3 md:absolute  `}>
         <FaArrowLeft className="md:hidden w-[6%] active:text-blue-500 cursor-pointer" onClick={() => setSearchBoxVisibility((pre) => !pre)} />
 
         <input type="text" placeholder="Find by name,location,city" className={`text-xs   h-8 max-md:w-[94%]  pl-4  bg-sky-50 border border-gray-500    rounded-lg  outline-none    focus:border-blue-500  pr-8 md:w-[340px]  max-md:rounded-2xl`} value={localSearch} onChange={searchChangeHandler} onKeyDownCapture={searchHandler} />

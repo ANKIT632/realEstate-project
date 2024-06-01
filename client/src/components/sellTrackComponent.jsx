@@ -1,15 +1,17 @@
 /* eslint-disable react/prop-types */
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { commonStyle } from '../style'
+import { useLocation } from 'react-router-dom';
 
 
-
-function SellTrackComponent({ data }) {
+function SellTrackComponent({ data,date }) {
 
   // get all visitor of property
   const [visitorData, setVisitorData] = useState({});
   const [isVisitShow,setIsVisitShow]=useState(true);
+
+  const location=useLocation();
 
   const getVisitorData = async (propertyId) => {
     try {
@@ -33,16 +35,15 @@ function SellTrackComponent({ data }) {
 
 
   return (
-    <div className='h-fit bg-white mb-3 py-3 w-[95%] px-2 rounded-xl  shadow-md hover:shadow-lg '>
+    <div className='h-fit bg-white mb-3 py-3 w-[95%]  px-2 rounded-xl  shadow-md hover:shadow-lg '>
 
 
-      <div className='flex'>
-        <div>
-          <div className='w-[200px] max-sm:w-[180px] max-xs:w-[120px]'>
+      <div className='flex max-xs:flex-col'>
+       
+          <div className='w-[200px] max-sm:w-[180px] max-xs:w-[150px]'>
             <img src={data?.imagesUrl[0]} alt='img' className='rounded-2xl w-full h-32 object-cover bg-gray-400 max-sm:h-28 max-xs:h-20' />
           </div>
 
-        </div>
 
         <div className='pl-2 pt-1 md:pl-6'>
           <h3 className={" text-sm  md:text-lg font-bold text-blue-600"}>{data.title}</h3>
@@ -50,17 +51,25 @@ function SellTrackComponent({ data }) {
 
           <h3 className={"  text-xs font-bold text-black"}>City : <strong className='text-blue-600 font-medium '> {data?.location?.city}</strong></h3>
 
-          <h3 className={"  text-xs  font-bold text-black max-sm:hidden "}>Description : <strong className='text-blue-600 font-medium'> {data.description}</strong></h3>
+          <h3 className={"  text-xs  font-bold text-black  "}>Description : <strong className='text-blue-600 font-medium'> {data.description}</strong></h3>
 
+          <h3 className={"  text-xs  font-bold text-black  "}>Status : <strong className='text-blue-600 font-medium'> {data?.isSold?"Sold Out":"Not Sold"}</strong></h3>
+
+          
+         {location.pathname==='/buyTrack' && <h3 className={`text-xs  font-bold text-black  `}>Negotiable Price : <strong className='text-blue-600 font-medium'> {data. nagotiate?"Yes":"No"}</strong></h3>
+         }
           {/* <h3 className={"  text-xs   font-bold text-black"}>Sold : <strong className='text-blue-600 font-medium'> {data.isSold ? 'close for Buy' : 'open for Buy'}</strong></h3> */}
 
 
-          {isVisitShow && <button className={commonStyle.btn + " relative text-xs left-0 mt-1 "} onClick={() => getVisitorData(data._id)} >Show visitors</button>}
+          {isVisitShow && <button className={commonStyle.btn + ` relative text-xs left-0 mt-1 ${ location.pathname==='/buyTrack' ? ' hidden' :" "}`} onClick={() => getVisitorData(data._id)} >Show visitors</button>}
+
+          {location.pathname==='/buyTrack' && <h3 className={`text-xs  font-bold text-black  `}>Visit At : <strong className='text-blue-600 font-medium'> {date}</strong></h3>
+         }
 
         </div>
       </div>
 
-      <div className={`h-[100px] w-full bg-gray-200 mt-2 flex space-x-1 items-center rounded-md`}>
+      {!isVisitShow && <div className={`h-[100px] w-full bg-gray-200 mt-2 flex space-x-1 items-center rounded-md`}>
         {
 
           visitorData?.visitors?.visitors?.map((data, idx) => {
@@ -76,7 +85,7 @@ function SellTrackComponent({ data }) {
             )
           })
         }
-      </div>
+      </div>}
 
     </div>
   )
