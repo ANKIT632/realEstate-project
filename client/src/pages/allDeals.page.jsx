@@ -76,7 +76,7 @@ function AllDeals() {
 
 
   return (
-    <div className=' w-full overflow-hidden min-h-[90vh]'>
+    <div className=' w-full overflow-hidden min-h-[90vh] '>
     <div className='w-full flex mb-2 mt-1 bg-gray-300 items-center  '>
     <h2 className="  text-md font-mono font-bold pl-2">Daily New Deals</h2>
     <IoMdRefreshCircle className='text-lg cursor-pointer ml-2 transform hover:rotate-180' onClick={handleRefresh}/>

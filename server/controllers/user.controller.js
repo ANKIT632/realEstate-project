@@ -2,7 +2,6 @@
 const user_model = require('../models/user.model.js');
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs')
-require('../configs/cloud.config');
 const cloudinary = require('cloudinary').v2;
 
 cloudinary.config({

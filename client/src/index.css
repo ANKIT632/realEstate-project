@@ -4,6 +4,13 @@
 @tailwind components;
 @tailwind utilities;
 
+
 * {
     user-select: none;
 }
+.scrollbarStyle::-webkit-scrollbar {
+    width: 0; 
+ 
+    
+  }
+  

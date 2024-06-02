@@ -11,7 +11,7 @@ import Foter from '../components/foter.component';
 
 function Home() {
   return (
-    <div >
+    <div  >
       <HeroSection />
       <FeatureSection />
       <HomeCategory /> 

@@ -30,7 +30,7 @@ export default function App() {
   }, []);
 
   return (
-    <div className='bg-gray-100'>
+    <div className='bg-gray-100 '>
       <UserDataContext.Provider value={{ userData, setUserData, accessToken, setAccessToken, searchQuery, setSearchQuery, userId, setUserId, searchBoxVisibility, setSearchBoxVisibility }}>
         <TopNavBar />
 

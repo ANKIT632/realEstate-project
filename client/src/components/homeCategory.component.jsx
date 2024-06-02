@@ -1,105 +1,48 @@
-import React from 'react';
-import Slider from 'react-slick';
-import 'slick-carousel/slick/slick.css';
-import 'slick-carousel/slick/slick-theme.css';
 import { commonStyle } from '../style';
-import leftArrow from '../assets/left-arrow.png';
-import rightArrow from '../assets/right-arrow.png';
 
 
 function HomeCategory() {
-  const sliderRef = React.useRef();
-
-  const settings = {
-    dots: false,
-    infinite: true,
-    speed: 500,
-    slidesToShow: 4,
-    slidesToScroll: 1,
-    arrows: false,
-    responsive: [
-      {
-        breakpoint: 768, // md screen
-        settings: {
-          slidesToShow: 3,
-          slidesToScroll: 1,
-        }
-      },
-      {
-        breakpoint: 640, // 640 screen
-        settings: {
-          slidesToShow: 2,
-          slidesToScroll: 1,
-
-        }
-      },
-      {
-        breakpoint: 400, // sm screen
-        settings: {
-          slidesToShow: 1,
-          slidesToScroll: 1,
-
-        }
-      }
-    ]
-
-    ,
-  };
-
+ 
   const categories = [
-    { name: 'Houses', image: 'https://images.unsplash.com/photo-1564013799919-ab600027ffc6?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D' },
-    { name: 'Apartments', image: 'https://images.unsplash.com/photo-1564013799919-ab600027ffc6?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D' },
-    { name: 'Commercial', image: 'https://images.unsplash.com/photo-1564013799919-ab600027ffc6?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D' },
-    { name: 'flat', image: 'https://images.unsplash.com/photo-1564013799919-ab600027ffc6?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D' },
-    { name: 'Villas', image: 'https://images.unsplash.com/photo-1564013799919-ab600027ffc6?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D' },
-    { name: 'Townhouses', image: 'https://images.unsplash.com/photo-1564013799919-ab600027ffc6?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D' },
-    { name: 'Bungalow', image: 'https://images.unsplash.com/photo-1564013799919-ab600027ffc6?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D' },
+    { name: 'Houses', image: 'https://images.unsplash.com/photo-1598228723793-52759bba239c?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D' },
+    { name: 'Apartments', image: 'https://images.unsplash.com/photo-1567684014761-b65e2e59b9eb?q=80&w=1935&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D' },
+   
+    { name: 'flat', image: 'https://images.unsplash.com/photo-1550838771-2b5ce38db44a?q=80&w=387&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D' },
+    { name: 'Villas', image: 'https://images.unsplash.com/photo-1580587771525-78b9dba3b914?q=80&w=774&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D' },
 
-    { name: 'Town House', image: 'https://images.unsplash.com/photo-1564013799919-ab600027ffc6?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D' },
-
-    { name: 'penthouse', image: 'https://images.unsplash.com/photo-1564013799919-ab600027ffc6?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D' },
-
-    { name: 'cottage', image: 'https://images.unsplash.com/photo-1564013799919-ab600027ffc6?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D' },
-
-    { name: 'Beach house', image: 'https://images.unsplash.com/photo-1564013799919-ab600027ffc6?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D' },
+    { name: 'Town houses', image: 'https://images.unsplash.com/photo-1576375801517-45814f908aa4?q=80&w=387&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D' },
+    { name: 'Bungalow', image: 'https://images.unsplash.com/photo-1632152683081-28923830268d?q=80&w=774&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D' },
 
    
-    { name: 'palace', image: 'https://images.unsplash.com/photo-1564013799919-ab600027ffc6?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D' },
+    { name: 'penthouse', image: 'https://images.unsplash.com/photo-1620086385485-d0bd6daa815c?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D' },
 
-    // Add more categories here
+    { name: 'cottage', image: 'https://images.unsplash.com/photo-1570127828934-c60aa3e1e5af?q=80&w=387&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D' },
+
+    { name: 'Beach house', image: 'https://images.unsplash.com/photo-1499793983690-e29da59ef1c2?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D' },
+
+
+    { name: 'palace', image: 'https://images.unsplash.com/photo-1571534980863-05f4c9e55568?q=80&w=387&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D' },
+
+
   ];
 
-  const next = () => {
-    sliderRef.current.slickNext();
-  }
-
-  const previous = () => {
-    sliderRef.current.slickPrev();
-  }
 
 
   return (
-    <div className='relative'>
+    <div className='relative  w-full  '>
       <h2 className={commonStyle.heading}>Home Categories</h2>
-      <Slider ref={sliderRef} {...settings}>
+      <div className='flex  h-30 overflow-x-scroll scrollbarStyle'>
         {categories.map((category, index) => (
-          <div key={index} className='p-1 shadow border border-white rounded-xl bg-white w-40'>
-            <img src={category.image} alt={category.name} className='rounded-xl' />
-            <h3 className={commonStyle.title + " text-[18px]"}>{category.name}</h3>
+          <div key={index} className='mr-2 shadow border border-white rounded-xl bg-white '>
+          <div className='w-48 h-28 md:w-64 md:h-40'>
+            <img src={category.image} alt={category.name} className='rounded-xl  h-28 w-48  object-cover md:w-64 md:h-40' />
+            </div>  
+            <h3 className={commonStyle.title + " text-[16px]"}>{category.name}</h3>
           </div>
         ))}
-      </Slider>
-
-
-      <div className='h-16  bg-white absolute bottom-[35%]  flex items-center rounded-lg left-2 opacity-60 cursor-pointer hover:opacity-90 border border-blue-500 ' onClick={previous}>
-        <img src={leftArrow} alt='left' className='h-5 w-4  opcity-100' />
-      </div>
-
-      <div className='h-16  bg-white absolute bottom-[35%]  flex items-center rounded-lg right-2 opacity-60 cursor-pointer hover:opacity-90 border border-blue-500 ' onClick={next}>
-        <img src={rightArrow} alt='right' className='h-5 w-4 ' />
 
       </div>
-      
+
     </div>
   );
 }
