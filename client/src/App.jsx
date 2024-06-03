@@ -12,6 +12,7 @@ import Favourite from './pages/favourite.page';
 import Setting from './pages/setting.page';
 import SellTrack from './pages/sellTrack';
 import BuyTrack from './pages/buyTrack.page';
+import Profile from './pages/profile.page';
 
 export default function App() {
 
@@ -46,6 +47,7 @@ export default function App() {
 
           <Route path='/sellTrack' element={<SellTrack />} />
           <Route path='/buyTrack' element={<BuyTrack />} />
+          <Route path='/userProfile/:userId' element={<Profile />} />
         </Routes>
 
 

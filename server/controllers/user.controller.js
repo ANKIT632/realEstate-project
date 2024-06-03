@@ -126,7 +126,7 @@ exports.getSingleUser = async (req, res) => {
       return res.status(400).send({ status: "failed", message: "User id not valid" });
     }
 
-    const user = await user_model.findById(userId).select("-password -updatedAt -createdAt");
+    const user = await user_model.findById(userId).select("-password -updatedAt ");
 
     if (!user) {
       return res.status(400).send({ status: "failed", message: "User Not found" });

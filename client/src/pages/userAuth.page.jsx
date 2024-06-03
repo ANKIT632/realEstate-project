@@ -18,7 +18,6 @@ function Auth() {
   const [authType, setAuthType] = useState('login');
 
 
-  console.log(setUserData);
   // handler for password visibility
   const handlePasswordVisibility = () => {
     setPasswordVisibility(!passwordVisibility);

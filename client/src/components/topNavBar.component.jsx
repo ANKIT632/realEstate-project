@@ -120,7 +120,7 @@ function TopNavBar() {
 
               <div className="py-1" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
 
-                <Link to="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem" onClick={HandleToggleMenueOnLink}>Your Profile</Link>
+                <Link to={`/userProfile/${userData._id}`} className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem" onClick={HandleToggleMenueOnLink}>Your Profile</Link>
 
                 <Link to={`/setting/${userData._id}`} className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem" onClick={HandleToggleMenueOnLink}>Settings</Link>
 
@@ -128,7 +128,7 @@ function TopNavBar() {
 
                 {userData?.role === 'Buyer' && <Link to="/buyTrack" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem" onClick={HandleToggleMenueOnLink}>visit schedule</Link>}
 
-                <Link to="/favourite" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem" onClick={HandleToggleMenueOnLink} >favourite</Link>
+                {/* <Link to="/favourite" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem" onClick={HandleToggleMenueOnLink} >favourite</Link> */}
 
                 <Link to="/" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem" onClick={logoutHandler} >Logout</Link>
               </div>
