@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 import { useContext, useState } from "react";
 import { formStyle, commonStyle } from '../style';
 import { useNavigate } from 'react-router-dom';
@@ -12,7 +13,7 @@ function Auth() {
   const navigate = useNavigate();
 
   const [passwordVisibility, setPasswordVisibility] = useState(false);
-  const { setUserData, setAccessToken} = useContext(UserDataContext);
+  const { setUserData, setAccessToken } = useContext(UserDataContext);
 
   // login or sign up
   const [authType, setAuthType] = useState('login');
@@ -24,7 +25,7 @@ function Auth() {
 
   }
 
- 
+
   // auth handdler
   const authTypeHandller = () => {
     if (authType === 'login')
@@ -38,7 +39,7 @@ function Auth() {
 
   const userAuthWithServer = (formData) => {
     let serverRoute = authType === 'login' ? 'signin' : 'signup';
-    fetch(`http://localhost:8080/api/v1/auth/${serverRoute}`, {
+    fetch(`${process.env.REACT_APP_BACKEND_URL_LOCAL}/auth/${serverRoute}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -54,20 +55,20 @@ function Auth() {
           else {
             setSession('user_data', data.user);
             setSession('access_token', data.access_token);
-            setSession("userId",data.user._id);
+            setSession("userId", data.user._id);
 
-            const userData =getSession('user_data');
-         
-            const accessToken =getSession('access_token');
-          
+            const userData = getSession('user_data');
+
+            const accessToken = getSession('access_token');
+
             setUserData(userData);
             setAccessToken(accessToken);
             navigate('/');
           }
-       console.log(data);
+          console.log(data);
 
         }
-        else   console.log(data);
+        else console.log(data);
       })
       .catch(error => console.error('Error:', error));
   };

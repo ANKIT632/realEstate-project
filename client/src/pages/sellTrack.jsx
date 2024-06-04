@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 import { useEffect, useState } from 'react';
 import {getSession} from '../localSession/authSession';
 import SellTrackComponent from '../components/sellTrackComponent';
@@ -16,7 +17,7 @@ function SellTrack() {
     try {
       const token= await getSession('access_token');
     
-      const response = await fetch('http://localhost:8080/api/v1/owner/selling/properties', {
+      const response = await fetch(`${process.env.REACT_APP_BACKEND_URL_LOCAL}/owner/selling/properties`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',

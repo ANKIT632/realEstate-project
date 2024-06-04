@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 import { useEffect, useState } from 'react'
 import { commonStyle } from '../style'
 import SingleCard from './singleCard.component'
@@ -10,7 +11,7 @@ function NewDeals() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch('http://localhost:8080/api/v1/selling/property/all?page=1&size=6')
+    fetch(`${process.env.REACT_APP_BACKEND_URL_LOCAL}/selling/property/all?page=1&size=6`)
       .then(response => response.json())
       .then(data => setDeals(data));
   }, [])

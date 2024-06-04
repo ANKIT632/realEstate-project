@@ -71,7 +71,8 @@ function TopNavBar() {
     }
   }
 
-  const handlerIconSearchQuery = () => {
+  const handlerIconSearchQuery = (e) => {
+    navigate('/allDeals');
     setSearchQuery(localSearch);
   }
 

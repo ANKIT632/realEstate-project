@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 import InputBox from "./inputBox.component";
 import { settingStyle, formStyle } from '../style'
 import { useEffect, useState, useContext } from "react";
@@ -16,10 +17,11 @@ function UpdateProfile() {
 
 
 
+
   // handler post update profile
   const handlerupdateUserProfile = (formData) => {
     
-    fetch('http://localhost:8080/api/v1/user/profile/update', {
+    fetch(`${process.env.REACT_APP_BACKEND_URL_LOCAL}/user/profile/update`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
@@ -63,7 +65,8 @@ function UpdateProfile() {
 
 
     if (!userProfileData._id) {
-      fetch('http://localhost:8080/api/v1/user/profile/' + userId).then(res => res.json()).then(data => {
+      
+      fetch(`${process.env.REACT_APP_BACKEND_URL_LOCAL}/user/profile/${userId}`).then(res => res.json()).then(data => {
         if (data.status === 'success') {
           setUserData(data.user);
           setLocalStorage('user_Profile_data', data.user);
@@ -81,9 +84,9 @@ function UpdateProfile() {
 
   return (
     <form className={settingStyle.updateCompMainDiv} id="updateFormElement" onSubmit={handlerSubmitForm}>
-
+       
       <div>
-        <img src="" className="w-16 h-16 rounded-full bg-white" />
+        <img src={userData.profile_url} className="w-16 h-16 rounded-full bg-white" />
       </div>
 
       <InputBox label={'Username'} placeholder={'Enter name'} id={"username"} value={userData.username} />

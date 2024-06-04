@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 /* eslint-disable react/prop-types */
 import { commonStyle } from '../style'
 import UserDataContext from '../context/userContext';
@@ -11,7 +12,7 @@ function SingleCard({ data }) {
     const HandlerGetSchedule =async () => {
 try{
    
-    await fetch(`http://localhost:8080/api/v1/property/create/visitor/${data._id}`,{
+    await fetch(`${process.env.REACT_APP_BACKEND_URL_LOCAL}/property/create/visitor/${data._id}`,{
         headers: {
             'Authorization': `Bearer ${accessToken}`
           }
@@ -60,9 +61,9 @@ catch(err){
                     <h3 className={"  text-xs  font-bold text-black max-sm:hidden "}>Description : <strong className='text-blue-600 font-medium'> {data.description}</strong></h3>
 
 
-                    <button className={commonStyle.btn + " relative text-xs left-0 mt-1 "}>Known more</button>
+                    {/* <button className={commonStyle.btn + " relative text-xs left-0 mt-1 "}>Known more</button> */}
 
-                   { userData.role==='Buyer' && !data?.isSold &&<button className={commonStyle.btn + " relative text-xs left-0 mt-1 ml-1 " +"bg-green-400"} onClick={HandlerGetSchedule}>Get Schedule</button>
+                   { (userData.role==='Buyer'|| userData.role==='Seller') && !data?.isSold &&<button className={commonStyle.btn + " relative text-xs left-0 mt-1 ml-1 " +"bg-green-400"} onClick={HandlerGetSchedule}>Get Schedule</button>
 
                    }
                 </div>

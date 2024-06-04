@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 import { useEffect,useState } from "react";
 import {getSession} from '../localSession/authSession';
 import SellTrackComponent from "../components/sellTrackComponent";
@@ -21,7 +22,7 @@ const getVisitDate=(data)=>{
      try{
       const token= await getSession('access_token');
 
-      const response = await fetch(`http://localhost:8080/api/v1/property/visitor/schedule`, {
+      const response = await fetch(`${process.env.REACT_APP_BACKEND_URL_LOCAL}/property/visitor/schedule`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -47,8 +48,8 @@ const getVisitDate=(data)=>{
   },[])
  
   return (
-    <div className="w-full h-[95vh]">BuyTrack
-     <div className='grid grid-cols-2 gap-2   max-md:grid-cols-1 justify-items-center '>
+    <div className="w-full h-[95vh]">
+     <div className='grid grid-cols-2 gap-2   max-md:grid-cols-1 justify-items-center mt-4'>
         {    
            
           scheduleData?.schedule?.map((data, idx) => {

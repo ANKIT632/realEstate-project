@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 import { settingStyle, formStyle } from '../style'
 import { useState, useContext } from "react";
 import UserDataContext from "../context/userContext";
@@ -15,7 +16,7 @@ function DeleteAcconunt() {
   // handler post update profile
   const handlerupdateUserProfile = (formData) => {
 
-    fetch('http://localhost:8080/api/v1/user/delete', {
+    fetch(`${process.env.REACT_APP_BACKEND_URL_LOCAL}/user/delete`, {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',

@@ -1,8 +1,10 @@
 /* eslint-disable react/prop-types */
+/* eslint-disable no-undef */
 
-import { useEffect, useState } from 'react'
+import {  useState,useContext } from 'react'
 import { commonStyle } from '../style'
 import { useLocation } from 'react-router-dom';
+import UserDataContext from "../context/userContext";
 
 
 function SellTrackComponent({ data,date }) {
@@ -10,26 +12,29 @@ function SellTrackComponent({ data,date }) {
   // get all visitor of property
   const [visitorData, setVisitorData] = useState({});
   const [isVisitShow,setIsVisitShow]=useState(true);
-
+  const { accessToken } = useContext(UserDataContext);
   const location=useLocation();
 
   const getVisitorData = async (propertyId) => {
     try {
-      const response = await fetch(`http://localhost:8080/api/v1/property/visitors/${propertyId}`, {
+      const response = await fetch(`${process.env.REACT_APP_BACKEND_URL_LOCAL}/property/visitors/${propertyId}`, {
         method: 'GET',
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
+          'authorization': `Bearer ${accessToken}`
+          
         }
       });
 
       const data = await response.json();
       setIsVisitShow((pre)=>!pre);
       setVisitorData(data);
+  
 
     }
 
     catch (err) {
-      console.log(err.message);
+      // console.log(err.message);
     }
   }
 

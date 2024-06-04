@@ -10,7 +10,7 @@ function Foter() {
           <a href="/" className="text-gray-200 hover:text-white max-xs:text-xs">Home</a>
           <a href="/about" className="text-gray-200 hover:text-white max-xs:text-xs">About</a>
           <a href="/contact" className="text-gray-200 hover:text-white max-xs:text-xs">Contact</a>
-          <a href="/review" className="text-gray-200 hover:text-white max-xs:text-xs">Review</a>
+          <a href="/allDeals" className="text-gray-200 hover:text-white max-xs:text-xs">Deals</a>
         
         </div>
         <div className="flex justify-center space-x-4 mt-4">

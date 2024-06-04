@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 import { settingStyle, formStyle } from '../style'
 import { useState, useContext } from "react";
 import UserDataContext from "../context/userContext";
@@ -11,7 +12,7 @@ function UpdatePassword() {
   // handler post update profile
   const handlerupdateUserProfile = (formData) => {
 
-    fetch('http://localhost:8080/api/v1/user/profile/update', {
+    fetch(`${process.env.REACT_APP_BACKEND_URL_LOCAL}/user/profile/update`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',

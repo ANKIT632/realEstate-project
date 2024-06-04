@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 import { settingStyle, formStyle } from '../style'
 import { useContext } from "react";
 import UserDataContext from "../context/userContext";
@@ -14,7 +15,7 @@ function UpdateRole() {
     // handdler role update
     const handlerupdateUserRole=async(formData)=>{
          try{
-            const res= await fetch('http://localhost:8080/api/v1/user/profile/update', {
+            const res= await fetch(`${process.env.REACT_APP_BACKEND_URL_LOCAL}/user/profile/update`, {
                 method: 'PUT',
                 headers: {
                   'Content-Type': 'application/json',

@@ -2,12 +2,15 @@ import { useNavigate} from 'react-router-dom'
 import { FaUserGear } from "react-icons/fa6";
 import { useContext } from 'react';
 import UserDataContext from '../context/userContext';
+import { RiCalendarScheduleFill } from "react-icons/ri";
+import { AiFillHome } from "react-icons/ai";
+import { IoSearch } from "react-icons/io5";
+
 
 function BottomNavbar() {
 
  const {userId,userData,searchBoxVisibility, setSearchBoxVisibility}=useContext(UserDataContext);
-   
- console.log("id",userId);
+
   const navigate = useNavigate();
 
   const handleNavigate = (path) => {
@@ -25,9 +28,9 @@ function BottomNavbar() {
       <div className="w-full h-full flex justify-around items-center ">
 
         
-        <i className=" fi fi-br-home text-md cursor-pointer   active:border-t active:border-gray-500 " onClick={()=>handleNavigate('/')}/> 
+        <AiFillHome className="text-md cursor-pointer  active:border-t active:border-gray-500 " onClick={()=>handleNavigate('/')}/> 
 
-        <i className="fi fi-br-search text-md cursor-pointer active:border-t active:border-gray-500 "  onClick={() => setSearchBoxVisibility((pre) => !pre)} />
+        <IoSearch className=" text-md cursor-pointer active:border-t active:border-gray-500 "  onClick={() => setSearchBoxVisibility((pre) => !pre)} />
 
 
        {userData.role==='Seller'&&<div className="h-10 w-10 rounded-full bg-blue-600 flex  justify-center items-center border-t-4 relative bottom-1.5 border-black active:border-t active:border-gray-500 hover:bg-blue-500" onClick={()=>handleNavigate('/sellProperty')}>
@@ -36,7 +39,7 @@ function BottomNavbar() {
         </div>}
 
 
-        <i className="fi fi-bs-heart text-md cursor-pointer active:border-t active:border-gray-500 " />
+        <RiCalendarScheduleFill className="text-md cursor-pointer active:border-t active:border-gray-500 " onClick={()=>handleNavigate(userData.role==='Seller'?'sellTrack':'buyTrack')}/>
 
 
         <FaUserGear className="fi fi-bs-heart text-md cursor-pointer active:border-t active:border-gray-500 "  onClick={()=>handleNavigate('/setting')} />

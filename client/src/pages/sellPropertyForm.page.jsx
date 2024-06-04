@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 import { formStyle, commonStyle } from '../style';
 import {getSession} from '../localSession/authSession'
 
@@ -6,7 +7,7 @@ function SellProperty() {
 
   const propertyAddInServer = (formData) => {
     const token =getSession('access_token');
-    fetch(`http://localhost:8080/api/v1/owner/selling/property`, {
+    fetch(`${process.env.REACT_APP_BACKEND_URL_LOCAL}/owner/selling/property`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
