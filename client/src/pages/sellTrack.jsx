@@ -31,7 +31,7 @@ function SellTrack() {
     }
 
     catch (err) {
-      console.log(err.message);
+      alert("error",err.message);
     }
   }
 

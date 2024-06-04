@@ -36,7 +36,7 @@ function AllDeals() {
     
 
     } catch (error) {
-      console.error('Error:', error);
+      // alert('Error:', error);
     }
   };
 

@@ -25,7 +25,7 @@ function Profile() {
                     setLocalStorage('user_Profile_data', data.user);
                 }
 
-            }).catch(err => console.log(err));
+            }).catch(err => alert(err));
         }
 
         else

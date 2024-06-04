@@ -19,9 +19,10 @@ function SellProperty() {
       .then(response => response.json())
       .then(data => {
        
-        console.log(data.message);
+        alert(data.message);
+
       }).catch(err=>{
-        console.log(err.message);
+        alert(err.message);
       });
     }
 

@@ -29,7 +29,7 @@ function UpdatePassword() {
           alert(data.message);
         }
 
-      }).catch(error => console.error('Error:', error));
+      }).catch(error => alert('Error:', error));
 
   }
 

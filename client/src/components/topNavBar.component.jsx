@@ -94,10 +94,11 @@ function TopNavBar() {
   return (
     <div className="w-full sticky top-0 z-50">
       <nav className={`w-full   h-14 bg-white   border-b  overflow-hidden ${searchBoxVisibility ? 'max-md:hidden ' : ''}}`}>
-        <h1 className="text-blue-600  relative top-2.5 left-2 font-poppins font-extrabold text-[22px]  cursor-pointer active:text-blue-800" onClick={() => navigate('./')}>EcoEstate</h1>
+        
+        <h4 className="text-blue-600 w-fit relative top-2.5 left-2 font-poppins font-extrabold text-[22px]  cursor-pointer active:text-blue-800" onClick={() => navigate('/')}>EcoEstate</h4>
 
 
-        {userData?.role === 'Seller' && <button className=" absolute top-1 -my-3 font-bold  right-20  text-[40px] max-md:hidden " onClick={handleAddProperty}>+</button>
+        {userData?.role === 'Seller' && <button className=" absolute top-1 -my-3 font-bold  right-20  text-[40px] max-md:hidden active:text-blue-500" onClick={handleAddProperty}>+</button>
 
         }
 
