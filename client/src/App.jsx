@@ -25,9 +25,13 @@ export default function App() {
 
   useEffect(() => {
 
+    const id=getSession('user_data');
+    if(id){
     setUserData(getSession('user_data'));
     setAccessToken(getSession('access_token'));
     setUserId(getSession('userId'));
+    setIsAuthenticated(true);
+    }
 
   }, [isAuthenticated]);
 

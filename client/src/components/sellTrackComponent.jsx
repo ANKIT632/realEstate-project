@@ -13,11 +13,12 @@ function SellTrackComponent({ data,date }) {
   const [visitorData, setVisitorData] = useState({});
   const [isVisitShow,setIsVisitShow]=useState(true);
   const { accessToken } = useContext(UserDataContext);
+ 
   const location=useLocation();
 
   const getVisitorData = async (propertyId) => {
     try {
-      const response = await fetch(`${process.env.REACT_APP_BACKEND_URL_LOCAL}/property/visitors/${propertyId}`, {
+      const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/property/visitors/${propertyId}`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -25,6 +26,7 @@ function SellTrackComponent({ data,date }) {
           
         }
       });
+      console.log(response);
 
       const data = await response.json();
       setIsVisitShow((pre)=>!pre);
@@ -40,7 +42,7 @@ function SellTrackComponent({ data,date }) {
 
 
   return (
-    <div className='h-fit bg-white mb-3 py-3 w-[95%]  px-2 rounded-xl  shadow-md hover:shadow-lg '>
+ <div className='h-fit bg-white mb-3 py-3 w-[95%]  px-2 rounded-xl  shadow-md hover:shadow-lg '>
 
 
       <div className='flex max-xs:flex-col'>
@@ -90,7 +92,8 @@ function SellTrackComponent({ data,date }) {
             )
           })
         }
-      </div>}
+      </div>
+      }
 
     </div>
   )

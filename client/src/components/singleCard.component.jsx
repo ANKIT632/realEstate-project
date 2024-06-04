@@ -6,37 +6,37 @@ import { useContext } from 'react';
 
 
 function SingleCard({ data }) {
-  
-    const { userData,accessToken} = useContext(UserDataContext); 
-     
-    const HandlerGetSchedule =async () => {
-try{
-   
-    await fetch(`${process.env.REACT_APP_BACKEND_URL_LOCAL}/property/create/visitor/${data._id}`,{
-        headers: {
-            'Authorization': `Bearer ${accessToken}`
-          }
-    });
+
+    const { userData, accessToken } = useContext(UserDataContext);
+
+    const HandlerGetSchedule = async () => {
+        try {
+
+            await fetch(`${process.env.REACT_APP_BACKEND_URL}/property/create/visitor/${data._id}`, {
+                headers: {
+                    'Authorization': `Bearer ${accessToken}`
+                }
+            });
 
 
 
 
-}
-catch(err){
-    // console.log("error in get schedule",err)
-}
+        }
+        catch (err) {
+            // console.log("error in get schedule",err)
+        }
 
     }
 
     return (
-        
+
         <div className='bg-white mb-3 py-3 w-[95%] px-2 rounded-xl  shadow-md hover:shadow-lg relative ' key={data?._id}>
 
-              <h5 className={`absolute text-xs font-bold right-0 top-0 bg-blue-700 rounded-tr-2xl rounded-bl-2xl text-white px-2 shadow-lg ${data?.isSold?" bg-green-700":" "}`}>{data?.isSold ? 'Sold Out' : 'Buy Now'}</h5>
+            <h5 className={`absolute text-xs font-bold right-0 top-0 bg-blue-700 rounded-tr-2xl rounded-bl-2xl text-white px-2 shadow-lg ${data?.isSold ? " bg-green-700" : " "}`}>{data?.isSold ? 'Sold Out' : 'Buy Now'}</h5>
             <div className='flex '>
-          
+
                 <div>
-                  
+
                     <div className='w-[200px] max-sm:w-[180px] max-xs:w-[120px]'>
                         <img src={data?.imagesUrl[0]} alt='img' className='rounded-2xl w-full h-32 object-cover bg-gray-400 max-sm:h-28 max-xs:h-20' />
                     </div>
@@ -59,13 +59,15 @@ catch(err){
                     <h3 className={"  text-xs font-bold text-black"}>City : <strong className='text-blue-600 font-medium '> {data?.location?.city}</strong></h3>
 
                     <h3 className={"  text-xs  font-bold text-black max-sm:hidden "}>Description : <strong className='text-blue-600 font-medium'> {data.description}</strong></h3>
+                    
+                    <h3 className={"  text-xs  font-bold text-black  "}>Status : <strong className='text-blue-600 font-medium'> {data?.isSold?"Sold Out":"Not Sold"}</strong></h3>
 
 
                     {/* <button className={commonStyle.btn + " relative text-xs left-0 mt-1 "}>Known more</button> */}
 
-                   { (userData.role==='Buyer'|| userData.role==='Seller') && !data?.isSold &&<button className={commonStyle.btn + " relative text-xs left-0 mt-1 ml-1 " +"bg-green-400"} onClick={HandlerGetSchedule}>Get Schedule</button>
+                    {(userData.role === 'Buyer' || userData.role === 'Seller') && !data?.isSold && <button className={commonStyle.btn + " relative text-xs left-0 mt-1 ml-1 " + "bg-green-400"} onClick={HandlerGetSchedule}>Get Schedule</button>
 
-                   }
+                    }
                 </div>
             </div>
         </div>

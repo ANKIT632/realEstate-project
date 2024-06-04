@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useState, useContext, useEffect } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { commonStyle } from '../style';
@@ -68,7 +69,7 @@ function TopNavBar() {
     }
   }
 
-  const handlerIconSearchQuery = (e) => {
+  const handlerIconSearchQuery = () => {
     navigate('/allDeals');
     setSearchQuery(localSearch);
   }

@@ -21,12 +21,12 @@ function AllDeals() {
       if(searchQuery.trim()!==''){
     
       
-       response = await fetch(`${process.env.REACT_APP_BACKEND_URL_LOCAL}/selling/property/search?searchQuery=${searchQuery}&page=${pageNo}&size=10`);
+       response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/selling/property/search?searchQuery=${searchQuery}&page=${pageNo}&size=10`);
         
 
       }
       else{
-        response = await fetch(`${process.env.REACT_APP_BACKEND_URL_LOCAL}/selling/property/all?page=${pageNo}&size=10`);
+        response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/selling/property/all?page=${pageNo}&size=10`);
       }
       const data = await response.json();
 
@@ -94,7 +94,7 @@ function AllDeals() {
 
           <div className='p-x-0.5 bg-gray-200 hover:bg-gray-300 rounded-sm shadow border border-gray-300 md:p-1'> <FcPrevious className={`cursor-pointer text-[25px] ${(pageNo===1)? ' hidden ':''}`} onClick={prePageHandler} />
           </div>
-          <div className='p-x-0.5 bg-gray-200 hover:bg-gray-300 rounded-sm shadow border border-gray-300 md:p-1'>
+          <div className='p-x-0.5 bg-gray-200 hover:bg-gray-300 rounded-sm shadow border border-gray-300 md:p-1 active:bg-gray-400'>
             <FcNext className={`cursor-pointer text-[25px]  ${(dealsData.allProperty.length<10)? ' hidden ':''}`} onClick={nextPageHanddler} />
           </div>
         </div>

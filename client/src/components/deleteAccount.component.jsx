@@ -16,7 +16,7 @@ function DeleteAcconunt() {
   // handler post update profile
   const handlerupdateUserProfile = (formData) => {
 
-    fetch(`${process.env.REACT_APP_BACKEND_URL_LOCAL}/user/delete`, {
+    fetch(`${process.env.REACT_APP_BACKEND_URL}/user/delete`, {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',

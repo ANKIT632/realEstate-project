@@ -6,7 +6,7 @@ import SellTrackComponent from "../components/sellTrackComponent";
 function BuyTrack() {
 
 const [scheduleData,setScheduleData]=useState([]);
-
+const [isLoading,setIsLoading]=useState(true);
 
 const getVisitDate=(data)=>{ 
    const userId=getSession('userId');
@@ -22,7 +22,7 @@ const getVisitDate=(data)=>{
      try{
       const token= await getSession('access_token');
 
-      const response = await fetch(`${process.env.REACT_APP_BACKEND_URL_LOCAL}/property/visitor/schedule`, {
+      const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/property/visitor/schedule`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -32,12 +32,11 @@ const getVisitDate=(data)=>{
 
       const data=await response.json();
       
-    
-    setScheduleData(data);
-
+      setScheduleData(data);
+    setIsLoading(false)
      }
       catch(err){
-              console.log(err);
+              // console.log(err);
       }
 
   }
@@ -48,7 +47,7 @@ const getVisitDate=(data)=>{
   },[])
  
   return (
-    <div className="w-full h-[95vh]">
+    (!isLoading)? <div className="w-full h-[95vh]">
      <div className='grid grid-cols-2 gap-2   max-md:grid-cols-1 justify-items-center mt-4'>
         {    
            
@@ -60,7 +59,7 @@ const getVisitDate=(data)=>{
           }
 
       </div>
-    </div>
+    </div>:<h1 className='text-center font-mono min-h-[95vh]'>Loading...</h1>
   )
 }
 

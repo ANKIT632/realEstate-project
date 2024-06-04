@@ -11,7 +11,7 @@ function NewDeals() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch(`${process.env.REACT_APP_BACKEND_URL_LOCAL}/selling/property/all?page=1&size=6`)
+    fetch(`${process.env.REACT_APP_BACKEND_URL}/selling/property/all?page=1&size=6`)
       .then(response => response.json())
       .then(data => setDeals(data));
   }, [])

@@ -12,7 +12,7 @@ function UpdatePassword() {
   // handler post update profile
   const handlerupdateUserProfile = (formData) => {
 
-    fetch(`${process.env.REACT_APP_BACKEND_URL_LOCAL}/user/profile/update`, {
+    fetch(`${process.env.REACT_APP_BACKEND_URL}/user/profile/update`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',

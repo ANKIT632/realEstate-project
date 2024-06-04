@@ -19,7 +19,7 @@ function Profile() {
         const data = getLocalStorage('user_Profile_data');
 
         if (!data._id) {
-            fetch(`${process.env.REACT_APP_BACKEND_URL_LOCAL}/user/profile/` + userId).then(res => res.json()).then(data => {
+            fetch(`${process.env.REACT_APP_BACKEND_URL}/user/profile/` + userId).then(res => res.json()).then(data => {
                 if (data.status === 'success') {
                     setUserProfileData(data.user);
                     setLocalStorage('user_Profile_data', data.user);

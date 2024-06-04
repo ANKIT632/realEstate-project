@@ -15,7 +15,7 @@ function UpdateRole() {
     // handdler role update
     const handlerupdateUserRole=async(formData)=>{
          try{
-            const res= await fetch(`${process.env.REACT_APP_BACKEND_URL_LOCAL}/user/profile/update`, {
+            const res= await fetch(`${process.env.REACT_APP_BACKEND_URL}/user/profile/update`, {
                 method: 'PUT',
                 headers: {
                   'Content-Type': 'application/json',

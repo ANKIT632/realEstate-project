@@ -7,7 +7,7 @@ function SellProperty() {
 
   const propertyAddInServer = (formData) => {
     const token =getSession('access_token');
-    fetch(`${process.env.REACT_APP_BACKEND_URL_LOCAL}/owner/selling/property`, {
+    fetch(`${process.env.REACT_APP_BACKEND_URL}/owner/selling/property`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

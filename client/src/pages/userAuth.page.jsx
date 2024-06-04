@@ -39,7 +39,7 @@ function Auth() {
 
   const userAuthWithServer = (formData) => {
     let serverRoute = authType === 'login' ? 'signin' : 'signup';
-    fetch(`${process.env.REACT_APP_BACKEND_URL_LOCAL}/auth/${serverRoute}`, {
+    fetch(`${process.env.REACT_APP_BACKEND_URL}/auth/${serverRoute}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
