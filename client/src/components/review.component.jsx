@@ -18,7 +18,7 @@ function Review() {
     getTestimonialData();
   }, []);
 
-  console.log('review');
+ 
   return (
     <div className="mb-2 w-full flex flex-col items-center">
       <h3 className={commonStyle.heading + " text-center mt-6"}>Testimoials</h3>

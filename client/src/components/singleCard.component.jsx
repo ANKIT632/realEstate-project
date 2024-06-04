@@ -23,7 +23,7 @@ try{
 
 }
 catch(err){
-    console.log("error in get schedule",err)
+    // console.log("error in get schedule",err)
 }
 
     }

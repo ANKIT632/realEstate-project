@@ -51,7 +51,6 @@ function DeleteAcconunt() {
     let formData = {};
     formData['password'] = e.target.password.value;
 
-console.log(formData);
     handlerupdateUserProfile(formData);
   }
 

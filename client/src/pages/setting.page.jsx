@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { AiOutlineArrowRight } from "react-icons/ai";
 import { AiOutlineIdcard } from "react-icons/ai";
 import { RiLockPasswordFill } from "react-icons/ri";
@@ -23,7 +23,9 @@ function Setting() {
     const [updateMenuType, setUpdateMenuType] = useState('Update Profile');
 
     
-    const {setUserData,setUserId} = useContext(UserDataContext);
+    const {setUserData,setUserId,setIsAuthenticated} = useContext(UserDataContext);
+
+    const navigate=useNavigate();
 
     // handller update menu
 
@@ -38,11 +40,12 @@ function Setting() {
     e.preventDefault();
     logoutUser();
     setUserData({});
-    setUserId('');
+    setUserId(null);
     setSettingMenue(false);
+    setIsAuthenticated(false);
+    navigate('/')
    }
 
-    console.log('settingpage');
     return (
         <section className="relative  ">
 

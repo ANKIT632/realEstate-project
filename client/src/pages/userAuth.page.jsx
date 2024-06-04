@@ -13,7 +13,7 @@ function Auth() {
   const navigate = useNavigate();
 
   const [passwordVisibility, setPasswordVisibility] = useState(false);
-  const { setUserData, setAccessToken } = useContext(UserDataContext);
+  const { setUserData, setAccessToken ,setIsAuthenticated} = useContext(UserDataContext);
 
   // login or sign up
   const [authType, setAuthType] = useState('login');
@@ -63,14 +63,15 @@ function Auth() {
 
             setUserData(userData);
             setAccessToken(accessToken);
+            setIsAuthenticated(true);
             navigate('/');
           }
-          console.log(data);
+
 
         }
-        else console.log(data);
+
       })
-      .catch(error => console.error('Error:', error));
+      .catch(error => alert('Error:', error));
   };
 
 

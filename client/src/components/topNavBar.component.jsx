@@ -1,14 +1,11 @@
 import { useState, useContext, useEffect } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { commonStyle } from '../style';
-
 import { BiAlignRight } from "react-icons/bi";
-import { deleteSession } from '../localSession/authSession';
-import { removeLocalStorage } from '../localSession/userLocaldata';
 import UserDataContext from '../context/userContext';
 import { FaArrowLeft } from "react-icons/fa";
 import { IoSearchCircleSharp } from "react-icons/io5";
-
+import  {logoutUser}  from "../utils/auth";
 
 function TopNavBar() {
 
@@ -18,12 +15,12 @@ function TopNavBar() {
 
 
 
-  const { userData, setUserData, setSearchQuery, searchBoxVisibility, setSearchBoxVisibility } = useContext(UserDataContext);
+  const { userData, setUserData, setSearchQuery, searchBoxVisibility, setSearchBoxVisibility ,setUserId,setIsAuthenticated} = useContext(UserDataContext);
 
   const [localSearch, setLocalSearch] = useState('');
   const [showUserMenue, setShowUserMenue] = useState(false);
 
-  console.log('topNavBar');
+
 
   // handller menue
   const handleSetUserMenue = () => {
@@ -45,13 +42,13 @@ function TopNavBar() {
 
   // logout handller
   const logoutHandler = () => {
-    deleteSession('user_data');
-    deleteSession('access_token');
+    logoutUser();
     setUserData({});
-    deleteSession('userId');
-    removeLocalStorage('user_Profile_data');
     setShowUserMenue(false);
+    setUserId(null);
+    setIsAuthenticated(false);
     navigate('/');
+  
   }
 
   // search handler
