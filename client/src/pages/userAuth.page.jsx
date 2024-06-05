@@ -55,7 +55,7 @@ function Auth() {
           else {
             setSession('user_data', data.user);
             setSession('access_token', data.access_token);
-            setSession("userId", data.user._id);
+            setSession('userId', data.user._id);
 
             const userData = getSession('user_data');
 
