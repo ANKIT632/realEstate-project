@@ -23,23 +23,22 @@ export default function App() {
   const [searchBoxVisibility, setSearchBoxVisibility] = useState(false);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
-  console.log("isAuth",isAuthenticated);
   useEffect(() => {
 
-    const id=getSession('user_data');
-    if(id.length>0){
-    setIsAuthenticated(true);
-    setUserData(getSession('user_data'));
-    setAccessToken(getSession('access_token'));
-    setUserId(getSession('userId'));
+    const id = getSession('user_data');
+    if (id.length > 0) {
+      setIsAuthenticated(true);
+      setUserData(getSession('user_data'));
+      setAccessToken(getSession('access_token'));
+      setUserId(getSession('userId'));
     }
-  
+
 
   }, []);
 
   return (
     <div className='bg-gray-100 '>
-      <UserDataContext.Provider value={{ userData, setUserData, accessToken, setAccessToken, searchQuery, setSearchQuery, userId, setUserId, searchBoxVisibility, setSearchBoxVisibility,setIsAuthenticated ,isAuthenticated}}>
+      <UserDataContext.Provider value={{ userData, setUserData, accessToken, setAccessToken, searchQuery, setSearchQuery, userId, setUserId, searchBoxVisibility, setSearchBoxVisibility, setIsAuthenticated, isAuthenticated }}>
         <TopNavBar />
 
         <Routes>

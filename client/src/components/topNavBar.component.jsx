@@ -143,9 +143,9 @@ function TopNavBar() {
       <div className={`flex items-center max-md:bg-white  max-md:shadow-sm max-md:h-14 ${searchBoxVisibility ? '' : 'max-md:hidden '} md:right-[120px]  md:top-3 md:absolute text-2xl `}>
         <FaArrowLeft className="md:hidden w-[6%] active:text-blue-500 cursor-pointer " onClick={() => setSearchBoxVisibility((pre) => !pre)} />
 
-        <input type="text" placeholder="Find by name,location,city" className={`text-xs   h-10 max-md:w-[95%]  pl-4  bg-sky-50 border border-gray-500    rounded-lg  outline-none    focus:border-blue-500  pr-8 md:w-[340px]  max-md:rounded-2xl`} value={localSearch} onChange={searchChangeHandler} onKeyDownCapture={searchHandler} />
+        <input type="text" placeholder="Find by name,location,city" className={`text-xs   h-10 md:h-8 max-md:w-[95%]  pl-4  bg-sky-50 border border-gray-500    rounded-lg  outline-none    focus:border-blue-500  pr-8 md:w-[340px]  max-md:rounded-2xl`} value={localSearch} onChange={searchChangeHandler} onKeyDownCapture={searchHandler} />
 
-        <IoSearchCircleSharp className="text-4xl active:text-blue-500 max-md:fixed  max-md:right-0  md:absolute  md:right-0  cursor-pointer" onClick={handlerIconSearchQuery} />
+        <IoSearchCircleSharp className="text-4xl active:text-blue-500 max-md:fixed  max-md:right-0  md:absolute  md:right-0  cursor-pointer md:text-3xl" onClick={handlerIconSearchQuery} />
       </div>
     </div>
   )

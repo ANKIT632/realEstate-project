@@ -20,20 +20,20 @@ function Review() {
 
  
   return (
-    <div className="mb-2 w-full flex flex-col items-center">
-      <h3 className={commonStyle.heading + " text-center mt-6"}>Testimoials</h3>
+    <div className="mb-2  flex flex-col ">
+      <h3 className={commonStyle.heading}>Testimoials</h3>
 
-      <div className=" mt-6 flex justify-center items-center space-x-4 max-md:flex-col max-md:space-y-5 max-sm:space-x-0 w-[97%]">
+      <div className=" mt-2 gap-2 flex items-center overflow-x-scroll scrollbarStyle relative h-[12rem]">
 
-        {review.data?.slice(0, 4).map((item, idx) => {
-          return <div className="bg bg-white h-[9rem] w-[17rem] relative shadow rounded-3xl  flex flex-col items-center  max-sm:w-[15rem] md:h-[10rem]" key={idx}  >
+        {review.data?.slice(0, 7).map((item, idx) => {
+          return<div key={idx}> <div className="bg bg-white h-[9rem]   shadow rounded-3xl  flex flex-col items-center  w-[15rem]  "  >
 
             <img src={item.user.profile_url} className="w-16 h-16 rounded-full bg-gray-100 relative -top-4  p-1" />
 
             <p className="text text-center text-blue-900 text-xs font-bold italic my-1 ">&ldquo;
               {item.about.substring(0, 95)} {item.about.length >= 80 ? ".." : " "} &bdquo;</p>
-            <h1 className="font-semibold text text-center text-blue-600 text-xs  italic ">By : {item.user.username}</h1>
-          </div>
+            <h1 className="font-semibold text text-center text-blue-600 text-xs  italic bg-gray-300 px-1 rounded-lg shadow-sm">By : {item.user.username}</h1>
+          </div> </div>
         })
 
         }

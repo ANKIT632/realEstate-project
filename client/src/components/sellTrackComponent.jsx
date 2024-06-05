@@ -29,7 +29,7 @@ function SellTrackComponent({ data, date }) {
 
 
       const data = await response.json();
-      console.log(data)
+
       setIsVisitShow((pre) => !pre);
       setVisitorData(data);
 
