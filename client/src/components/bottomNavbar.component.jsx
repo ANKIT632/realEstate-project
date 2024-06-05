@@ -50,7 +50,7 @@ function BottomNavbar() {
         <RiCalendarScheduleFill className={`text-2xl cursor-pointer active:border-t active:border-gray-500 ${location.pathname==='/sellTrack' || location.pathname==='/buyTrack'?' text-blue-500 ':''}`} onClick={() => handleNavigate(userData.role === 'Seller' ? 'sellTrack' : 'buyTrack')} />
 
 
-        <FaUserGear className={` text-2xl cursor-pointer active:border-t active:border-gray-500 ${location.pathname===`/setting/${userId}`?' text-blue-500 ':''}`} onClick={() => handleNavigate('/setting')} />
+        <FaUserGear className={` text-2xl cursor-pointer active:border-t active:border-gray-500 ${location.pathname===`/setting/${userData._id}`?' text-blue-500 ':''}`} onClick={() => handleNavigate('/setting')} />
 
 
       </div>
