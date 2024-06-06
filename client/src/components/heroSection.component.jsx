@@ -1,10 +1,14 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect,useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
-import {getSession} from '../localSession/authSession'
+import UserDataContext from '../context/userContext';
+
 
 function HeroSection() {
+
+  const { userData} = useContext(UserDataContext);
+
 
   const navigate = useNavigate();
   const images = [
@@ -32,11 +36,10 @@ function HeroSection() {
 
 
   useEffect(()=>{
-    const user=getSession('user_data');
+  
+    setUser(userData.role);
 
-    setUser(user.role);
-
-  },[])
+  },[userData])
 
 
 
@@ -52,12 +55,12 @@ function HeroSection() {
           <strong className="text-[25px]">Welcome</strong> to Our Real Estate Website</h3>
         <p className="text-blue-950 text-[13px] mb-4">Find your perfect home or sell your property quickly with us. We provide the best real estate services in the market.</p>
 
-        <div className="space-y-2 md:flex-col space-x-2 max-sm:space-x-2 max-sm:text-[10px]">
+        <div className="space-y-2 md:flex-col space-x-2 max-sm:space-x-2 max-sm:text-[17px]">
 
-         <button className="px-2 py-1 text-white ring-red bg-black rounded-lg  active:bg-gray-700  font-serif">Show property</button>
+         <button className="px-2 py-1 text-white ring-red bg-black rounded-lg  active:bg-gray-700  font-mono font-bold">Show property</button>
        
        {
-          (user==='Seller')&&<button className="px-2 py-1 ring-1 ring-blue-400 rounded-lg active:bg-blue-100 font-serif text-blue-500" onClick={handleSellProperty}>Sell property</button>}
+          (user==='Seller') && <button className="px-2 py-1 ring-1 ring-blue-400 rounded-lg active:bg-blue-100 font-mono font-bold text-blue-500" onClick={handleSellProperty}>Sell property</button>}
         </div>
       </div>
 

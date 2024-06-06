@@ -60,9 +60,13 @@ function SellProperty() {
         <div className='border-gray-900 bg-white pt-2 px-2 rounded-lg '>
           <h5 className={commonStyle.title + "shadow-lg bg-gray-50 ring-2 ring-black ring-opacity-5 rounded-lg p-1 "}>Sell property</h5>
         </div>
+        <div className={formStyle.divStyle}>
+          <label htmlFor='file' className={formStyle.lable}>Add Image</label>
+          <input type="file" name="file" id="file" placeholder="Add image" className={formStyle.input} />
+        </div>
 
         <div className={formStyle.divStyle}>
-          <label htmlFor="title" className={formStyle.lable}>title</label>
+          <label htmlFor="file" className={formStyle.lable}>title</label>
           <input type="text" name="title" id="title" placeholder="title" className={formStyle.input} />
         </div>
 
