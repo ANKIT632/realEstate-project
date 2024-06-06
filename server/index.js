@@ -11,15 +11,15 @@ const server = express();
 require('dotenv').config();
 
 //middleware
-server.use(cors({ credentials: true, origin: true }));
+server.use(cors({ origin: 'https://ecostate.vercel.app', credentials: true }));
 server.use(express.json({limit: '2mb'}));
 server.use(express.urlencoded({ extended: true })); 
 
 
 // Serve static files from the "public" directory
-server.get('/api/v1/doc', (req, res) => {
-    return res.sendFile(path.join(__dirname, 'public', 'api.txt'));
-});
+// server.get('/api/v1/doc', (req, res) => {
+//     return res.sendFile(path.join(__dirname, 'public', 'api.txt'));
+// });
 
 
 //routers

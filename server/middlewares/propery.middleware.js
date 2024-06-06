@@ -1,6 +1,8 @@
 const { default: mongoose } = require('mongoose');
 const property_model = require('../models/property.model.js');
 
+
+// validate add property
 const validateAddProperty = (req, res, next) => {
 
     const { title, description, location, price } = req.body;
@@ -47,10 +49,7 @@ const validateUpdateProperty = async (req, res, next) => {
         return res.status(500).send({ status: "failed", message: err.message });
     }
 
-
 }
-
-
 
 
 

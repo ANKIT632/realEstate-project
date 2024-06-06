@@ -1,13 +1,13 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 
-import { useState, useEffect,useContext } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import UserDataContext from '../context/userContext';
 
 
 function HeroSection() {
 
-  const { userData} = useContext(UserDataContext);
+  const { userData } = useContext(UserDataContext);
 
 
   const navigate = useNavigate();
@@ -18,7 +18,7 @@ function HeroSection() {
   ];
 
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
-  const [user,setUser]=useState("");
+  const [user, setUser] = useState("");
 
   useEffect(() => {
     // Preload images
@@ -29,17 +29,17 @@ function HeroSection() {
 
     const timer = setInterval(() => {
       setCurrentImageIndex((currentImageIndex + 1) % images.length);
-    }, 3000); 
+    }, 3000);
 
-    return () => clearInterval(timer); 
+    return () => clearInterval(timer);
   }, [currentImageIndex]);
 
 
-  useEffect(()=>{
-  
+  useEffect(() => {
+
     setUser(userData.role);
 
-  },[userData])
+  }, [userData])
 
 
 
@@ -57,10 +57,10 @@ function HeroSection() {
 
         <div className="space-y-2 md:flex-col space-x-2 max-sm:space-x-2 max-sm:text-[17px]">
 
-         <button className="px-2 py-1 text-white ring-red bg-black rounded-lg  active:bg-gray-700  font-mono font-bold">Show property</button>
-       
-       {
-          (user==='Seller') && <button className="px-2 py-1 ring-1 ring-blue-400 rounded-lg active:bg-blue-100 font-mono font-bold text-blue-500" onClick={handleSellProperty}>Sell property</button>}
+          <button className="px-2 py-1 text-white ring-red bg-black rounded-lg  active:bg-gray-700  font-mono font-bold">Show property</button>
+
+          {
+            (user === 'Seller') && <button className="px-2 py-1 ring-1 ring-blue-400 rounded-lg active:bg-blue-100 font-mono font-bold text-blue-500" onClick={handleSellProperty}>Sell property</button>}
         </div>
       </div>
 

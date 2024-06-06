@@ -37,7 +37,7 @@ function HomeCategory() {
           <div className='w-48 h-28 md:w-64 md:h-40'>
             <img src={category.image} alt={category.name} className='rounded-xl  h-28 w-48  object-cover md:w-64 md:h-40' />
             </div>  
-            <h3 className={commonStyle.title + " text-[16px]"}>{category.name}</h3>
+            <h3 className={commonStyle.title +" text-[1.1rem] "}>{category.name}</h3>
           </div>
         ))}
 
