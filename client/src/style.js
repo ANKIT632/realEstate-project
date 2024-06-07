@@ -21,7 +21,7 @@ export const formStyle={
    
   divStyle:"w-[80%]",
 
-  mainFormDiv:" bg-blue-50 w-[95%] max-xs:w-[100%] max-xs:rounded-sm sm:w-[70%] md:w-[45%] flex flex-col  mb-6  items-center pt-4 pb-3 rounded-lg ",
+  mainFormDiv:" sm:bg-blue-50 w-[95%] max-sm:w-[100%]  md:w-[50%] flex flex-col  mb-6  items-center pt-4 pb-3 rounded-lg ",
     
 }
 

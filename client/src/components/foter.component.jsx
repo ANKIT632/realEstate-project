@@ -1,8 +1,9 @@
 import { FaInstagram, FaFacebookF, FaTwitter } from 'react-icons/fa';
 
+
 function Foter() {
   return (
-    <footer className="bg-blue-900 text-white py-3  relative bottom-0">
+    <footer className="bg-blue-400 text-white py-3  relative bottom-0">
       <div className="container mx-auto text-center">
         <h1 className="font-bold text-2xl mb-2 text-white max-sm:text-xl">EcoEstate</h1>
         <p className="text-gray-200 mb-4 max-xs:text-xs">Your one-stop solution for real estate needs.</p>

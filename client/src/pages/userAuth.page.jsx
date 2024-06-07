@@ -106,13 +106,13 @@ function Auth() {
       <h5 className={commonStyle.title}>{authType === 'login' ? "Login" : "SignUp"}</h5>
 
       <div className="flex w-full justify-center">
-        <hr className="border-t-2 border-black-700 w-[95%] sm:w-[65%] md:w-[45%] pb-1" />
+        <hr className="border-t-2 border-black-700 w-[95%] sm:w-[65%] md:w-[45%] pb-1 " />
       </div>
 
       <form id="formElement" >
 
         <div className="w-full flex justify-center mt-1 ">
-          <div className={formStyle.mainFormDiv + " shadow-lg ring-2 ring-black ring-opacity-5 rounded-lg"}>
+          <div className={formStyle.mainFormDiv + " sm:shadow-lg sm:ring-2 sm:ring-black sm:ring-opacity-5 sm:rounded-lg"}>
 
 
             {(authType === 'signup') && <div className={formStyle.divStyle}>

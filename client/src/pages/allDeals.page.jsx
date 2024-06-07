@@ -20,7 +20,6 @@ function AllDeals() {
       let response = {};
       if (searchQuery.trim() !== '') {
 
-
         response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/selling/property/search?searchQuery=${searchQuery}&page=${pageNo}&size=10`);
 
 
@@ -73,7 +72,7 @@ function AllDeals() {
 
     fetchData();
 
-  }, [pageNo, searchQuery, totalPage]);
+  }, [pageNo, searchQuery]);
 
 
 
