@@ -76,7 +76,7 @@ function NewDeals() {
               className={`${commonStyle.authBtn}
                           px-10 py-3 text-sm font-semibold
                           shadow-lg hover:shadow-2xl
-                          transition-all duration-300`}
+                          transition-all duration-300 text-nowrap`}
             >
               Explore All Properties →
             </button>
