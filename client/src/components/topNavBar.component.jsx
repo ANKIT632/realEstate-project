@@ -4,8 +4,8 @@ import { Link, useNavigate, useLocation } from "react-router-dom";
 import { commonStyle } from '../style';
 import { BiAlignRight } from "react-icons/bi";
 import UserDataContext from '../context/userContext';
-import { FaArrowLeft,FaSearch } from "react-icons/fa";
-import  {logoutUser}  from "../utils/auth";
+import { FaArrowLeft, FaSearch } from "react-icons/fa";
+import { logoutUser } from "../utils/auth";
 
 function TopNavBar() {
 
@@ -15,7 +15,7 @@ function TopNavBar() {
 
 
 
-  const { userData, setUserData, setSearchQuery, searchBoxVisibility, setSearchBoxVisibility ,setUserId,setIsAuthenticated} = useContext(UserDataContext);
+  const { userData, setUserData, setSearchQuery, searchBoxVisibility, setSearchBoxVisibility, setUserId, setIsAuthenticated } = useContext(UserDataContext);
 
   const [localSearch, setLocalSearch] = useState('');
   const [showUserMenue, setShowUserMenue] = useState(false);
@@ -48,7 +48,7 @@ function TopNavBar() {
     setUserId(null);
     setIsAuthenticated(false);
     navigate('/');
-  
+
   }
 
   // search handler
@@ -91,62 +91,157 @@ function TopNavBar() {
 
 
   return (
-    <div className="w-full sticky top-0 z-50">
-      <nav className={`w-full   h-14 bg-white   border-b  overflow-hidden ${searchBoxVisibility ? 'max-md:hidden ' : ''}}`}>
-        
-        <h4 className="text-blue-800 w-fit relative top-2.5 left-2 font-poppins font-extrabold text-[22px]  cursor-pointer active:text-blue-800" onClick={() => navigate('/')}>EcoEstate</h4>
+    <div className="w-full sticky top-0 z-50 backdrop-blur-lg bg-white/80 border-b border-gray-200">
 
+      {/* NAV BAR */}
+      <nav className="h-14 max-w-7xl mx-auto px-4 flex items-center justify-between">
 
-        {userData?.role === 'Seller' && <button className=" absolute top-1 -my-3 font-bold  right-20  text-[40px] max-md:hidden active:text-blue-500" onClick={handleAddProperty}>+</button>
+        {/* LEFT – LOGO */}
+        <div
+          onClick={() => navigate('/')}
+          className="text-xl font-extrabold tracking-wide cursor-pointer"
+        >
+          <span className="bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
+            Eco
+          </span>
+          <span className="text-gray-800">Estate</span>
+        </div>
 
-        }
+        {/* CENTER SEARCH (Desktop) */}
+        <div className="hidden md:flex relative w-[340px]">
+          <input
+            type="text"
+            placeholder="Search by city, location, name"
+            className="w-full h-9 pl-4 pr-10 text-sm rounded-full bg-gray-100 border border-transparent focus:border-blue-300 focus:ring-2 focus:ring-blue-200 outline-none transition"
+            value={localSearch}
+            onChange={searchChangeHandler}
+            onKeyDown={searchHandler}
+          />
+          <FaSearch
+            className="absolute right-3 top-2.5 text-gray-500 hover:text-blue-600 cursor-pointer transition"
+            onClick={handlerIconSearchQuery}
+          />
+        </div>
 
-        <span className="absolute top-[6px] ">
-          {
-            (userData?.username) ?
-              <div className="h-8   fixed right-3 top-3 flex space-x-0.5 items-center bg-gray-300 p-1 rounded-2xl shadow-sm cursor-pointer " onClick={handleSetUserMenue}>
-                <img src={userData.profile_url} alt="img" className={`h-6 w-6  rounded-[50%]  ${showUserMenue ? " bg-blue-500" : "bg-white"}`} />
+        {/* RIGHT ACTIONS */}
+        <div className="flex items-center gap-3">
 
-                <BiAlignRight className={`h-5 w-5 ${showUserMenue ? " text-blue-500" : "text-white"}`} />
-              </div>
+          {userData?.role === 'Seller' && (
+            <button
+              onClick={handleAddProperty}
+              className="hidden md:flex items-center gap-1 px-3 h-9 rounded-full bg-gradient-to-r from-blue-600 to-indigo-600 text-white text-sm font-medium shadow-md hover:shadow-lg active:scale-95 transition"
+            >
+              + Add
+            </button>
+          )}
 
-              : <button className={commonStyle.btn + "fixed top-[13px] px-2"} onClick={authHandller}>Sign In</button>}
-        </span>
-
-        {
-          showUserMenue && (
-            <div className="fixed right-1 mt-6 w-48 rounded-md shadow-lg bg-gray-50 ring-2 ring-black ring-opacity-5  ">
-
-              <div className="py-1" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
-
-                <Link to={`/userProfile/${userData._id}`} className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem" onClick={HandleToggleMenueOnLink}>Your Profile</Link>
-
-                <Link to={`/setting/${userData._id}`} className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem" onClick={HandleToggleMenueOnLink}>Settings</Link>
-
-                {userData?.role === 'Seller' && <Link to="/sellTrack" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem" onClick={HandleToggleMenueOnLink} >sell track</Link>}
-
-                {userData?.role === 'Buyer' && <Link to="/buyTrack" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem" onClick={HandleToggleMenueOnLink}>visit schedule</Link>}
-
-                <Link to="/favourite" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem" onClick={HandleToggleMenueOnLink} >favourite</Link>
-
-                <Link to="/" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem" onClick={logoutHandler} >Logout</Link>
-              </div>
+          {/* AUTH / USER */}
+          {userData?.username ? (
+            <div
+              onClick={handleSetUserMenue}
+              className="flex items-center gap-2 bg-gray-100 hover:bg-gray-200 px-2 py-1 rounded-full cursor-pointer transition"
+            >
+              <img
+                src={userData.profile_url}
+                alt="profile"
+                className="h-7 w-7 rounded-full object-cover ring-2 ring-white"
+              />
+              <BiAlignRight className="text-gray-600" />
             </div>
-          )
-        }
-
+          ) : (
+            <button
+              onClick={authHandller}
+              className="px-4 h-9 rounded-full bg-black text-white text-sm font-medium hover:bg-gray-900 active:scale-95 transition"
+            >
+              Sign In
+            </button>
+          )}
+        </div>
       </nav>
 
-      {/* search div */}
+      {/* MOBILE SEARCH BAR */}
+      {searchBoxVisibility && (
+        <div className="md:hidden h-14 flex items-center px-3 gap-2 bg-white shadow-sm">
+          <FaArrowLeft
+            className="text-lg cursor-pointer hover:text-blue-600"
+            onClick={() => setSearchBoxVisibility(false)}
+          />
 
-      <div className={`flex items-center max-md:bg-white  max-md:shadow-sm max-md:h-14 ${searchBoxVisibility ? '' : 'max-md:hidden '} md:right-[80px]  md:top-3 md:absolute text-2xl `}>
-        <FaArrowLeft className="md:hidden w-[6%] active:text-blue-500 cursor-pointer " onClick={() => setSearchBoxVisibility((pre) => !pre)} />
+          <input
+            type="text"
+            placeholder="Search properties"
+            className="flex-1 h-9 pl-4 pr-9 text-sm bg-gray-100 rounded-full outline-none focus:ring-2 focus:ring-blue-200"
+            value={localSearch}
+            onChange={searchChangeHandler}
+            onKeyDown={searchHandler}
+          />
 
-        <input type="text" placeholder="Find by name,location,city" className={`text-xs h-10 md:h-8 max-md:w-[95%]  pl-4  bg-sky-50 border border-gray-200  rounded-md  outline-none  focus:border-blue-200  pr-8 md:w-[300px]  max-md:rounded-2xl`} value={localSearch} onChange={searchChangeHandler} onKeyDownCapture={searchHandler} />
+          <FaSearch
+            className="text-lg cursor-pointer hover:text-blue-600"
+            onClick={handlerIconSearchQuery}
+          />
+        </div>
+      )}
 
-        <FaSearch className="active:text-blue-600 max-md:fixed right-1 rounded border p-1  md:absolute  cursor-pointer text-[25px] bg-white" onClick={handlerIconSearchQuery} />
-      </div>
+      {/* USER DROPDOWN */}
+      {showUserMenue && (
+        <div className="absolute right-4 top-14 w-52 rounded-2xl bg-white shadow-2xl border overflow-hidden animate-fadeIn">
+
+          <Link
+            to={`/userProfile/${userData._id}`}
+            className="block px-4 py-2.5 text-sm hover:bg-gray-100"
+            onClick={HandleToggleMenueOnLink}
+          >
+            👤 Your Profile
+          </Link>
+
+          <Link
+            to={`/setting/${userData._id}`}
+            className="block px-4 py-2.5 text-sm hover:bg-gray-100"
+            onClick={HandleToggleMenueOnLink}
+          >
+            ⚙ Settings
+          </Link>
+
+          {userData?.role === 'Seller' && (
+            <Link
+              to="/sellTrack"
+              className="block px-4 py-2.5 text-sm hover:bg-gray-100"
+              onClick={HandleToggleMenueOnLink}
+            >
+              📈 Sell Track
+            </Link>
+          )}
+
+          {userData?.role === 'Buyer' && (
+            <Link
+              to="/buyTrack"
+              className="block px-4 py-2.5 text-sm hover:bg-gray-100"
+              onClick={HandleToggleMenueOnLink}
+            >
+              📅 Visit Schedule
+            </Link>
+          )}
+
+          <Link
+            to="/favourite"
+            className="block px-4 py-2.5 text-sm hover:bg-gray-100"
+            onClick={HandleToggleMenueOnLink}
+          >
+            ❤️ Favourite
+          </Link>
+
+          <button
+            onClick={logoutHandler}
+            className="w-full text-left px-4 py-2.5 text-sm text-red-600 hover:bg-red-50"
+          >
+            🚪 Logout
+          </button>
+        </div>
+      )}
     </div>
+
+
   )
 }
 

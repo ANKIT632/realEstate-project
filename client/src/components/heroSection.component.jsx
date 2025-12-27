@@ -49,28 +49,60 @@ function HeroSection() {
   }
 
   return (
-    <section className="w-full min-h-[23rem] bg-slate-200 flex flex-wrap justify-center items-center">
-      <div className="w-[38%] max-sm:w-[96%] p-2 " >
-        <h3 className="font-mono font-bold text-blue-700 text-[20px]">
-          <strong className="text-[25px]">Welcome</strong> to Our Real Estate Website</h3>
-        <p className="text-blue-950 text-[13px] mb-4">Find your perfect home or sell your property quickly with us. We provide the best real estate services in the market.</p>
+    <section className="w-full min-h-[calc(100vh-2rem)] flex items-center justify-center bg-gradient-to-br from-slate-100 via-white to-slate-200 px-4">
 
-        <div className="space-y-2 md:flex-col space-x-2 max-sm:space-x-2 max-sm:text-[17px]">
+  <div className="max-w-7xl w-full grid grid-cols-1 md:grid-cols-2 items-center gap-10">
 
-          <button className="px-2 py-1 text-white ring-red bg-black rounded-lg  active:bg-gray-700  font-mono font-bold">Show property</button>
+    {/* LEFT CONTENT */}
+    <div className="space-y-6 text-center md:text-left">
 
-          {
-            (user === 'Seller') && <button className="px-2 py-1 ring-1 ring-blue-400 rounded-lg active:bg-blue-100 font-mono font-bold text-blue-500" onClick={handleSellProperty}>Sell property</button>}
-        </div>
+      <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold leading-tight text-gray-900">
+        Find Your
+        <span className="block bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
+          Dream Property
+        </span>
+      </h1>
+
+      <p className="text-gray-600 max-w-xl mx-auto md:mx-0">
+        Buy, sell, or explore premium properties with confidence.
+        Trusted by thousands of buyers and sellers across the country.
+      </p>
+
+      <div className="flex flex-col sm:flex-row items-center gap-4 justify-center md:justify-start">
+
+        <button
+          className="px-6 py-3 rounded-full bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-semibold shadow-lg hover:shadow-xl active:scale-95 transition"
+        >
+          Explore Properties
+        </button>
+
+        {user === "Seller" && (
+          <button
+            onClick={handleSellProperty}
+            className="px-6 py-3 rounded-full border-2 border-blue-600 text-blue-600 font-semibold hover:bg-blue-50 active:scale-95 transition"
+          >
+            Sell Your Property
+          </button>
+        )}
       </div>
+    </div>
 
-      {/* second div */}
+    {/* RIGHT IMAGE */}
+    <div className="relative flex justify-center">
 
-      <div className="w-[55%] h-[19rem]  flex justify-center max-sm:w-[76%] max-sm:h-[9rem] max-sm:mt-2 mb-2">
-        <img className="w-[90%] h-full object-cover rounded-full" src={images[currentImageIndex]} alt={`Image ${currentImageIndex + 1}`} />
-      </div>
+      {/* Glow */}
+      <div className="absolute -inset-4 bg-blue-500/20 blur-3xl rounded-full"></div>
 
-    </section>
+      <img
+        src={images[currentImageIndex]}
+        alt="Property"
+        className="relative w-full max-w-lg h-[320px] sm:h-[380px] object-cover rounded-3xl shadow-2xl transition-opacity duration-700"
+      />
+    </div>
+
+  </div>
+</section>
+
   )
 }
 

@@ -13,7 +13,7 @@ function Auth() {
   const navigate = useNavigate();
 
   const [passwordVisibility, setPasswordVisibility] = useState(false);
-  const { setUserData, setAccessToken ,setIsAuthenticated} = useContext(UserDataContext);
+  const { setUserData, setAccessToken, setIsAuthenticated } = useContext(UserDataContext);
 
   // login or sign up
   const [authType, setAuthType] = useState('login');
@@ -98,72 +98,142 @@ function Auth() {
   }
 
 
-
-
   return (
-    <section className=" w-full min-h-[95vh] mt-3 overflow-hidden ">
+    <section className="min-h-[calc(100vh-3.3rem)] w-full flex items-center justify-center bg-gradient-to-br from-gray-100 via-white to-gray-200 px-4">
 
-      <h5 className={commonStyle.title}>{authType === 'login' ? "Login" : "SignUp"}</h5>
+      <div className="w-full max-w-6xl grid grid-cols-1 md:grid-cols-2 bg-white/80 backdrop-blur-lg md:rounded-3xl md:shadow-2xl overflow-hidden">
 
-      <div className="flex w-full justify-center">
-        <hr className="border-t-2 border-black-700 w-[95%] sm:w-[65%] md:w-[45%] pb-1 " />
-      </div>
+        {/* LEFT INFO PANEL */}
+        <div className="hidden md:flex flex-col justify-center px-12 py-16 bg-gradient-to-br from-black via-gray-900 to-gray-800 text-white">
 
-      <form id="formElement" >
+          <h2 className="text-4xl font-extrabold leading-tight">
+            Smart Property<br />Management
+          </h2>
 
-        <div className="w-full flex justify-center mt-1 ">
-          <div className={formStyle.mainFormDiv + " sm:shadow-lg sm:ring-2 sm:ring-black sm:ring-opacity-5 sm:rounded-lg"}>
+          <p className="mt-5 text-gray-300 text-sm leading-relaxed">
+            Manage properties, track buyers & sellers, and access real-time insights securely from one dashboard.
+          </p>
 
-
-            {(authType === 'signup') && <div className={formStyle.divStyle}>
-              <label className={formStyle.lable} htmlFor="username">
-                Full Name
-              </label>
-              <input className={formStyle.input} id="username" type="text" placeholder="Full Name" name="username" autoComplete="on" required />
-            </div>}
-
-
-
-            <div className={formStyle.divStyle}>
-              <label className={formStyle.lable} htmlFor="email">
-                Email
-              </label>
-              <input className={formStyle.input} id="email" type="email" placeholder="Enter Email" name="email" autoComplete="on" required />
+          <div className="mt-10 space-y-4 text-sm">
+            <div className="flex items-center gap-3">
+              <span className="h-2 w-2 bg-green-400 rounded-full"></span>
+              Secure & encrypted login
             </div>
-
-
-            <div className={formStyle.divStyle + " relative"}>
-
-              <label className={formStyle.lable} htmlFor="password">
-                Password
-              </label>
-
-              <input className={formStyle.input + ' pr-7 '} id="password" type={passwordVisibility ? "text" : "password"} placeholder="Enter Password" name="password" autoComplete="on" required />
-
-              {passwordVisibility ? <i className="fi fi-ss-eye absolute top-8 right-2 cursor-pointer" onClick={handlePasswordVisibility}></i> : <i className="fi fi-ss-eye-crossed  cursor-pointer absolute top-8 right-2" onClick={handlePasswordVisibility}></i>}
+            <div className="flex items-center gap-3">
+              <span className="h-2 w-2 bg-green-400 rounded-full"></span>
+              Buyer & seller roles
             </div>
-
-            {authType === 'signup' && <div className={formStyle.divStyle}>
-              <label className={formStyle.lable} htmlFor="userType">
-                User Type
-              </label>
-              <select id="userType" className={formStyle.select}>
-                <option value="none">Select user type</option>
-                <option value="buyer">Buy property</option>
-                <option value="seller">Sell property</option>
-              </select>
-            </div>}
-
-
-            <div className="flex justify-center w-full mt-3">
-              <button type="submit" className={formStyle.authBtn} onClick={formSubmitHandler}>{authType === 'signup' ? "Sign Up" : "Sign In"}</button>
-
+            <div className="flex items-center gap-3">
+              <span className="h-2 w-2 bg-green-400 rounded-full"></span>
+              Crack best deals
             </div>
-
-            <p className="text-center mt-3">{authType === 'signup' ? "Already have an account ? " : "Don't have an account ? "} <strong className="text-red-400 cursor-pointer top active:text-red-500" onClick={authTypeHandller}>{authType === 'login' ? "Sign Up" : 'Sign In'}</strong></p>
           </div>
         </div>
-      </form>
+
+        {/* RIGHT FORM PANEL */}
+        <div className="flex flex-col justify-center px-6 sm:px-10 py-12">
+
+          <h3 className="text-2xl sm:text-3xl font-bold text-center text-gray-800">
+            {authType === "login" ? "Welcome Back" : "Create Account"}
+          </h3>
+
+          <p className="text-center text-gray-500 text-sm mt-2">
+            {authType === "login"
+              ? "Login to continue"
+              : "Sign up to get started"}
+          </p>
+
+          <form id="formElement" className="mt-8 space-y-5">
+
+            {/* FULL NAME */}
+            {authType === "signup" && (
+              <div className="space-y-1">
+                <label className="text-sm font-medium text-gray-700">
+                  Full Name
+                </label>
+                <input
+                  type="text"
+                  name="username"
+                  placeholder="John Doe"
+                  className="w-full rounded-xl border border-gray-300 px-4 py-3 text-sm outline-none focus:border-black focus:ring-2 focus:ring-black/20 transition"
+                  required
+                />
+              </div>
+            )}
+
+            {/* EMAIL */}
+            <div className="space-y-1">
+              <label className="text-sm font-medium text-gray-700">
+                Email Address
+              </label>
+              <input
+                type="email"
+                name="email"
+                placeholder="you@example.com"
+                className="w-full rounded-xl border border-gray-300 px-4 py-3 text-sm outline-none focus:border-black focus:ring-2 focus:ring-black/20 transition"
+                required
+              />
+            </div>
+
+            {/* PASSWORD */}
+            <div className="space-y-1 relative">
+              <label className="text-sm font-medium text-gray-700">
+                Password
+              </label>
+              <input
+                type={passwordVisibility ? "text" : "password"}
+                name="password"
+                placeholder="••••••••"
+                className="w-full rounded-xl border border-gray-300 px-4 py-3 pr-10 text-sm outline-none focus:border-black focus:ring-2 focus:ring-black/20 transition"
+                required
+              />
+              <i
+                className={`fi ${passwordVisibility ? "fi-ss-eye" : "fi-ss-eye-crossed"} absolute right-4 top-10 text-gray-500 cursor-pointer`}
+                onClick={handlePasswordVisibility}
+              ></i>
+            </div>
+
+            {/* USER TYPE */}
+            {authType === "signup" && (
+              <div className="space-y-1">
+                <label className="text-sm font-medium text-gray-700">
+                  User Type
+                </label>
+                <select
+                  id="userType"
+                  className="w-full rounded-xl border border-gray-300 px-4 py-3 text-sm outline-none focus:border-black focus:ring-2 focus:ring-black/20 transition bg-white"
+                >
+                  <option value="none">Select role</option>
+                  <option value="buyer">Buyer</option>
+                  <option value="seller">Seller</option>
+                </select>
+              </div>
+            )}
+
+            {/* SUBMIT BUTTON */}
+            <button
+              type="submit"
+              onClick={formSubmitHandler}
+              className="w-full bg-black text-white py-3 rounded-xl font-semibold tracking-wide hover:bg-gray-900 active:scale-[0.98] transition"
+            >
+              {authType === "login" ? "Login" : "Create Account"}
+            </button>
+          </form>
+
+          {/* SWITCH */}
+          <p className="text-center text-sm mt-6 text-gray-600">
+            {authType === "login"
+              ? "Don't have an account?"
+              : "Already have an account?"}
+            <span
+              className="text-black font-semibold cursor-pointer ml-1 hover:underline"
+              onClick={authTypeHandller}
+            >
+              {authType === "login" ? "Sign Up" : "Sign In"}
+            </span>
+          </p>
+        </div>
+      </div>
     </section>
   )
 }
