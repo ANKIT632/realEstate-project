@@ -71,7 +71,7 @@ function AllDeals() {
         </div>
       ) : dealsData.allProperty?.length > 0 ? (
         <>
-          <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6'>
+          <div className='grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6'>
             {dealsData.allProperty.map((data, idx) => (
               <div key={idx} className='hover:scale-105 transition-transform duration-300'>
                 <SingleCard data={data} />
