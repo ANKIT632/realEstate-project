@@ -35,7 +35,7 @@ function NewDeals() {
       {/* Content */}
       {isLoading ? (
         /* Skeleton Loader */
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 px-4 md:px-8">
+        <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6 px-4 md:px-8">
           {[...Array(6)].map((_, idx) => (
             <div
               key={idx}
@@ -46,7 +46,7 @@ function NewDeals() {
       ) : (
         <>
           {/* Cards */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 px-4 md:px-8">
+          <div className="grid grid-cols-1  lg:grid-cols-2 xl:grid-cols-3 gap-6 px-4 md:px-8">
             {deals?.allProperty?.length > 0 ? (
               deals.allProperty.map((data, idx) => (
                 <div

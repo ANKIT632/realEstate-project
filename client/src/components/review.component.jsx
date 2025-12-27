@@ -25,8 +25,8 @@ function Review() {
 
 
   return (
-    <div className="mb-2  flex flex-col ">
-      <h3 className={commonStyle.heading}>Testimoials</h3>
+    <div className="mb-2 p-4 flex flex-col ">
+      <h3 className={"text-center"+commonStyle.heading}>Testimoials</h3>
 
       {
         !isLoading ? <>
