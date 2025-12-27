@@ -14,10 +14,10 @@ function Home() {
     <div  >
       <HeroSection />
       <FeatureSection />
-      <HomeCategory /> 
+      <HomeCategory />
       <NewDeals />
-       <Testimoials />
-      <Foter/>
+      <Testimoials />
+      <Foter />
     </div>
 
 

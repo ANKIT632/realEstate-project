@@ -1,6 +1,5 @@
 /* eslint-disable no-undef */
 import { useContext, useState } from "react";
-import { formStyle, commonStyle } from '../style';
 import { useNavigate } from 'react-router-dom';
 import { setSession, getSession } from '../localSession/authSession'
 import UserDataContext from "../context/userContext";

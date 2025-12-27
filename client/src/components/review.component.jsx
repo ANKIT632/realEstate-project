@@ -1,57 +1,98 @@
 /* eslint-disable no-undef */
 import { useEffect, useState } from "react";
-import { commonStyle } from '../style'
+import { commonStyle } from '../style';
 
 function Review() {
-  const [review, setReview] = useState([])
+  const [review, setReview] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
-  const getTestimonialData = async () => {
-    setIsLoading(true);
-    try {
-      let response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/property/review/all`);
-      response = await response.json();
-      setIsLoading(false);
-      setReview(response);
-    }
-    catch (err) {
-      //  console.log(err);
-    }
-  }
-
   useEffect(() => {
-    getTestimonialData();
+    fetch(`${process.env.REACT_APP_BACKEND_URL}/property/review/all`)
+      .then(res => res.json())
+      .then(data => {
+        setReview(data);
+        setIsLoading(false);
+      })
+      .catch(() => setIsLoading(false));
   }, []);
 
-
   return (
-    <div className="mb-2  flex flex-col ">
-      <h3 className={commonStyle.heading}>Testimoials</h3>
+    <section className="w-full py-16 bg-gradient-to-b from-white via-slate-50 to-white">
+      
+      {/* Header */}
+      <div className="text-center mb-10">
+        <h2 className={commonStyle.heading}>What Our Customers Say</h2>
+        <p className="text-gray-500 text-sm mt-2">
+          Real experiences from real property buyers and sellers
+        </p>
+      </div>
 
-      {
-        !isLoading ? <>
-          <div className=" mt-2 gap-2 flex items-center overflow-x-scroll scrollbarStyle relative h-[12rem]">
-
-            {review.data?.slice(0, 7).map((item, idx) => {
-              return <div key={idx}> <div className="bg bg-white h-[9rem]   shadow rounded-3xl  flex flex-col items-center  w-[15rem]  "  >
-
-                <img src={item.user.profile_url} className="w-16 h-16 rounded-full bg-gray-100 relative -top-4  p-1" />
-
-                <p className="text text-center text-blue-900 text-xs font-bold italic my-1 ">&ldquo;
-                  {item.about.substring(0, 95)} {item.about.length >= 80 ? ".." : " "} &bdquo;</p>
-                <h1 className="font-semibold text text-center text-blue-600 text-xs  italic bg-gray-300 px-1 rounded-lg shadow-sm">By : {item.user.username}</h1>
-              </div> </div>
-            })
-
-            }
-          </div>
-        </> : <div className='w-full flex justify-center items-center  h-40'>
-          <h4 className='text-center font-bold font-mono'>Loading...</h4>
+      {/* Content */}
+      {isLoading ? (
+        /* Skeleton Loader */
+        <div className="flex gap-6 px-6 overflow-x-auto">
+          {[...Array(5)].map((_, idx) => (
+            <div
+              key={idx}
+              className="min-w-[260px] h-[200px] rounded-2xl bg-slate-200 animate-pulse"
+            />
+          ))}
         </div>
-      }
+      ) : (
+        <div className="relative">
+          <div className="
+              flex gap-6 px-6 overflow-x-auto scrollbarStyle
+              snap-x snap-mandatory scroll-smooth
+            ">
+            {review?.data?.slice(0, 8).map((item, idx) => (
+              <div
+                key={idx}
+                className="
+                  snap-center min-w-[260px] max-w-[260px]
+                  bg-white/80 backdrop-blur-lg
+                  rounded-3xl shadow-lg
+                  p-5 flex flex-col items-center
+                  transition-all duration-300
+                  hover:-translate-y-2 hover:shadow-2xl
+                "
+              >
+                {/* Avatar */}
+                <img
+                  src={item.user.profile_url}
+                  alt={item.user.username}
+                  className="
+                    w-16 h-16 rounded-full
+                    border-4 border-white shadow
+                    -mt-10 bg-gray-100
+                  "
+                />
 
-    </div>
-  )
+                {/* Quote */}
+                <p className="text-center text-gray-700 text-sm italic mt-4 leading-relaxed">
+                  “{item.about.substring(0, 100)}
+                  {item.about.length > 100 && '…'}”
+                </p>
+
+                {/* User */}
+                <div className="mt-4">
+                  <span className="
+                    text-xs font-semibold text-blue-600
+                    bg-blue-50 px-3 py-1 rounded-full
+                  ">
+                    {item.user.username}
+                  </span>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* Fade Edges (optional aesthetic) */}
+          <div className="pointer-events-none absolute left-0 top-0 h-full w-12 bg-gradient-to-r from-white to-transparent" />
+          <div className="pointer-events-none absolute right-0 top-0 h-full w-12 bg-gradient-to-l from-white to-transparent" />
+        </div>
+      )}
+    </section>
+  );
 }
 
 export default Review;
