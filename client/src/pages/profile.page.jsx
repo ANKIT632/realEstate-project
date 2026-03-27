@@ -31,7 +31,7 @@ function Profile() {
         else
             setUserProfileData(data);
 
-    }, [])
+    }, [userId])
 
 
     return (

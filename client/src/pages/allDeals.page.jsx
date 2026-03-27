@@ -1,5 +1,5 @@
 /* eslint-disable no-undef */
-import React, { useEffect, useContext } from 'react'
+import React, { useEffect, useContext, useCallback } from 'react'
 import SingleCard from '../components/singleCard.component';
 import { FcNext, FcPrevious } from "react-icons/fc";
 import UserDataContext from '../context/userContext';
@@ -13,7 +13,7 @@ function AllDeals() {
   const [totalPage, setTotalPage] = React.useState(1);
 
   // fetch data
-  const fetchData = async () => {
+  const fetchData = useCallback(async () => {
     try {
       setIsLoading(true);
       let response = {};
@@ -23,15 +23,13 @@ function AllDeals() {
         response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/selling/property/all?page=${pageNo}&size=10`);
       }
       const data = await response.json();
-      if (totalPage === 1) {
-        setTotalPage(Math.ceil(data.totalProperty / 10.0));
-      }
+      setTotalPage(Math.max(1, Math.ceil((data.totalProperty || 0) / 10.0)));
       setDealsData(data);
       setIsLoading(false);
     } catch (error) {
       setIsLoading(false);
     }
-  };
+  }, [pageNo, searchQuery]);
 
   // next page 
   const nextPageHanddler = () => {
@@ -51,7 +49,7 @@ function AllDeals() {
 
   useEffect(() => {
     fetchData();
-  }, [pageNo, searchQuery]);
+  }, [fetchData]);
 
   return (
     <div className='w-full min-h-[90vh] p-4 bg-gray-50'>

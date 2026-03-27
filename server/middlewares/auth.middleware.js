@@ -84,7 +84,7 @@ const verifyToken = (req, res, next) => {
     }
   }
   catch (err) {
-    return res.send(500).send({ status: "failed", message: "error during verify token,try again" });
+    return res.status(500).send({ status: "failed", message: "error during verify token,try again" });
   }
 
 }

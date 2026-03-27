@@ -12,6 +12,7 @@ function Auth() {
   const navigate = useNavigate();
 
   const [passwordVisibility, setPasswordVisibility] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const { setUserData, setAccessToken, setIsAuthenticated } = useContext(UserDataContext);
 
   // login or sign up
@@ -37,7 +38,8 @@ function Auth() {
   // handle post on server.
 
   const userAuthWithServer = (formData) => {
-    let serverRoute = authType === 'login' ? 'signin' : 'signup';
+    setIsSubmitting(true);
+    const serverRoute = authType === 'login' ? 'signin' : 'signup';
     fetch(`${process.env.REACT_APP_BACKEND_URL}/auth/${serverRoute}`, {
       method: 'POST',
       headers: {
@@ -45,32 +47,35 @@ function Auth() {
       },
       body: JSON.stringify(formData)
     })
-      .then(response => response.json())
+      .then(async (response) => {
+        const data = await response.json();
+        if (!response.ok || data.status !== 'success') {
+          throw new Error(data.message || 'Authentication failed');
+        }
+        return data;
+      })
       .then(data => {
-        if (data.status === 'success') {
-          if (authType === 'signup')
-            setAuthType('login');
-
-          else {
-            setSession('user_data', data.user);
-            setSession('access_token', data.access_token);
-            setSession('userId', data.user._id);
-
-            const userData = getSession('user_data');
-
-            const accessToken = getSession('access_token');
-
-            setUserData(userData);
-            setAccessToken(accessToken);
-            setIsAuthenticated(true);
-            navigate('/');
-          }
-
-
+        if (authType === 'signup') {
+          alert('Signup successful. Please sign in.');
+          setAuthType('login');
+          return;
         }
 
+        setSession('user_data', data.user);
+        setSession('access_token', data.access_token);
+        setSession('userId', data.user._id);
+
+        const userData = getSession('user_data');
+        const accessToken = getSession('access_token');
+
+        setUserData(userData);
+        setAccessToken(accessToken);
+        setIsAuthenticated(true);
+        navigate('/');
+
       })
-      .catch(error => alert('Error:', error));
+      .catch(error => alert(error.message || 'Authentication failed'))
+      .finally(() => setIsSubmitting(false));
   };
 
 
@@ -89,6 +94,10 @@ function Auth() {
     if (authType === 'signup') {
       const selectElement = document.getElementById('userType');
       const userType = selectElement.value;
+      if (userType === 'none') {
+        alert('Please select a role');
+        return;
+      }
       formData.role = userType;
     }
 
@@ -142,7 +151,7 @@ function Auth() {
               : "Sign up to get started"}
           </p>
 
-          <form id="formElement" className="mt-8 space-y-5">
+          <form id="formElement" className="mt-8 space-y-5" onSubmit={formSubmitHandler}>
 
             {/* FULL NAME */}
             {authType === "signup" && (
@@ -153,7 +162,7 @@ function Auth() {
                 <input
                   type="text"
                   name="username"
-                  placeholder="John Doe"
+                  placeholder="Enter Name"
                   className="w-full rounded-xl border border-gray-300 px-4 py-3 text-sm outline-none focus:border-black focus:ring-2 focus:ring-black/20 transition"
                   required
                 />
@@ -212,10 +221,10 @@ function Auth() {
             {/* SUBMIT BUTTON */}
             <button
               type="submit"
-              onClick={formSubmitHandler}
-              className="w-full bg-black text-white py-3 rounded-xl font-semibold tracking-wide hover:bg-gray-900 active:scale-[0.98] transition"
+              disabled={isSubmitting}
+              className={`w-full text-white py-3 rounded-xl font-semibold tracking-wide active:scale-[0.98] transition ${isSubmitting ? 'bg-gray-500 cursor-not-allowed' : 'bg-black hover:bg-gray-900'}`}
             >
-              {authType === "login" ? "Login" : "Create Account"}
+              {isSubmitting ? 'Please wait...' : authType === "login" ? "Login" : "Create Account"}
             </button>
           </form>
 

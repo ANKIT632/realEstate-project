@@ -1,7 +1,5 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import { useState, useContext, useEffect } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
-import { commonStyle } from '../style';
 import { BiAlignRight } from "react-icons/bi";
 import UserDataContext from '../context/userContext';
 import { FaArrowLeft, FaSearch } from "react-icons/fa";
@@ -79,15 +77,10 @@ function TopNavBar() {
 
 
   useEffect(() => {
-
-  }, [])
-
-
-  useEffect(() => {
     if (location.pathname === `/setting/${userData._id}`) {
       setSearchBoxVisibility(false);
     }
-  }, [location.pathname]);
+  }, [location.pathname, userData._id, setSearchBoxVisibility]);
 
 
   return (

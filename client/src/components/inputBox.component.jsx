@@ -1,12 +1,12 @@
 /* eslint-disable react/prop-types */
 import {formStyle} from '../style'
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 
 export default function InputBox({label,placeholder,id,value}) {
  useEffect(()=>{
   document.getElementById(id).value=value;
   
- },[value])
+ },[id, value])
 
   return (
     

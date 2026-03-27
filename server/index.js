@@ -10,8 +10,23 @@ const server = express();
 
 require('dotenv').config();
 
+const allowedOrigins = [
+    process.env.CLIENT_URL,
+    'https://ecostate.vercel.app',
+    'http://localhost:5173',
+    'http://127.0.0.1:5173'
+].filter(Boolean);
+
 //middleware
-server.use(cors({ origin: 'https://ecostate.vercel.app', credentials: true }));
+server.use(cors({
+    origin: (origin, callback) => {
+        if (!origin || allowedOrigins.includes(origin)) {
+            return callback(null, true);
+        }
+        return callback(new Error('Not allowed by CORS'));
+    },
+    credentials: true
+}));
 server.use(express.json({limit: '2mb'}));
 server.use(express.urlencoded({ extended: true })); 
 

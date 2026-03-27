@@ -1,24 +1,24 @@
 import { useLocation, useNavigate } from 'react-router-dom'
 import { FaUserGear } from "react-icons/fa6";
-import { useContext, useEffect } from 'react';
+import { useContext } from 'react';
 import UserDataContext from '../context/userContext';
 import { RiCalendarScheduleFill } from "react-icons/ri";
 import { AiFillHome } from "react-icons/ai";
 import { IoSearch } from "react-icons/io5";
 import { FaPlus } from "react-icons/fa";
 
+const protectedPaths = ['/sellProperty', '/sellTrack', '/buyTrack', '/setting'];
 
 
 function BottomNavbar() {
 
-  const { userId, userData, setSearchBoxVisibility,isAuthenticated } = useContext(UserDataContext);
+  const { userData, setSearchBoxVisibility, isAuthenticated } = useContext(UserDataContext);
 
   const navigate = useNavigate();
   const location=useLocation();
 
   const handleNavigate = (path) => {
-    
-    if (!isAuthenticated && (path === '/sellProperty' || path === '/sellTrack' || path === '/buyTrack' || '/setting')) {
+    if (!isAuthenticated && protectedPaths.includes(path)) {
       path = '/auth';
     }
     else if (path === '/setting') {
@@ -47,7 +47,7 @@ function BottomNavbar() {
         </div>}
 
 
-        <RiCalendarScheduleFill className={`text-2xl cursor-pointer active:border-t active:border-gray-500 ${location.pathname==='/sellTrack' || location.pathname==='/buyTrack'?' text-blue-500 ':''}`} onClick={() => handleNavigate(userData.role === 'Seller' ? 'sellTrack' : 'buyTrack')} />
+        <RiCalendarScheduleFill className={`text-2xl cursor-pointer active:border-t active:border-gray-500 ${location.pathname==='/sellTrack' || location.pathname==='/buyTrack'?' text-blue-500 ':''}`} onClick={() => handleNavigate(userData.role === 'Seller' ? '/sellTrack' : '/buyTrack')} />
 
 
         <FaUserGear className={` text-2xl cursor-pointer active:border-t active:border-gray-500 ${location.pathname===`/setting/${userData._id}`?' text-blue-500 ':''}`} onClick={() => handleNavigate('/setting')} />

@@ -80,7 +80,7 @@ function UpdateProfile() {
 
 
 
-  }, []);
+  }, [userId]);
 
   return (
     <form className={settingStyle.updateCompMainDiv} id="updateFormElement" onSubmit={handlerSubmitForm}>

@@ -13,24 +13,24 @@ import Setting from './pages/setting.page';
 import SellTrack from './pages/sellTrack';
 import BuyTrack from './pages/buyTrack.page';
 import Profile from './pages/profile.page';
+import ProtectedRoute from './components/protectedRoute.component';
 
 export default function App() {
 
   const [userData, setUserData] = useState({});
-  const [accessToken, setAccessToken] = useState({});
+  const [accessToken, setAccessToken] = useState('');
   const [searchQuery, setSearchQuery] = useState('');
   const [userId, setUserId] = useState('');
   const [searchBoxVisibility, setSearchBoxVisibility] = useState(false);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   useEffect(() => {
-
-    const id = getSession('user_data');
-    if (id.length > 0) {
+    const storedUser = getSession('user_data');
+    if (storedUser && storedUser._id) {
       setIsAuthenticated(true);
-      setUserData(getSession('user_data'));
-      setAccessToken(getSession('access_token'));
-      setUserId(getSession('userId'));
+      setUserData(storedUser);
+      setAccessToken(getSession('access_token') || '');
+      setUserId(getSession('userId') || '');
     }
 
 
@@ -43,17 +43,17 @@ export default function App() {
 
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/sellProperty" element={<SellPropertyForm />} />
+          <Route path="/sellProperty" element={<ProtectedRoute allowedRoles={['Seller']}><SellPropertyForm /></ProtectedRoute>} />
 
           <Route path="*" element={<h1 className='h-[95vh] text-center font-mono'>404 Not Found</h1>} />
           <Route path="/auth" element={<Auth />} />
           <Route path='/allDeals' element={<AllDeals />} />
-          <Route path='/favourite' element={<Favourite />} />
-          <Route path='/setting/:userId' element={<Setting />} />
+          <Route path='/favourite' element={<ProtectedRoute><Favourite /></ProtectedRoute>} />
+          <Route path='/setting/:userId' element={<ProtectedRoute><Setting /></ProtectedRoute>} />
 
-          <Route path='/sellTrack' element={<SellTrack />} />
-          <Route path='/buyTrack' element={<BuyTrack />} />
-          <Route path='/userProfile/:userId' element={<Profile />} />
+          <Route path='/sellTrack' element={<ProtectedRoute allowedRoles={['Seller']}><SellTrack /></ProtectedRoute>} />
+          <Route path='/buyTrack' element={<ProtectedRoute allowedRoles={['Buyer']}><BuyTrack /></ProtectedRoute>} />
+          <Route path='/userProfile/:userId' element={<ProtectedRoute><Profile /></ProtectedRoute>} />
         </Routes>
 
 
