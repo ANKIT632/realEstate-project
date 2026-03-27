@@ -27,11 +27,22 @@ exports.createProperty = async (req, res) => {
 exports.getAllProperty = async (req, res) => {
     const page = parseInt(req.query.page) || 1;
     const size = parseInt(req.query.size) || 20;
-
+    const category = req.query.category;
 
     try {
-        const totalProperty = await property_model.countDocuments();
-        const allProperty = await property_model.find().sort({ createdAt: -1 }).skip((page - 1) * size).populate('owner', 'username  email profile_url socialUrls').limit(size);
+        // Build filter object
+        const filter = {};
+        if (category && category.trim() !== 'All') {
+            filter.category = category;
+        }
+
+        const totalProperty = await property_model.countDocuments(filter);
+        const allProperty = await property_model
+            .find(filter)
+            .sort({ createdAt: -1 })
+            .skip((page - 1) * size)
+            .populate('owner', 'username email profile_url socialUrls')
+            .limit(size);
 
         return res.status(200).send({ status: "success", totalProperty, allProperty })
 
@@ -69,10 +80,22 @@ exports.searchProperty = async (req, res) => {
     const searchQuery = req.query.searchQuery;
     const page = parseInt(req.query.page) || 1;
     const size = parseInt(req.query.size) || 10;
+    const category = req.query.category;
 
     try {
-        const totalProperty = await property_model.countDocuments({ $text: { $search: searchQuery } })
-        const allProperty = await property_model.search(searchQuery, page, size).sort({ createdAt: -1 });
+        // Build filter object
+        const filter = { $text: { $search: searchQuery } };
+        if (category && category.trim() !== 'All') {
+            filter.category = category;
+        }
+
+        const totalProperty = await property_model.countDocuments(filter);
+        const allProperty = await property_model
+            .find(filter)
+            .sort({ createdAt: -1 })
+            .skip((page - 1) * size)
+            .populate('owner', 'username email profile_url socialUrls')
+            .limit(size);
 
         res.status(200).send({ status: "success", totalProperty, allProperty });
     } catch (err) {
@@ -90,9 +113,16 @@ exports.getAllPropertyByOwner = async (req, res) => {
 
     try {
         const totalProperty = await property_model.countDocuments({ owner: req.user._id });
-        const allProperty = await property_model.find({ owner: req.user._id }).sort({ createdAt: -1 }).skip((page - 1) * size);
+        const soldProperty = await property_model.countDocuments({ owner: req.user._id, isSold: true });
+        const allProperty = await property_model.find({ owner: req.user._id }).sort({ createdAt: -1 }).skip((page - 1) * size).limit(size);
 
-        return res.status(200).send({ status: "success", totalProperty, allProperty });
+        return res.status(200).send({
+            status: "success",
+            totalProperty,
+            soldProperty,
+            activeProperty: Math.max(0, totalProperty - soldProperty),
+            allProperty
+        });
     }
 
     catch (err) {
@@ -100,3 +130,26 @@ exports.getAllPropertyByOwner = async (req, res) => {
     }
 
 }
+
+exports.markPropertyAsSold = async (req, res) => {
+    try {
+        if (req.property?.isSold) {
+            return res.status(400).send({ status: "failed", message: 'Property already marked as sold' });
+        }
+
+        const property = await property_model.findByIdAndUpdate(
+            req.params.id,
+            { isSold: true, soldBy: req.user._id },
+            { new: true }
+        );
+
+        if (!property) {
+            return res.status(404).send({ status: "failed", message: 'Property not found' });
+        }
+
+        return res.status(200).send({ status: "success", message: 'Property marked as sold', property });
+    }
+    catch (err) {
+        return res.status(500).send({ status: "failed", message: err.message });
+    }
+};

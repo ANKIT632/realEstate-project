@@ -1,6 +1,35 @@
 const { default: mongoose } = require('mongoose');
 const property_model = require('../models/property.model.js');
 
+const validateOwnerPropertyId = async (req, res, next) => {
+    try {
+        const propertyId = req.params.id;
+
+        if (!mongoose.Types.ObjectId.isValid(propertyId)) {
+            return res.status(400).send({ status: "failed", message: 'Property id is not valid' });
+        }
+
+        if (req.user.role !== 'Seller') {
+            return res.status(403).send({ status: "failed", message: 'Only seller are valid for this request !!' });
+        }
+
+        const property = await property_model.findById(propertyId).select('owner isSold');
+        if (!property) {
+            return res.status(404).send({ status: "failed", message: 'Property not found check Id' });
+        }
+
+        if (req.user._id.toString() !== property.owner.toString()) {
+            return res.status(403).send({ status: "failed", message: 'You are not valid User to update this property' });
+        }
+
+        req.property = property;
+        next();
+    }
+    catch (err) {
+        return res.status(500).send({ status: "failed", message: err.message });
+    }
+};
+
 
 // validate add property
 const validateAddProperty = (req, res, next) => {
@@ -25,24 +54,11 @@ const validateUpdateProperty = async (req, res, next) => {
             return res.status(400).send({ status: "failed", message: 'owner isSold _id are not update here' });
         }
 
-        if (req.body.length === 0) {
-            {
-                return res.status(400).send({ status: "failed", message: 'Not update found !!' });
-            }
+        if (Object.keys(req.body).length === 0) {
+            return res.status(400).send({ status: "failed", message: 'Not update found !!' });
         }
 
-        const ownerId = await property_model.findById(req.params.id).select('owner');
-
-        if (!ownerId || !mongoose.Types.ObjectId.isValid(req.params.id)) {
-            return res.status(404).send({ status: "failed", message: 'Property not found check Id' });
-        }
-
-        if (req.user._id.toString() !== ownerId.owner.toString()) {
-            return res.status(403).send({ status: "failed", message: "You are not valid User to update this property" });
-
-        }
-
-        next();
+        return validateOwnerPropertyId(req, res, next);
     }
 
     catch (err) {
@@ -76,6 +92,7 @@ const validateGetAllOwnerProperty = (req, res, next) => {
 module.exports = {
     validateAddProperty,
     validateUpdateProperty,
+    validateOwnerPropertyId,
     validateSearchProperty,
     validateGetAllOwnerProperty
 }

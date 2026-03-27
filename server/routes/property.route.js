@@ -18,4 +18,6 @@ module.exports=(server)=>{
     
     server.put('/api/v1/selling/property/update/:id',authMiddleware.verifyToken , propertyMiddleware.validateUpdateProperty , propertyController.updateProperty);
 
+        server.patch('/api/v1/owner/selling/property/sold/:id', authMiddleware.verifyToken, propertyMiddleware.validateOwnerPropertyId, propertyController.markPropertyAsSold);
+
 }

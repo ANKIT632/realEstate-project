@@ -1,19 +1,15 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable no-undef */
 
-import { useState, useContext } from 'react'
-import { commonStyle } from '../style'
+import { useState, useContext } from 'react';
 import { useLocation } from 'react-router-dom';
-import UserDataContext from "../context/userContext";
+import UserDataContext from '../context/userContext';
 
-
-function SellTrackComponent({ data, date }) {
-
-  // get all visitor of property
+function SellTrackComponent({ data, date, onMarkSold }) {
   const [visitorData, setVisitorData] = useState({});
-  const [isVisitShow, setIsVisitShow] = useState(true);
+  const [isVisitOpen, setIsVisitOpen] = useState(false);
+  const [isSoldLoading, setIsSoldLoading] = useState(false);
   const { accessToken } = useContext(UserDataContext);
-
   const location = useLocation();
 
   const getVisitorData = async (propertyId) => {
@@ -22,84 +18,104 @@ function SellTrackComponent({ data, date }) {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
-          'authorization': `Bearer ${accessToken}`
-
+          authorization: `Bearer ${accessToken}`
         }
       });
 
-
-      const data = await response.json();
-
-      setIsVisitShow((pre) => !pre);
-      setVisitorData(data);
-
-
+      const result = await response.json();
+      setVisitorData(result);
+      setIsVisitOpen((prev) => !prev);
     }
-
     catch (err) {
-      // console.log(err.message);
+      alert(err.message || 'Failed to load visitors');
     }
-  }
+  };
 
+  const handleMarkSold = async () => {
+    if (!onMarkSold || data?.isSold) {
+      return;
+    }
+
+    setIsSoldLoading(true);
+    try {
+      await onMarkSold(data._id);
+    }
+    finally {
+      setIsSoldLoading(false);
+    }
+  };
 
   return (
-    <div className='h-fit bg-white mb-3 py-3 w-[95%]  px-2 rounded-xl  shadow-md hover:shadow-lg '>
-
-
-      <div className='flex max-xs:flex-col'>
-
-        <div className='w-[200px] max-sm:w-[180px] max-xs:w-[150px]'>
-          <img src={data?.imagesUrl[0]} alt='img' className='rounded-2xl w-full h-32 object-cover bg-gray-400 max-sm:h-28 max-xs:h-20' />
+    <article className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm transition hover:shadow-lg">
+      <div className="flex flex-col gap-4 p-4 md:flex-row">
+        <div className="w-full md:w-[210px]">
+          <img
+            src={data?.imagesUrl[0]}
+            alt="property"
+            className="h-40 w-full rounded-xl object-cover bg-slate-200 md:h-32"
+          />
         </div>
 
+        <div className="flex-1">
+          <div className="flex flex-wrap items-start justify-between gap-2">
+            <h3 className="text-lg font-bold text-cyan-700">{data?.title}</h3>
+            <span className={`rounded-full px-2.5 py-1 text-xs font-semibold ${data?.isSold ? 'bg-emerald-100 text-emerald-700' : 'bg-amber-100 text-amber-700'}`}>
+              {data?.isSold ? 'Sold' : 'Live'}
+            </span>
+          </div>
 
-        <div className='pl-2 pt-1 md:pl-6'>
-          <h3 className={" text-sm  md:text-lg font-bold text-blue-600"}>{data.title}</h3>
-          <h3 className={"  text-xs  font-bold text-black"}>Price : <strong className='text-blue-600 font-medium'> {data?.price}</strong></h3>
+          <div className="mt-2 grid grid-cols-1 gap-1 text-sm text-slate-700 sm:grid-cols-2">
+            <p><strong>Price:</strong> {data?.price}</p>
+            <p><strong>City:</strong> {data?.location?.city}</p>
+            <p className="sm:col-span-2"><strong>Description:</strong> {data?.description}</p>
+            {location.pathname === '/buyTrack' && <p><strong>Visit Date:</strong> {date}</p>}
+            {location.pathname === '/buyTrack' && <p><strong>Negotiable:</strong> {data?.nagotiate ? 'Yes' : 'No'}</p>}
+          </div>
 
-          <h3 className={"  text-xs font-bold text-black"}>City : <strong className='text-blue-600 font-medium '> {data?.location?.city}</strong></h3>
+          <div className="mt-3 flex flex-wrap gap-2">
+            {location.pathname !== '/buyTrack' && (
+              <button
+                type="button"
+                onClick={() => getVisitorData(data._id)}
+                className="rounded-lg border border-slate-300 bg-white px-3 py-1.5 text-xs font-semibold text-slate-700 hover:bg-slate-50"
+              >
+                {isVisitOpen ? 'Hide Visitors' : 'Show Visitors'}
+              </button>
+            )}
 
-          <h3 className={"  text-xs  font-bold text-black  "}>Description : <strong className='text-blue-600 font-medium'> {data.description}</strong></h3>
-
-          <h3 className={"  text-xs  font-bold text-black  "}>Status : <strong className='text-blue-600 font-medium'> {data?.isSold ? "Sold Out" : "Not Sold"}</strong></h3>
-
-
-          {location.pathname === '/buyTrack' && <h3 className={`text-xs  font-bold text-black  `}>Negotiable Price : <strong className='text-blue-600 font-medium'> {data.nagotiate ? "Yes" : "No"}</strong></h3>
-          }
-          {/* <h3 className={"  text-xs   font-bold text-black"}>Sold : <strong className='text-blue-600 font-medium'> {data.isSold ? 'close for Buy' : 'open for Buy'}</strong></h3> */}
-
-
-          {isVisitShow && <button className={commonStyle.btn + ` relative text-xs left-0 mt-1 ${location.pathname === '/buyTrack' ? ' hidden' : " "}`} onClick={() => getVisitorData(data._id)} >Show visitors</button>}
-
-          {location.pathname === '/buyTrack' && <h3 className={`text-xs  font-bold text-black  `}>Visit At : <strong className='text-blue-600 font-medium'> {date}</strong></h3>
-          }
-
+            {location.pathname !== '/buyTrack' && !data?.isSold && (
+              <button
+                type="button"
+                disabled={isSoldLoading}
+                onClick={handleMarkSold}
+                className={`rounded-lg px-3 py-1.5 text-xs font-semibold text-white ${isSoldLoading ? 'bg-slate-400 cursor-not-allowed' : 'bg-emerald-600 hover:bg-emerald-700'}`}
+              >
+                {isSoldLoading ? 'Saving...' : 'Mark As Sold'}
+              </button>
+            )}
+          </div>
         </div>
       </div>
 
-      {!isVisitShow && !visitorData?.message && <div className={`h-[100px] w-full bg-gray-200 mt-2 flex space-x-1 items-center rounded-md`}>
-        {
-
-          visitorData?.visitors?.visitors?.map((data, idx) => {
-
-
-            return (
-
-              <div key={idx} className='m-1 flex flex-col items-center'>
-                <img src={data?.visitorDetails?.profile_url} alt='img' className='h-[40px] w-[40px] rounded-[50%] bg-gray-300 ' />
-                <strong className='text-xs text-blue-600 font-medium'> {data.visitorDetails.username}</strong>
-                <h4 className='text-xs  font-bold text-black'>{data?.visitedAt.slice(0, 10)}</h4>
+      {isVisitOpen && !visitorData?.message && (
+        <div className="border-t border-slate-200 bg-slate-50 p-3">
+          <div className="flex flex-wrap gap-3">
+            {visitorData?.visitors?.visitors?.map((visitor, idx) => (
+              <div key={idx} className="min-w-[90px] rounded-lg border border-slate-200 bg-white p-2 text-center">
+                <img src={visitor?.visitorDetails?.profile_url} alt="visitor" className="mx-auto h-10 w-10 rounded-full bg-slate-200" />
+                <p className="mt-1 truncate text-xs font-semibold text-cyan-700">{visitor?.visitorDetails?.username}</p>
+                <p className="text-[11px] text-slate-600">{visitor?.visitedAt?.slice(0, 10)}</p>
               </div>
-            )
-          })
-        }
-      </div>
-      }
+            ))}
+          </div>
+        </div>
+      )}
 
-      {visitorData?.message && !isVisitShow && <h3 className='text-xs text-red-600 font-bold mt-2'>{visitorData.message}</h3>}
-
-    </div>
-  )
+      {visitorData?.message && isVisitOpen && (
+        <p className="border-t border-slate-200 bg-slate-50 p-3 text-xs font-semibold text-rose-600">{visitorData.message}</p>
+      )}
+    </article>
+  );
 }
 
-export default SellTrackComponent
+export default SellTrackComponent;

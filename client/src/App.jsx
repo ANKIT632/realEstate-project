@@ -14,6 +14,9 @@ import SellTrack from './pages/sellTrack';
 import BuyTrack from './pages/buyTrack.page';
 import Profile from './pages/profile.page';
 import ProtectedRoute from './components/protectedRoute.component';
+import About from './pages/about.page';
+import ContactUs from './pages/contactUs.page';
+import Service from './pages/service.page';
 
 export default function App() {
 
@@ -44,7 +47,9 @@ export default function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/sellProperty" element={<ProtectedRoute allowedRoles={['Seller']}><SellPropertyForm /></ProtectedRoute>} />
-
+          <Route path="/about" element={<About />} />
+          <Route path="/contactUs" element={<ContactUs />} />
+          <Route path="/service" element={<Service />} />
           <Route path="*" element={<h1 className='h-[95vh] text-center font-mono'>404 Not Found</h1>} />
           <Route path="/auth" element={<Auth />} />
           <Route path='/allDeals' element={<AllDeals />} />
